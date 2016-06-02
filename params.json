@@ -1,6 +1,6 @@
 {
   "name": "DragoNN",
-  "tagline": "",
-  "body": "### Welcome to DragoNN\r\n\r\n### Installation \r\nYou can install dragonn from [anaconda](https://anaconda.org/kundajelab/dragonn) with:\r\n\r\n`conda install -c kundajelab dragonn=0.1`\r\n\r\n### Tutorials\r\n\r\n### Upcoming Workshops\r\n\"A Primer on Deep Learning for Regulatory Genomics\". ENCODE users meeting. June 9th 2016, Stanford University. \r\n",
+  "tagline": "The dragonn package implements a set of deep neural networks for regulatory genomics and sequence simulations to systematically develop and interpret dragonn models.",
+  "body": "### Overview of DragoNN\r\nThe `dragonn` package implements deep neural networks (DNNs) for predictive modeling of regulatory genomics, feature importance methods such as [DeepLIFT ](https://arxiv.org/abs/1605.01713) and in-silico mutagenesis to interpret DNNs, and sequence simulations systematically assess model development and interpretation.\r\n### Installation \r\nYou can install dragonn from [anaconda](https://anaconda.org/kundajelab/dragonn) with:\r\n\r\n`conda install -c kundajelab dragonn=0.1`\r\n\r\n### Tutorials\r\n\r\n### Upcoming Workshops\r\n\"A Primer on Deep Learning for Regulatory Genomics\". ENCODE users meeting. June 9th 2016, Stanford University. ",
   "note": "Don't delete this file! It's used internally to help with page regeneration."
 }
