@@ -1,6 +1,6 @@
 {
   "name": "DragoNN",
   "tagline": "",
-  "body": "### Welcome to DragoNN\r\n\r\n### Installation\r\n\r\n### Tutorials\r\n\r\n### Workshops\r\n",
+  "body": "### Welcome to DragoNN\r\n\r\n### Installation \r\nYou can install dragonn from [anaconda](https://anaconda.org/kundajelab/dragonn) with:\r\n`conda install -c kundajelab dragonn=0.1`\r\n\r\n### Tutorials\r\n\r\n### Workshops\r\n",
   "note": "Don't delete this file! It's used internally to help with page regeneration."
 }
