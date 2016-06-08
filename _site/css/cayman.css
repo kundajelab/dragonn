@@ -18,8 +18,8 @@ a {
 .btn {
   display: inline-block;
   margin-bottom: 1rem;
-  color: rgba(255, 255, 255, 0.7);
-  background-color: rgba(255, 255, 255, 0.08);
+  color: rgba(0, 0, 0, 1);
+  background-color: rgba(255, 255, 255, 0.5);
   border-color: rgba(255, 255, 255, 0.2);
   border-style: solid;
   border-width: 1px;
@@ -54,7 +54,8 @@ a {
   text-align: center;
   background-color: #159957;
   background-image: url("https://lh5.googleusercontent.com/-vThczMNGeGs/Vrtbgrn_nDI/AAAAAAAA9Xo/OinYjuTE3kEFIVNB2MuikzcmuvyjMCXTQCL0B/w1254-h627-no/grzegorz-rutkowski-dragons-breath-1920-2.jpg");
-  background-size: 50% 50%;}
+  background-size: 100% 100%;
+  background-repeat: no-repeat;}
   @media screen and (min-width: 64em) {
     .page-header {
       padding: 5rem 6rem; } }
@@ -67,7 +68,8 @@ a {
 
 .project-name {
   margin-top: 0;
-  margin-bottom: 0.1rem; }
+  margin-bottom: 0.1rem;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black; }
   @media screen and (min-width: 64em) {
     .project-name {
       font-size: 3.25rem; } }
@@ -81,7 +83,8 @@ a {
 .project-tagline {
   margin-bottom: 2rem;
   font-weight: normal;
-  opacity: 0.7; }
+  opacity: 0.7;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black; }
   @media screen and (min-width: 64em) {
     .project-tagline {
       font-size: 1.25rem; } }
@@ -121,7 +124,7 @@ a {
     margin-top: 2rem;
     margin-bottom: 1rem;
     font-weight: normal;
-    color: #159957; }
+    color: #981E32; }
   .main-content p {
     margin-bottom: 1em; }
   .main-content code {
