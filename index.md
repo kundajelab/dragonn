@@ -12,9 +12,3 @@ The `dragonn` package implements deep neural networks (DNNs) for predictive mode
 You can install dragonn from [anaconda](https://anaconda.org/kundajelab/dragonn) with:
 
 `conda install -c kundajelab dragonn`
-
-### Workshops
-
-"How to train your DragoNN: A hands-on workshop on Deep Learning for Regulatory Genomics\". June 7th 2016, Stanford University.
-
-"A Primer on Deep Learning for Regulatory Genomics\". ENCODE users meeting. June 9th 2016, Stanford University.

@@ -53,7 +53,8 @@ a {
   color: #fff;
   text-align: center;
   background-color: #159957;
-  background-image: linear-gradient(120deg, #155799, #159957); }
+  background-image: url("https://lh5.googleusercontent.com/-vThczMNGeGs/Vrtbgrn_nDI/AAAAAAAA9Xo/OinYjuTE3kEFIVNB2MuikzcmuvyjMCXTQCL0B/w1254-h627-no/grzegorz-rutkowski-dragons-breath-1920-2.jpg");
+  background-size: 50% 50%;}
   @media screen and (min-width: 64em) {
     .page-header {
       padding: 5rem 6rem; } }
