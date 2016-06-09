@@ -5,4 +5,4 @@ title: {{ site.name }}
 
 # Workshops
 
-* Stanford Workshop, June 7th 2016: [Slides], [[Notebook]](https://anaconda.org/kundajelab/workshop_tutorial/notebook)
+* ENCODE Users Meeting, Stanford University, June 9th 2016: [Slides], [[Notebook]](https://anaconda.org/kundajelab/workshop_tutorial/notebook)
