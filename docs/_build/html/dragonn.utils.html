@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Search &mdash; DragoNN 0.1 documentation</title>
+  <title>dragonn.utils module &mdash; DragoNN 0.1 documentation</title>
   
 
   
@@ -49,7 +49,7 @@
         
         
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="#" method="get">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
@@ -61,13 +61,7 @@
         
           
           
-              <ul>
-<li class="toctree-l1"><a class="reference internal" href="dragonn.html">dragonn package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="dragonn.html#subpackages">Subpackages</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dragonn.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dragonn.html#module-dragonn">Module contents</a></li>
-</ul>
-</li>
+              <ul class="simple">
 </ul>
 
           
@@ -92,8 +86,10 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
-    <li></li>
+    <li>dragonn.utils module</li>
       <li class="wy-breadcrumbs-aside">
+        
+          <a href="_sources/dragonn.utils.txt" rel="nofollow"> View page source</a>
         
       </li>
   </ul>
@@ -101,19 +97,40 @@
 </div>
           <div role="main" class="document">
             
-  <noscript>
-  <div id="fallback" class="admonition warning">
-    <p class="last">
-      Please activate JavaScript to enable the search
-      functionality.
-    </p>
-  </div>
-  </noscript>
+  <div class="section" id="module-dragonn.utils">
+<span id="dragonn-utils-module"></span><h1>dragonn.utils module<a class="headerlink" href="#module-dragonn.utils" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="dragonn.utils.get_motif_scores">
+<code class="descclassname">dragonn.utils.</code><code class="descname">get_motif_scores</code><span class="sig-paren">(</span><em>encoded_sequences</em>, <em>motif_names</em>, <em>max_scores=None</em>, <em>return_positions=False</em>, <em>GC_fraction=0.4</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/utils.html#get_motif_scores"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.utils.get_motif_scores" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes pwm log odds.</p>
+<p>encoded_sequences : 4darray
+motif_names : list of strings
+max_scores : int, optional
+return_positions : boolean, optional
+GC_fraction : float, optional</p>
+<p>(num_samples, seq_length, num_motifs) complete score array by default.
+If max_scores, (num_samples, num_motifs*max_scores) max score array.
+If max_scores and return_positions, (num_samples, 2*num_motifs*max_scores)
+array with max scores and their positions.</p>
+</dd></dl>
 
-  
-  <div id="search-results">
-  
-  </div>
+<dl class="function">
+<dt id="dragonn.utils.get_pssm_scores">
+<code class="descclassname">dragonn.utils.</code><code class="descname">get_pssm_scores</code><span class="sig-paren">(</span><em>encoded_sequences</em>, <em>pssm</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/utils.html#get_pssm_scores"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.utils.get_pssm_scores" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="dragonn.utils.one_hot_encode">
+<code class="descclassname">dragonn.utils.</code><code class="descname">one_hot_encode</code><span class="sig-paren">(</span><em>sequences</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/utils.html#one_hot_encode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.utils.one_hot_encode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="dragonn.utils.reverse_complement">
+<code class="descclassname">dragonn.utils.</code><code class="descname">reverse_complement</code><span class="sig-paren">(</span><em>encoded_seqs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/utils.html#reverse_complement"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.utils.reverse_complement" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
 
           </div>
           <footer>
@@ -153,7 +170,6 @@
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="_static/searchtools.js"></script>
 
   
 
@@ -169,14 +185,7 @@
           SphinxRtdTheme.StickyNav.enable();
       });
   </script>
-  
-  <script type="text/javascript">
-    jQuery(function() { Search.loadIndex("searchindex.js"); });
-  </script>
-  
-  <script type="text/javascript" id="searchindexloader"></script>
    
-
 
 </body>
 </html>

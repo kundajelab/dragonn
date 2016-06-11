@@ -1,0 +1,306 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>dragonn.synthetic.pwm module &mdash; DragoNN 0.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="DragoNN 0.1 documentation" href="index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="index.html" class="fa fa-home"> DragoNN</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="simple">
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">DragoNN</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>dragonn.synthetic.pwm module</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="_sources/dragonn.synthetic.pwm.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="module-dragonn.synthetic.pwm">
+<span id="dragonn-synthetic-pwm-module"></span><h1>dragonn.synthetic.pwm module<a class="headerlink" href="#module-dragonn.synthetic.pwm" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="dragonn.synthetic.pwm.Mutation">
+<em class="property">class </em><code class="descclassname">dragonn.synthetic.pwm.</code><code class="descname">Mutation</code><span class="sig-paren">(</span><em>index</em>, <em>previous</em>, <em>new</em>, <em>deltaScore</em>, <em>parentLength=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/pwm.html#Mutation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.pwm.Mutation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>class to represent a single bp mutation in a motif sequence</p>
+<dl class="method">
+<dt id="dragonn.synthetic.pwm.Mutation.applyMutation">
+<code class="descname">applyMutation</code><span class="sig-paren">(</span><em>stringArr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/pwm.html#Mutation.applyMutation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.pwm.Mutation.applyMutation" title="Permalink to this definition">¶</a></dt>
+<dd><p>set the base at the position of the mutation to the mutated value.
+Modifies stringArr which is an array of characters.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dragonn.synthetic.pwm.Mutation.parentLengthAssertionCheck">
+<code class="descname">parentLengthAssertionCheck</code><span class="sig-paren">(</span><em>stringArr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/pwm.html#Mutation.parentLengthAssertionCheck"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.pwm.Mutation.parentLengthAssertionCheck" title="Permalink to this definition">¶</a></dt>
+<dd><p>checks that stringArr is consistent with parentLength if defined</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dragonn.synthetic.pwm.Mutation.revert">
+<code class="descname">revert</code><span class="sig-paren">(</span><em>stringArr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/pwm.html#Mutation.revert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.pwm.Mutation.revert" title="Permalink to this definition">¶</a></dt>
+<dd><p>set the base at the position of the mutation to the unmutated value
+Modifies stringArr which is an array of characters.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="dragonn.synthetic.pwm.PWM">
+<em class="property">class </em><code class="descclassname">dragonn.synthetic.pwm.</code><code class="descname">PWM</code><span class="sig-paren">(</span><em>name</em>, <em>letterToIndex={'A': 0</em>, <em>'C': 1</em>, <em>'T': 3</em>, <em>'G': 2}</em>, <em>background=OrderedDict([('A'</em>, <em>0.27)</em>, <em>('C'</em>, <em>0.23)</em>, <em>('G'</em>, <em>0.23)</em>, <em>('T'</em>, <em>0.27)])</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/pwm.html#PWM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.pwm.PWM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="dragonn.synthetic.pwm.PWM.addRow">
+<code class="descname">addRow</code><span class="sig-paren">(</span><em>weights</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/pwm.html#PWM.addRow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.pwm.PWM.addRow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dragonn.synthetic.pwm.PWM.computeBestHitGivenMatrix">
+<code class="descname">computeBestHitGivenMatrix</code><span class="sig-paren">(</span><em>matrix</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/pwm.html#PWM.computeBestHitGivenMatrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.pwm.PWM.computeBestHitGivenMatrix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dragonn.synthetic.pwm.PWM.computeSingleBpMutationEffects">
+<code class="descname">computeSingleBpMutationEffects</code><span class="sig-paren">(</span><em>bestHitMode</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/pwm.html#PWM.computeSingleBpMutationEffects"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.pwm.PWM.computeSingleBpMutationEffects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dragonn.synthetic.pwm.PWM.computeSingleBpMutationEffectsGivenMatrix">
+<code class="descname">computeSingleBpMutationEffectsGivenMatrix</code><span class="sig-paren">(</span><em>matrix</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/pwm.html#PWM.computeSingleBpMutationEffectsGivenMatrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.pwm.PWM.computeSingleBpMutationEffectsGivenMatrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>matrix is some matrix where the rows are positions and the columns represent
+a value for some base at that position, where higher values are more favourable.
+It first finds the best match according to that matrix, and then ranks possible
+deviations from that best match.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dragonn.synthetic.pwm.PWM.finalise">
+<code class="descname">finalise</code><span class="sig-paren">(</span><em>pseudocountProb=0.001</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/pwm.html#PWM.finalise"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.pwm.PWM.finalise" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dragonn.synthetic.pwm.PWM.getBestHit">
+<code class="descname">getBestHit</code><span class="sig-paren">(</span><em>bestHitMode</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/pwm.html#PWM.getBestHit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.pwm.PWM.getBestHit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dragonn.synthetic.pwm.PWM.getLogOddsRows">
+<code class="descname">getLogOddsRows</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/pwm.html#PWM.getLogOddsRows"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.pwm.PWM.getLogOddsRows" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dragonn.synthetic.pwm.PWM.getRows">
+<code class="descname">getRows</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/pwm.html#PWM.getRows"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.pwm.PWM.getRows" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dragonn.synthetic.pwm.PWM.sampleFromPwm">
+<code class="descname">sampleFromPwm</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/pwm.html#PWM.sampleFromPwm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.pwm.PWM.sampleFromPwm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dragonn.synthetic.pwm.PWM.scoreSeq">
+<code class="descname">scoreSeq</code><span class="sig-paren">(</span><em>seq</em>, <em>scoreSeqOptions</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/pwm.html#PWM.scoreSeq"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.pwm.PWM.scoreSeq" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dragonn.synthetic.pwm.PWM.scoreSeqAtPos">
+<code class="descname">scoreSeqAtPos</code><span class="sig-paren">(</span><em>seq</em>, <em>startIdx</em>, <em>reverseComplement=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/pwm.html#PWM.scoreSeqAtPos"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.pwm.PWM.scoreSeqAtPos" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method will score the seq at startIdx:startIdx+len(seq).
+if startIdx is &lt; 0 or startIdx is too close to the end of the string,
+returns 0.
+This behaviour is useful when you want to generate scores at a fixed number
+of positions for a set of PWMs, some of which are longer than others.
+So at each position, for startSeq you supply pos-len(pwm)/2, and if it
+does not fit the score will automatically be 0.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dragonn.synthetic.pwm.PWM.setBackground">
+<code class="descname">setBackground</code><span class="sig-paren">(</span><em>background</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/pwm.html#PWM.setBackground"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.pwm.PWM.setBackground" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dragonn.synthetic.pwm.PWM.updateBestLogOddsHit">
+<code class="descname">updateBestLogOddsHit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/pwm.html#PWM.updateBestLogOddsHit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.pwm.PWM.updateBestLogOddsHit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="dragonn.synthetic.pwm.PwmScore">
+<em class="property">class </em><code class="descclassname">dragonn.synthetic.pwm.</code><code class="descname">PwmScore</code><span class="sig-paren">(</span><em>score</em>, <em>posStart</em>, <em>posEnd</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/pwm.html#PwmScore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.pwm.PwmScore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="dragonn.synthetic.pwm.getFileNamePieceFromOptions">
+<code class="descclassname">dragonn.synthetic.pwm.</code><code class="descname">getFileNamePieceFromOptions</code><span class="sig-paren">(</span><em>options</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/pwm.html#getFileNamePieceFromOptions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.pwm.getFileNamePieceFromOptions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="dragonn.synthetic.pwm.getLoadPwmArgparse">
+<code class="descclassname">dragonn.synthetic.pwm.</code><code class="descname">getLoadPwmArgparse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/pwm.html#getLoadPwmArgparse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.pwm.getLoadPwmArgparse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="dragonn.synthetic.pwm.getReadPwmAction_encodeMotifs">
+<code class="descclassname">dragonn.synthetic.pwm.</code><code class="descname">getReadPwmAction_encodeMotifs</code><span class="sig-paren">(</span><em>recordedPwms</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/pwm.html#getReadPwmAction_encodeMotifs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.pwm.getReadPwmAction_encodeMotifs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="dragonn.synthetic.pwm.getSpecfiedPwmFromPwmFile">
+<code class="descclassname">dragonn.synthetic.pwm.</code><code class="descname">getSpecfiedPwmFromPwmFile</code><span class="sig-paren">(</span><em>options</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/pwm.html#getSpecfiedPwmFromPwmFile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.pwm.getSpecfiedPwmFromPwmFile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="dragonn.synthetic.pwm.processOptions">
+<code class="descclassname">dragonn.synthetic.pwm.</code><code class="descname">processOptions</code><span class="sig-paren">(</span><em>options</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/pwm.html#processOptions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.pwm.processOptions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="dragonn.synthetic.pwm.readPwm">
+<code class="descclassname">dragonn.synthetic.pwm.</code><code class="descname">readPwm</code><span class="sig-paren">(</span><em>fileHandle</em>, <em>pwmFormat='encodeMotifsFile'</em>, <em>pseudocountProb=0.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/pwm.html#readPwm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.pwm.readPwm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Johnny Israeli, Michael Wainberg, Avanti Shrikumar.
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
