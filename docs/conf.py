@@ -18,7 +18,8 @@ import shlex
 # making sphnix compile with RTD using mock
 import mock
  
-MOCK_MODULES = ['numpy', 'scipy', 'matplotlib', 'matplotlib.pyplot']
+MOCK_MODULES = ['numpy', 'scipy', 'matplotlib', 'matplotlib.pyplot',
+                'deeplift', 'keras', 'theano']
 for mod_name in MOCK_MODULES:
     sys.modules[mod_name] = mock.Mock()
 
