@@ -10,6 +10,7 @@ config = {
     'package_data': {'dragonn.synthetic': ['motifs.txt.gz']},
     'setup_requires': [],
     'install_requires': ['numpy>=1.9', 'keras==0.3.2', 'deeplift'],
+    'dependency_links': ['https://github.com/kundajelab/deeplift/tarball/master#egg=deeplift-0.2'],
     'scripts': [],
     'name': 'dragonn'
 }
