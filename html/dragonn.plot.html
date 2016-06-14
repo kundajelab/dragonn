@@ -30,10 +30,7 @@
   
 
   
-    <link rel="top" title="DragoNN 0.1 documentation" href="index.html"/>
-        <link rel="up" title="dragonn package" href="dragonn.html"/>
-        <link rel="next" title="dragonn.simulations module" href="dragonn.simulations.html"/>
-        <link rel="prev" title="dragonn.models module" href="dragonn.models.html"/> 
+    <link rel="top" title="DragoNN 0.1 documentation" href="index.html"/> 
 
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
@@ -64,13 +61,7 @@
         
           
           
-              <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="dragonn.html">dragonn package</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="dragonn.html#subpackages">Subpackages</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="dragonn.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dragonn.html#module-dragonn">Module contents</a></li>
-</ul>
-</li>
+              <ul class="simple">
 </ul>
 
           
@@ -95,8 +86,6 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
-          <li><a href="dragonn.html">dragonn package</a> &raquo;</li>
-      
     <li>dragonn.plot module</li>
       <li class="wy-breadcrumbs-aside">
         
@@ -108,22 +97,100 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="dragonn-plot-module">
-<h1>dragonn.plot module<a class="headerlink" href="#dragonn-plot-module" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-dragonn.plot">
+<span id="dragonn-plot-module"></span><h1>dragonn.plot module<a class="headerlink" href="#module-dragonn.plot" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="dragonn.plot.Polygon">
+<em class="property">class </em><code class="descclassname">dragonn.plot.</code><code class="descname">Polygon</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/plot.html#Polygon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.plot.Polygon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="dragonn.plot.Polygon.exterior">
+<code class="descname">exterior</code><a class="headerlink" href="#dragonn.plot.Polygon.exterior" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="dragonn.plot.Polygon.geom_type">
+<code class="descname">geom_type</code><a class="headerlink" href="#dragonn.plot.Polygon.geom_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="dragonn.plot.Polygon.interiors">
+<code class="descname">interiors</code><a class="headerlink" href="#dragonn.plot.Polygon.interiors" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="dragonn.plot.PolygonPatch">
+<code class="descclassname">dragonn.plot.</code><code class="descname">PolygonPatch</code><span class="sig-paren">(</span><em>polygon</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/plot.html#PolygonPatch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.plot.PolygonPatch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs a matplotlib patch from a geometric object</p>
+<p>The <cite>polygon</cite> may be a Shapely
+or GeoJSON-like object with or without holes.
+The <cite>kwargs</cite> are those supported by the matplotlib.patches.Polygon class
+constructor. Returns an instance of matplotlib.patches.PathPatch.</p>
+<p>Example (using Shapely Point and a matplotlib axes):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">patch</span> <span class="o">=</span> <span class="n">PolygonPatch</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">fc</span><span class="o">=</span><span class="s">&#39;blue&#39;</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s">&#39;blue&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">axis</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">patch</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="dragonn.plot.PolygonPath">
+<code class="descclassname">dragonn.plot.</code><code class="descname">PolygonPath</code><span class="sig-paren">(</span><em>polygon</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/plot.html#PolygonPath"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.plot.PolygonPath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs a compound matplotlib path from a Shapely or GeoJSON-like
+geometric object</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="dragonn.plot.add_letter_to_axis">
+<code class="descclassname">dragonn.plot.</code><code class="descname">add_letter_to_axis</code><span class="sig-paren">(</span><em>ax</em>, <em>let</em>, <em>x</em>, <em>y</em>, <em>height</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/plot.html#add_letter_to_axis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.plot.add_letter_to_axis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add &#8216;let&#8217; with position x,y and height height to matplotlib axis &#8216;ax&#8217;.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="dragonn.plot.add_letters_to_axis">
+<code class="descclassname">dragonn.plot.</code><code class="descname">add_letters_to_axis</code><span class="sig-paren">(</span><em>ax</em>, <em>letter_heights</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/plot.html#add_letters_to_axis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.plot.add_letters_to_axis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots letter on user-specified axis.</p>
+<p>ax : axis
+letter_heights: Nx4 array</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="dragonn.plot.plot_bases">
+<code class="descclassname">dragonn.plot.</code><code class="descname">plot_bases</code><span class="sig-paren">(</span><em>letter_heights</em>, <em>figsize=(12</em>, <em>6)</em>, <em>ylab='bits'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/plot.html#plot_bases"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.plot.plot_bases" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot the N letters with heights taken from the Nx4 matrix letter_heights.</p>
+<p>letter_heights: Nx4 array
+ylab: y axis label</p>
+<p>pyplot figure</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="dragonn.plot.plot_motif">
+<code class="descclassname">dragonn.plot.</code><code class="descname">plot_motif</code><span class="sig-paren">(</span><em>motif_name</em>, <em>figsize</em>, <em>ylab='bits'</em>, <em>information_content=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/plot.html#plot_motif"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.plot.plot_motif" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot motifs from encode motifs file</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="dragonn.plot.plot_pwm">
+<code class="descclassname">dragonn.plot.</code><code class="descname">plot_pwm</code><span class="sig-paren">(</span><em>letter_heights</em>, <em>figsize=(12</em>, <em>6)</em>, <em>ylab='bits'</em>, <em>information_content=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/plot.html#plot_pwm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.plot.plot_pwm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots pwm. Displays information content by default.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="dragonn.plot.standardize_polygons_str">
+<code class="descclassname">dragonn.plot.</code><code class="descname">standardize_polygons_str</code><span class="sig-paren">(</span><em>data_str</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/plot.html#standardize_polygons_str"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.plot.standardize_polygons_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a POLYGON string, standardize the coordinates to a 1x1 grid.</p>
+<p>Input : data_str (taken from above)
+Output: tuple of polygon objects</p>
+</dd></dl>
+
 </div>
 
 
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="dragonn.simulations.html" class="btn btn-neutral float-right" title="dragonn.simulations module">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="dragonn.models.html" class="btn btn-neutral" title="dragonn.models module"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>

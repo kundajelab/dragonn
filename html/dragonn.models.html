@@ -30,10 +30,7 @@
   
 
   
-    <link rel="top" title="DragoNN 0.1 documentation" href="index.html"/>
-        <link rel="up" title="dragonn package" href="dragonn.html"/>
-        <link rel="next" title="dragonn.plot module" href="dragonn.plot.html"/>
-        <link rel="prev" title="dragonn.metrics module" href="dragonn.metrics.html"/> 
+    <link rel="top" title="DragoNN 0.1 documentation" href="index.html"/> 
 
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
@@ -64,13 +61,7 @@
         
           
           
-              <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="dragonn.html">dragonn package</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="dragonn.html#subpackages">Subpackages</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="dragonn.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dragonn.html#module-dragonn">Module contents</a></li>
-</ul>
-</li>
+              <ul class="simple">
 </ul>
 
           
@@ -95,8 +86,6 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
-          <li><a href="dragonn.html">dragonn package</a> &raquo;</li>
-      
     <li>dragonn.models module</li>
       <li class="wy-breadcrumbs-aside">
         
@@ -108,22 +97,209 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="dragonn-models-module">
-<h1>dragonn.models module<a class="headerlink" href="#dragonn-models-module" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-dragonn.models">
+<span id="dragonn-models-module"></span><h1>dragonn.models module<a class="headerlink" href="#module-dragonn.models" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="dragonn.models.DecisionTree">
+<em class="property">class </em><code class="descclassname">dragonn.models.</code><code class="descname">DecisionTree</code><a class="reference internal" href="_modules/dragonn/models.html#DecisionTree"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.models.DecisionTree" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#dragonn.models.Model" title="dragonn.models.Model"><code class="xref py py-class docutils literal"><span class="pre">dragonn.models.Model</span></code></a></p>
+<dl class="method">
+<dt id="dragonn.models.DecisionTree.predict">
+<code class="descname">predict</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/models.html#DecisionTree.predict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.models.DecisionTree.predict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dragonn.models.DecisionTree.train">
+<code class="descname">train</code><span class="sig-paren">(</span><em>X</em>, <em>y</em>, <em>validation_data=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/models.html#DecisionTree.train"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.models.DecisionTree.train" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="dragonn.models.Model">
+<em class="property">class </em><code class="descclassname">dragonn.models.</code><code class="descname">Model</code><span class="sig-paren">(</span><em>**hyperparameters</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/models.html#Model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.models.Model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="dragonn.models.Model.predict">
+<code class="descname">predict</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/models.html#Model.predict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.models.Model.predict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dragonn.models.Model.score">
+<code class="descname">score</code><span class="sig-paren">(</span><em>X</em>, <em>y</em>, <em>metric</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/models.html#Model.score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.models.Model.score" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dragonn.models.Model.test">
+<code class="descname">test</code><span class="sig-paren">(</span><em>X</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/models.html#Model.test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.models.Model.test" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dragonn.models.Model.train">
+<code class="descname">train</code><span class="sig-paren">(</span><em>X</em>, <em>y</em>, <em>validation_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/models.html#Model.train"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.models.Model.train" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="dragonn.models.MotifScoreRNN">
+<em class="property">class </em><code class="descclassname">dragonn.models.</code><code class="descname">MotifScoreRNN</code><span class="sig-paren">(</span><em>input_shape</em>, <em>gru_size=10</em>, <em>tdd_size=4</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/models.html#MotifScoreRNN"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.models.MotifScoreRNN" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#dragonn.models.Model" title="dragonn.models.Model"><code class="xref py py-class docutils literal"><span class="pre">dragonn.models.Model</span></code></a></p>
+<dl class="method">
+<dt id="dragonn.models.MotifScoreRNN.predict">
+<code class="descname">predict</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/models.html#MotifScoreRNN.predict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.models.MotifScoreRNN.predict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dragonn.models.MotifScoreRNN.train">
+<code class="descname">train</code><span class="sig-paren">(</span><em>X</em>, <em>y</em>, <em>validation_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/models.html#MotifScoreRNN.train"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.models.MotifScoreRNN.train" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="dragonn.models.RandomForest">
+<em class="property">class </em><code class="descclassname">dragonn.models.</code><code class="descname">RandomForest</code><a class="reference internal" href="_modules/dragonn/models.html#RandomForest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.models.RandomForest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#dragonn.models.DecisionTree" title="dragonn.models.DecisionTree"><code class="xref py py-class docutils literal"><span class="pre">dragonn.models.DecisionTree</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="dragonn.models.SVC">
+<em class="property">class </em><code class="descclassname">dragonn.models.</code><code class="descname">SVC</code><a class="reference internal" href="_modules/dragonn/models.html#SVC"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.models.SVC" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#dragonn.models.Model" title="dragonn.models.Model"><code class="xref py py-class docutils literal"><span class="pre">dragonn.models.Model</span></code></a></p>
+<dl class="method">
+<dt id="dragonn.models.SVC.predict">
+<code class="descname">predict</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/models.html#SVC.predict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.models.SVC.predict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dragonn.models.SVC.train">
+<code class="descname">train</code><span class="sig-paren">(</span><em>X</em>, <em>y</em>, <em>validation_data=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/models.html#SVC.train"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.models.SVC.train" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="dragonn.models.SequenceDNN">
+<em class="property">class </em><code class="descclassname">dragonn.models.</code><code class="descname">SequenceDNN</code><span class="sig-paren">(</span><em>seq_length</em>, <em>use_deep_CNN=False</em>, <em>use_RNN=False</em>, <em>num_tasks=1</em>, <em>num_filters=15</em>, <em>conv_width=15</em>, <em>num_filters_2=15</em>, <em>conv_width_2=15</em>, <em>num_filters_3=15</em>, <em>conv_width_3=15</em>, <em>pool_width=35</em>, <em>L1=0</em>, <em>dropout=0.0</em>, <em>GRU_size=35</em>, <em>TDD_size=15</em>, <em>verbose=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/models.html#SequenceDNN"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.models.SequenceDNN" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#dragonn.models.Model" title="dragonn.models.Model"><code class="xref py py-class docutils literal"><span class="pre">dragonn.models.Model</span></code></a></p>
+<p>Sequence DNN models.</p>
+<dl class="docutils">
+<dt>seq_length <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd>length of input sequence.</dd>
+<dt>use_deep_CNN <span class="classifier-delimiter">:</span> <span class="classifier">bool, optional</span></dt>
+<dd>uses 3 layered CNN if True, 1 layered CNN if False.
+Default: False.</dd>
+<dt>num_tasks <span class="classifier-delimiter">:</span> <span class="classifier">int,</span></dt>
+<dd>number of tasks. Default: 1.</dd>
+<dt>num_filters <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd>number of 1st layer convolutional filters. Default: 15.</dd>
+<dt>conv_width <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd>width of 1st layer convolutional filters. Default: 15.</dd>
+<dt>pool_width <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd>width of max pooling. Default: 35.</dd>
+<dt>num_filters_2 <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd>number of 2nd layer convolutional filters. Default: 15.</dd>
+<dt>conv_width_2 <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd>width of 2nd layer convolutional filters. Default: 15.</dd>
+<dt>num_filters_3 <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd>number of 3rd layer convolutional filters. Default: 15.</dd>
+<dt>conv_width_3 <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd>width of 3rd layer convolutional filters. Default: 15.</dd>
+<dt>L1 <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd>strength of L1 penalty.</dd>
+<dt>dropout <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd>dropout probability in every convolutional layer. Default: 0.</dd>
+<dt>num_tasks <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd>Number of prediction tasks or labels. Default: 1.</dd>
+<dt>verbose: int</dt>
+<dd>Verbosity level during training. Valida values: 0, 1, 2.</dd>
+</dl>
+<p>Compiled DNN model.</p>
+<dl class="class">
+<dt id="dragonn.models.SequenceDNN.LossHistory">
+<em class="property">class </em><code class="descname">LossHistory</code><span class="sig-paren">(</span><em>X_train</em>, <em>y_train</em>, <em>validation_data</em>, <em>sequence_DNN</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/models.html#SequenceDNN.LossHistory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.models.SequenceDNN.LossHistory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">keras.callbacks.Callback</span></code></p>
+<dl class="method">
+<dt id="dragonn.models.SequenceDNN.LossHistory.on_epoch_end">
+<code class="descname">on_epoch_end</code><span class="sig-paren">(</span><em>epoch</em>, <em>logs={}</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/models.html#SequenceDNN.LossHistory.on_epoch_end"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.models.SequenceDNN.LossHistory.on_epoch_end" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="dragonn.models.SequenceDNN.PrintMetrics">
+<em class="property">class </em><code class="descclassname">SequenceDNN.</code><code class="descname">PrintMetrics</code><span class="sig-paren">(</span><em>validation_data</em>, <em>sequence_DNN</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/models.html#SequenceDNN.PrintMetrics"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.models.SequenceDNN.PrintMetrics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">keras.callbacks.Callback</span></code></p>
+<dl class="method">
+<dt id="dragonn.models.SequenceDNN.PrintMetrics.on_epoch_end">
+<code class="descname">on_epoch_end</code><span class="sig-paren">(</span><em>epoch</em>, <em>logs={}</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/models.html#SequenceDNN.PrintMetrics.on_epoch_end"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.models.SequenceDNN.PrintMetrics.on_epoch_end" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="dragonn.models.SequenceDNN.deeplift">
+<code class="descclassname">SequenceDNN.</code><code class="descname">deeplift</code><span class="sig-paren">(</span><em>X</em>, <em>batch_size=200</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/models.html#SequenceDNN.deeplift"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.models.SequenceDNN.deeplift" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns (num_task, num_samples, input_shape) deeplift score array.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dragonn.models.SequenceDNN.get_sequence_filters">
+<code class="descclassname">SequenceDNN.</code><code class="descname">get_sequence_filters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/models.html#SequenceDNN.get_sequence_filters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.models.SequenceDNN.get_sequence_filters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns list with sequence filter 2darrays.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dragonn.models.SequenceDNN.in_silico_mutagenesis">
+<code class="descclassname">SequenceDNN.</code><code class="descname">in_silico_mutagenesis</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/models.html#SequenceDNN.in_silico_mutagenesis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.models.SequenceDNN.in_silico_mutagenesis" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dragonn.models.SequenceDNN.predict">
+<code class="descclassname">SequenceDNN.</code><code class="descname">predict</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/models.html#SequenceDNN.predict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.models.SequenceDNN.predict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dragonn.models.SequenceDNN.train">
+<code class="descclassname">SequenceDNN.</code><code class="descname">train</code><span class="sig-paren">(</span><em>X</em>, <em>y</em>, <em>validation_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/models.html#SequenceDNN.train"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.models.SequenceDNN.train" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="dragonn.models.gkmSVM">
+<em class="property">class </em><code class="descclassname">dragonn.models.</code><code class="descname">gkmSVM</code><span class="sig-paren">(</span><em>prefix='./gkmSVM'</em>, <em>word_length=11</em>, <em>mismatches=3</em>, <em>C=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/models.html#gkmSVM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.models.gkmSVM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#dragonn.models.Model" title="dragonn.models.Model"><code class="xref py py-class docutils literal"><span class="pre">dragonn.models.Model</span></code></a></p>
+<dl class="staticmethod">
+<dt id="dragonn.models.gkmSVM.encode_sequence_into_fasta_file">
+<em class="property">static </em><code class="descname">encode_sequence_into_fasta_file</code><span class="sig-paren">(</span><em>sequence_iterator</em>, <em>ofname</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/models.html#gkmSVM.encode_sequence_into_fasta_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.models.gkmSVM.encode_sequence_into_fasta_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>writes sequences into fasta file</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dragonn.models.gkmSVM.model_file">
+<code class="descname">model_file</code><a class="headerlink" href="#dragonn.models.gkmSVM.model_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dragonn.models.gkmSVM.predict">
+<code class="descname">predict</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/models.html#gkmSVM.predict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.models.gkmSVM.predict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dragonn.models.gkmSVM.train">
+<code class="descname">train</code><span class="sig-paren">(</span><em>X</em>, <em>y</em>, <em>validation_data=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/models.html#gkmSVM.train"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.models.gkmSVM.train" title="Permalink to this definition">¶</a></dt>
+<dd><p>Trains gkm-svm, saves model file.</p>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 
 
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="dragonn.plot.html" class="btn btn-neutral float-right" title="dragonn.plot module">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="dragonn.metrics.html" class="btn btn-neutral" title="dragonn.metrics module"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>
