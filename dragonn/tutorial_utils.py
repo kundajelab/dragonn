@@ -215,8 +215,8 @@ def interpret_SequenceDNN_integrative(dnn, simulation_data):
     scores_dict['Negative']['DeepLIFT Scores'] = dnn.deeplift(neg_X).sum(axis=-2)
     # get motif site locations
     motif_sites = {}
-    motif_sites['Positive'] = [np.argmax(scores_dict['Positive']['Motif Scores'][0, i, :]) for i in [0, 1]]
-    motif_sites['Negative'] = [np.argmax(scores_dict['Negative']['Motif Scores'][0, i, :]) for i in [0, 1]]
+    motif_sites['Positive'] = [np.argmax(scores_dict['Positive']['Motif Scores'][0, i, :]) for i in range(len(simulation_data.motif_names))]
+    motif_sites['Negative'] = [np.argmax(scores_dict['Negative']['Motif Scores'][0, i, :]) for i in range(len(simulation_data.motif_names))]
     # organize legends
     motif_label_dict = {}
     motif_label_dict['Motif Scores'] = simulation_data.motif_names
