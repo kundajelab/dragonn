@@ -2,6 +2,7 @@
 title:        DragoNN
 tagline:      The dragonn package implements deep neural networks (DNNs) for regulatory genomics, methods for DNN interpretation, and provides tutorials showcasing dragonn models using sequence simulations.
 baseurl:      "/dragonn"
+
 paginate:     1
 
 # About/contact
@@ -15,3 +16,6 @@ gems:
 
 #Others
 markdown: kramdown
+
+# include subdirectories
+keep_files: ["_site/html/"]
