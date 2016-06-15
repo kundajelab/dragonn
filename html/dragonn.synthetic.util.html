@@ -30,7 +30,10 @@
   
 
   
-    <link rel="top" title="DragoNN 0.1 documentation" href="index.html"/> 
+    <link rel="top" title="DragoNN 0.1 documentation" href="index.html"/>
+        <link rel="up" title="dragonn.synthetic package" href="dragonn.synthetic.html"/>
+        <link rel="next" title="dragonn.hyperparameter_search module" href="dragonn.hyperparameter_search.html"/>
+        <link rel="prev" title="dragonn.synthetic.synthetic module" href="dragonn.synthetic.synthetic.html"/> 
 
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
@@ -61,7 +64,13 @@
         
           
           
-              <ul class="simple">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="dragonn.html">dragonn package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="dragonn.html#subpackages">Subpackages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dragonn.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dragonn.html#module-dragonn">Module contents</a></li>
+</ul>
+</li>
 </ul>
 
           
@@ -86,6 +95,10 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
+          <li><a href="dragonn.html">dragonn package</a> &raquo;</li>
+      
+          <li><a href="dragonn.synthetic.html">dragonn.synthetic package</a> &raquo;</li>
+      
     <li>dragonn.synthetic.util module</li>
       <li class="wy-breadcrumbs-aside">
         
@@ -101,11 +114,11 @@
 <span id="dragonn-synthetic-util-module"></span><h1>dragonn.synthetic.util module<a class="headerlink" href="#module-dragonn.synthetic.util" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="dragonn.synthetic.util.ArgParseArgument">
-<em class="property">class </em><code class="descclassname">dragonn.synthetic.util.</code><code class="descname">ArgParseArgument</code><span class="sig-paren">(</span><em>argumentName</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#ArgParseArgument"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.ArgParseArgument" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">dragonn.synthetic.util.</code><code class="descname">ArgParseArgument</code><span class="sig-paren">(</span><em>argumentName</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.ArgParseArgument" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <dl class="method">
 <dt id="dragonn.synthetic.util.ArgParseArgument.addToParser">
-<code class="descname">addToParser</code><span class="sig-paren">(</span><em>parser</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#ArgParseArgument.addToParser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.ArgParseArgument.addToParser" title="Permalink to this definition">¶</a></dt>
+<code class="descname">addToParser</code><span class="sig-paren">(</span><em>parser</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.ArgParseArgument.addToParser" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -130,46 +143,46 @@
 
 <dl class="class">
 <dt id="dragonn.synthetic.util.ArgumentToAdd">
-<em class="property">class </em><code class="descclassname">dragonn.synthetic.util.</code><code class="descname">ArgumentToAdd</code><span class="sig-paren">(</span><em>val</em>, <em>argumentName=None</em>, <em>argNameAndValSep='-'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#ArgumentToAdd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.ArgumentToAdd" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">dragonn.synthetic.util.</code><code class="descname">ArgumentToAdd</code><span class="sig-paren">(</span><em>val</em>, <em>argumentName=None</em>, <em>argNameAndValSep='-'</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.ArgumentToAdd" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Class to append runtime arguments to a string
 to facilitate auto-generation of output file names.</p>
 <dl class="method">
 <dt id="dragonn.synthetic.util.ArgumentToAdd.argNamePrefix">
-<code class="descname">argNamePrefix</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#ArgumentToAdd.argNamePrefix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.ArgumentToAdd.argNamePrefix" title="Permalink to this definition">¶</a></dt>
+<code class="descname">argNamePrefix</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.ArgumentToAdd.argNamePrefix" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="dragonn.synthetic.util.ArgumentToAdd.transform">
-<code class="descname">transform</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#ArgumentToAdd.transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.ArgumentToAdd.transform" title="Permalink to this definition">¶</a></dt>
+<code class="descname">transform</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.ArgumentToAdd.transform" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="dragonn.synthetic.util.ArrArgument">
-<em class="property">class </em><code class="descclassname">dragonn.synthetic.util.</code><code class="descname">ArrArgument</code><span class="sig-paren">(</span><em>val</em>, <em>argumentName</em>, <em>sep='+'</em>, <em>toStringFunc=&lt;type 'str'&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#ArrArgument"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.ArrArgument" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">dragonn.synthetic.util.</code><code class="descname">ArrArgument</code><span class="sig-paren">(</span><em>val</em>, <em>argumentName</em>, <em>sep='+'</em>, <em>toStringFunc=&lt;type 'str'&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.ArrArgument" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#dragonn.synthetic.util.ArgumentToAdd" title="dragonn.synthetic.util.ArgumentToAdd"><code class="xref py py-class docutils literal"><span class="pre">dragonn.synthetic.util.ArgumentToAdd</span></code></a></p>
 <dl class="method">
 <dt id="dragonn.synthetic.util.ArrArgument.transform">
-<code class="descname">transform</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#ArrArgument.transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.ArrArgument.transform" title="Permalink to this definition">¶</a></dt>
+<code class="descname">transform</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.ArrArgument.transform" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="dragonn.synthetic.util.ArrOfFileNamesArgument">
-<em class="property">class </em><code class="descclassname">dragonn.synthetic.util.</code><code class="descname">ArrOfFileNamesArgument</code><span class="sig-paren">(</span><em>val</em>, <em>argumentName</em>, <em>sep='+'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#ArrOfFileNamesArgument"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.ArrOfFileNamesArgument" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">dragonn.synthetic.util.</code><code class="descname">ArrOfFileNamesArgument</code><span class="sig-paren">(</span><em>val</em>, <em>argumentName</em>, <em>sep='+'</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.ArrOfFileNamesArgument" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#dragonn.synthetic.util.ArrArgument" title="dragonn.synthetic.util.ArrArgument"><code class="xref py py-class docutils literal"><span class="pre">dragonn.synthetic.util.ArrArgument</span></code></a></p>
 </dd></dl>
 
 <dl class="class">
 <dt id="dragonn.synthetic.util.BooleanArgument">
-<em class="property">class </em><code class="descclassname">dragonn.synthetic.util.</code><code class="descname">BooleanArgument</code><span class="sig-paren">(</span><em>val</em>, <em>argumentName=None</em>, <em>argNameAndValSep='-'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#BooleanArgument"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.BooleanArgument" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">dragonn.synthetic.util.</code><code class="descname">BooleanArgument</code><span class="sig-paren">(</span><em>val</em>, <em>argumentName=None</em>, <em>argNameAndValSep='-'</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.BooleanArgument" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#dragonn.synthetic.util.ArgumentToAdd" title="dragonn.synthetic.util.ArgumentToAdd"><code class="xref py py-class docutils literal"><span class="pre">dragonn.synthetic.util.ArgumentToAdd</span></code></a></p>
 <dl class="method">
 <dt id="dragonn.synthetic.util.BooleanArgument.transform">
-<code class="descname">transform</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#BooleanArgument.transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.BooleanArgument.transform" title="Permalink to this definition">¶</a></dt>
+<code class="descname">transform</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.BooleanArgument.transform" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -182,109 +195,109 @@ to facilitate auto-generation of output file names.</p>
 
 <dl class="class">
 <dt id="dragonn.synthetic.util.CoreFileNameArgument">
-<em class="property">class </em><code class="descclassname">dragonn.synthetic.util.</code><code class="descname">CoreFileNameArgument</code><span class="sig-paren">(</span><em>val</em>, <em>argumentName=None</em>, <em>argNameAndValSep='-'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#CoreFileNameArgument"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.CoreFileNameArgument" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">dragonn.synthetic.util.</code><code class="descname">CoreFileNameArgument</code><span class="sig-paren">(</span><em>val</em>, <em>argumentName=None</em>, <em>argNameAndValSep='-'</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.CoreFileNameArgument" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#dragonn.synthetic.util.ArgumentToAdd" title="dragonn.synthetic.util.ArgumentToAdd"><code class="xref py py-class docutils literal"><span class="pre">dragonn.synthetic.util.ArgumentToAdd</span></code></a></p>
 <dl class="method">
 <dt id="dragonn.synthetic.util.CoreFileNameArgument.transform">
-<code class="descname">transform</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#CoreFileNameArgument.transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.CoreFileNameArgument.transform" title="Permalink to this definition">¶</a></dt>
+<code class="descname">transform</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.CoreFileNameArgument.transform" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="dragonn.synthetic.util.DiscreteDistribution">
-<em class="property">class </em><code class="descclassname">dragonn.synthetic.util.</code><code class="descname">DiscreteDistribution</code><span class="sig-paren">(</span><em>valToFreq</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#DiscreteDistribution"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.DiscreteDistribution" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">dragonn.synthetic.util.</code><code class="descname">DiscreteDistribution</code><span class="sig-paren">(</span><em>valToFreq</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.DiscreteDistribution" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 </dd></dl>
 
 <dl class="class">
 <dt id="dragonn.synthetic.util.Entity">
-<em class="property">class </em><code class="descclassname">dragonn.synthetic.util.</code><code class="descname">Entity</code><span class="sig-paren">(</span><em>id</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#Entity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.Entity" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">dragonn.synthetic.util.</code><code class="descname">Entity</code><span class="sig-paren">(</span><em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.Entity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <dl class="method">
 <dt id="dragonn.synthetic.util.Entity.addAttribute">
-<code class="descname">addAttribute</code><span class="sig-paren">(</span><em>attributeName</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#Entity.addAttribute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.Entity.addAttribute" title="Permalink to this definition">¶</a></dt>
+<code class="descname">addAttribute</code><span class="sig-paren">(</span><em>attributeName</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.Entity.addAttribute" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="dragonn.synthetic.util.Entity.getAttribute">
-<code class="descname">getAttribute</code><span class="sig-paren">(</span><em>attributeName</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#Entity.getAttribute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.Entity.getAttribute" title="Permalink to this definition">¶</a></dt>
+<code class="descname">getAttribute</code><span class="sig-paren">(</span><em>attributeName</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.Entity.getAttribute" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="dragonn.synthetic.util.Entity.hasAttribute">
-<code class="descname">hasAttribute</code><span class="sig-paren">(</span><em>attributeName</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#Entity.hasAttribute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.Entity.hasAttribute" title="Permalink to this definition">¶</a></dt>
+<code class="descname">hasAttribute</code><span class="sig-paren">(</span><em>attributeName</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.Entity.hasAttribute" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="dragonn.synthetic.util.GetBest">
-<em class="property">class </em><code class="descclassname">dragonn.synthetic.util.</code><code class="descname">GetBest</code><a class="reference internal" href="_modules/dragonn/synthetic/util.html#GetBest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.GetBest" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">dragonn.synthetic.util.</code><code class="descname">GetBest</code><a class="headerlink" href="#dragonn.synthetic.util.GetBest" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <dl class="method">
 <dt id="dragonn.synthetic.util.GetBest.getBest">
-<code class="descname">getBest</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#GetBest.getBest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.GetBest.getBest" title="Permalink to this definition">¶</a></dt>
+<code class="descname">getBest</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.GetBest.getBest" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="dragonn.synthetic.util.GetBest.getBestObj">
-<code class="descname">getBestObj</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#GetBest.getBestObj"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.GetBest.getBestObj" title="Permalink to this definition">¶</a></dt>
+<code class="descname">getBestObj</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.GetBest.getBestObj" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="dragonn.synthetic.util.GetBest.getBestVal">
-<code class="descname">getBestVal</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#GetBest.getBestVal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.GetBest.getBestVal" title="Permalink to this definition">¶</a></dt>
+<code class="descname">getBestVal</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.GetBest.getBestVal" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="dragonn.synthetic.util.GetBest.isBetter">
-<code class="descname">isBetter</code><span class="sig-paren">(</span><em>val</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#GetBest.isBetter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.GetBest.isBetter" title="Permalink to this definition">¶</a></dt>
+<code class="descname">isBetter</code><span class="sig-paren">(</span><em>val</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.GetBest.isBetter" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="dragonn.synthetic.util.GetBest.process">
-<code class="descname">process</code><span class="sig-paren">(</span><em>theObject</em>, <em>val</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#GetBest.process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.GetBest.process" title="Permalink to this definition">¶</a></dt>
+<code class="descname">process</code><span class="sig-paren">(</span><em>theObject</em>, <em>val</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.GetBest.process" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="dragonn.synthetic.util.GetBest_Max">
-<em class="property">class </em><code class="descclassname">dragonn.synthetic.util.</code><code class="descname">GetBest_Max</code><a class="reference internal" href="_modules/dragonn/synthetic/util.html#GetBest_Max"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.GetBest_Max" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">dragonn.synthetic.util.</code><code class="descname">GetBest_Max</code><a class="headerlink" href="#dragonn.synthetic.util.GetBest_Max" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#dragonn.synthetic.util.GetBest" title="dragonn.synthetic.util.GetBest"><code class="xref py py-class docutils literal"><span class="pre">dragonn.synthetic.util.GetBest</span></code></a></p>
 <dl class="method">
 <dt id="dragonn.synthetic.util.GetBest_Max.isBetter">
-<code class="descname">isBetter</code><span class="sig-paren">(</span><em>val</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#GetBest_Max.isBetter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.GetBest_Max.isBetter" title="Permalink to this definition">¶</a></dt>
+<code class="descname">isBetter</code><span class="sig-paren">(</span><em>val</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.GetBest_Max.isBetter" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="dragonn.synthetic.util.GetBest_Min">
-<em class="property">class </em><code class="descclassname">dragonn.synthetic.util.</code><code class="descname">GetBest_Min</code><a class="reference internal" href="_modules/dragonn/synthetic/util.html#GetBest_Min"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.GetBest_Min" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">dragonn.synthetic.util.</code><code class="descname">GetBest_Min</code><a class="headerlink" href="#dragonn.synthetic.util.GetBest_Min" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#dragonn.synthetic.util.GetBest" title="dragonn.synthetic.util.GetBest"><code class="xref py py-class docutils literal"><span class="pre">dragonn.synthetic.util.GetBest</span></code></a></p>
 <dl class="method">
 <dt id="dragonn.synthetic.util.GetBest_Min.isBetter">
-<code class="descname">isBetter</code><span class="sig-paren">(</span><em>val</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#GetBest_Min.isBetter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.GetBest_Min.isBetter" title="Permalink to this definition">¶</a></dt>
+<code class="descname">isBetter</code><span class="sig-paren">(</span><em>val</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.GetBest_Min.isBetter" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="dragonn.synthetic.util.IterableFromDict">
-<em class="property">class </em><code class="descclassname">dragonn.synthetic.util.</code><code class="descname">IterableFromDict</code><span class="sig-paren">(</span><em>theDict</em>, <em>defaultVal</em>, <em>totalLen</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#IterableFromDict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.IterableFromDict" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">dragonn.synthetic.util.</code><code class="descname">IterableFromDict</code><span class="sig-paren">(</span><em>theDict</em>, <em>defaultVal</em>, <em>totalLen</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.IterableFromDict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <dl class="method">
 <dt id="dragonn.synthetic.util.IterableFromDict.next">
-<code class="descname">next</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#IterableFromDict.next"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.IterableFromDict.next" title="Permalink to this definition">¶</a></dt>
+<code class="descname">next</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.IterableFromDict.next" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="dragonn.synthetic.util.Options">
-<em class="property">class </em><code class="descclassname">dragonn.synthetic.util.</code><code class="descname">Options</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#Options"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.Options" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">dragonn.synthetic.util.</code><code class="descname">Options</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.Options" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 </dd></dl>
 
@@ -296,7 +309,7 @@ to facilitate auto-generation of output file names.</p>
 
 <dl class="class">
 <dt id="dragonn.synthetic.util.SparseArrFromDict">
-<em class="property">class </em><code class="descclassname">dragonn.synthetic.util.</code><code class="descname">SparseArrFromDict</code><span class="sig-paren">(</span><em>theDict</em>, <em>defaultVal</em>, <em>totalLen</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#SparseArrFromDict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.SparseArrFromDict" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">dragonn.synthetic.util.</code><code class="descname">SparseArrFromDict</code><span class="sig-paren">(</span><em>theDict</em>, <em>defaultVal</em>, <em>totalLen</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.SparseArrFromDict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 </dd></dl>
 
@@ -308,12 +321,12 @@ to facilitate auto-generation of output file names.</p>
 
 <dl class="class">
 <dt id="dragonn.synthetic.util.TeeOutputStreams">
-<em class="property">class </em><code class="descclassname">dragonn.synthetic.util.</code><code class="descname">TeeOutputStreams</code><span class="sig-paren">(</span><em>*streams</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#TeeOutputStreams"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.TeeOutputStreams" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">dragonn.synthetic.util.</code><code class="descname">TeeOutputStreams</code><span class="sig-paren">(</span><em>*streams</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.TeeOutputStreams" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>for piping to several output streams</p>
 <dl class="method">
 <dt id="dragonn.synthetic.util.TeeOutputStreams.close">
-<code class="descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#TeeOutputStreams.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.TeeOutputStreams.close" title="Permalink to this definition">¶</a></dt>
+<code class="descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.TeeOutputStreams.close" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -323,72 +336,72 @@ to facilitate auto-generation of output file names.</p>
 
 <dl class="method">
 <dt id="dragonn.synthetic.util.TeeOutputStreams.flush">
-<code class="descname">flush</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#TeeOutputStreams.flush"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.TeeOutputStreams.flush" title="Permalink to this definition">¶</a></dt>
+<code class="descname">flush</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.TeeOutputStreams.flush" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="dragonn.synthetic.util.TeeOutputStreams.write">
-<code class="descname">write</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#TeeOutputStreams.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.TeeOutputStreams.write" title="Permalink to this definition">¶</a></dt>
+<code class="descname">write</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.TeeOutputStreams.write" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="dragonn.synthetic.util.TeeOutputStreams.writeable">
-<code class="descname">writeable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#TeeOutputStreams.writeable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.TeeOutputStreams.writeable" title="Permalink to this definition">¶</a></dt>
+<code class="descname">writeable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.TeeOutputStreams.writeable" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="dragonn.synthetic.util.TeeOutputStreams.writelines">
-<code class="descname">writelines</code><span class="sig-paren">(</span><em>lines</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#TeeOutputStreams.writelines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.TeeOutputStreams.writelines" title="Permalink to this definition">¶</a></dt>
+<code class="descname">writelines</code><span class="sig-paren">(</span><em>lines</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.TeeOutputStreams.writelines" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="dragonn.synthetic.util.Titled2DMatrix">
-<em class="property">class </em><code class="descclassname">dragonn.synthetic.util.</code><code class="descname">Titled2DMatrix</code><span class="sig-paren">(</span><em>colNamesPresent=False</em>, <em>rowNamesPresent=False</em>, <em>rows=None</em>, <em>colNames=None</em>, <em>rowNames=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#Titled2DMatrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.Titled2DMatrix" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">dragonn.synthetic.util.</code><code class="descname">Titled2DMatrix</code><span class="sig-paren">(</span><em>colNamesPresent=False</em>, <em>rowNamesPresent=False</em>, <em>rows=None</em>, <em>colNames=None</em>, <em>rowNames=None</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.Titled2DMatrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>has a 2D matrix, rowNames and colNames arrays</p>
 <dl class="method">
 <dt id="dragonn.synthetic.util.Titled2DMatrix.addRow">
-<code class="descname">addRow</code><span class="sig-paren">(</span><em>arr</em>, <em>rowName=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#Titled2DMatrix.addRow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.Titled2DMatrix.addRow" title="Permalink to this definition">¶</a></dt>
+<code class="descname">addRow</code><span class="sig-paren">(</span><em>arr</em>, <em>rowName=None</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.Titled2DMatrix.addRow" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="dragonn.synthetic.util.Titled2DMatrix.normaliseRows">
-<code class="descname">normaliseRows</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#Titled2DMatrix.normaliseRows"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.Titled2DMatrix.normaliseRows" title="Permalink to this definition">¶</a></dt>
+<code class="descname">normaliseRows</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.Titled2DMatrix.normaliseRows" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="dragonn.synthetic.util.Titled2DMatrix.printToFile">
-<code class="descname">printToFile</code><span class="sig-paren">(</span><em>fileHandle</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#Titled2DMatrix.printToFile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.Titled2DMatrix.printToFile" title="Permalink to this definition">¶</a></dt>
+<code class="descname">printToFile</code><span class="sig-paren">(</span><em>fileHandle</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.Titled2DMatrix.printToFile" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="dragonn.synthetic.util.Titled2DMatrix.setColNames">
-<code class="descname">setColNames</code><span class="sig-paren">(</span><em>colNames</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#Titled2DMatrix.setColNames"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.Titled2DMatrix.setColNames" title="Permalink to this definition">¶</a></dt>
+<code class="descname">setColNames</code><span class="sig-paren">(</span><em>colNames</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.Titled2DMatrix.setColNames" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="dragonn.synthetic.util.TitledArr">
-<em class="property">class </em><code class="descclassname">dragonn.synthetic.util.</code><code class="descname">TitledArr</code><span class="sig-paren">(</span><em>title</em>, <em>arr</em>, <em>colNameToIndex=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#TitledArr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.TitledArr" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">dragonn.synthetic.util.</code><code class="descname">TitledArr</code><span class="sig-paren">(</span><em>title</em>, <em>arr</em>, <em>colNameToIndex=None</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.TitledArr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <dl class="method">
 <dt id="dragonn.synthetic.util.TitledArr.getCol">
-<code class="descname">getCol</code><span class="sig-paren">(</span><em>colName</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#TitledArr.getCol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.TitledArr.getCol" title="Permalink to this definition">¶</a></dt>
+<code class="descname">getCol</code><span class="sig-paren">(</span><em>colName</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.TitledArr.getCol" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="dragonn.synthetic.util.TitledArr.setCol">
-<code class="descname">setCol</code><span class="sig-paren">(</span><em>colName</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#TitledArr.setCol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.TitledArr.setCol" title="Permalink to this definition">¶</a></dt>
+<code class="descname">setCol</code><span class="sig-paren">(</span><em>colName</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.TitledArr.setCol" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="dragonn.synthetic.util.TitledMapping">
-<em class="property">class </em><code class="descclassname">dragonn.synthetic.util.</code><code class="descname">TitledMapping</code><span class="sig-paren">(</span><em>titleArr</em>, <em>flagIfInconsistent=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#TitledMapping"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.TitledMapping" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">dragonn.synthetic.util.</code><code class="descname">TitledMapping</code><span class="sig-paren">(</span><em>titleArr</em>, <em>flagIfInconsistent=False</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.TitledMapping" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <dl class="docutils">
 <dt>When each key maps to an array, and each index in the array is associated with</dt>
@@ -396,65 +409,65 @@ to facilitate auto-generation of output file names.</p>
 </dl>
 <dl class="method">
 <dt id="dragonn.synthetic.util.TitledMapping.addKey">
-<code class="descname">addKey</code><span class="sig-paren">(</span><em>key</em>, <em>arr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#TitledMapping.addKey"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.TitledMapping.addKey" title="Permalink to this definition">¶</a></dt>
+<code class="descname">addKey</code><span class="sig-paren">(</span><em>key</em>, <em>arr</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.TitledMapping.addKey" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="dragonn.synthetic.util.TitledMapping.getArrForKey">
-<code class="descname">getArrForKey</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#TitledMapping.getArrForKey"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.TitledMapping.getArrForKey" title="Permalink to this definition">¶</a></dt>
+<code class="descname">getArrForKey</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.TitledMapping.getArrForKey" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="dragonn.synthetic.util.TitledMapping.getTitledArrForKey">
-<code class="descname">getTitledArrForKey</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#TitledMapping.getTitledArrForKey"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.TitledMapping.getTitledArrForKey" title="Permalink to this definition">¶</a></dt>
+<code class="descname">getTitledArrForKey</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.TitledMapping.getTitledArrForKey" title="Permalink to this definition">¶</a></dt>
 <dd><p>returns an instance of util.TitledArr which has: getCol(colName) and setCol(colName)</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="dragonn.synthetic.util.TitledMapping.keyPresenceCheck">
-<code class="descname">keyPresenceCheck</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#TitledMapping.keyPresenceCheck"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.TitledMapping.keyPresenceCheck" title="Permalink to this definition">¶</a></dt>
+<code class="descname">keyPresenceCheck</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.TitledMapping.keyPresenceCheck" title="Permalink to this definition">¶</a></dt>
 <dd><p>Throws an error if the key is absent</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="dragonn.synthetic.util.TitledMapping.printToFile">
-<code class="descname">printToFile</code><span class="sig-paren">(</span><em>fileHandle</em>, <em>includeRownames=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#TitledMapping.printToFile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.TitledMapping.printToFile" title="Permalink to this definition">¶</a></dt>
+<code class="descname">printToFile</code><span class="sig-paren">(</span><em>fileHandle</em>, <em>includeRownames=True</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.TitledMapping.printToFile" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="dragonn.synthetic.util.TitledMappingIterator">
-<em class="property">class </em><code class="descclassname">dragonn.synthetic.util.</code><code class="descname">TitledMappingIterator</code><span class="sig-paren">(</span><em>titledMapping</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#TitledMappingIterator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.TitledMappingIterator" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">dragonn.synthetic.util.</code><code class="descname">TitledMappingIterator</code><span class="sig-paren">(</span><em>titledMapping</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.TitledMappingIterator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Returns an iterator over TitledArrs for the keys in titledMapping.mapping</p>
 <dl class="method">
 <dt id="dragonn.synthetic.util.TitledMappingIterator.next">
-<code class="descname">next</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#TitledMappingIterator.next"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.TitledMappingIterator.next" title="Permalink to this definition">¶</a></dt>
+<code class="descname">next</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.TitledMappingIterator.next" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="dragonn.synthetic.util.VariableWrapper">
-<em class="property">class </em><code class="descclassname">dragonn.synthetic.util.</code><code class="descname">VariableWrapper</code><span class="sig-paren">(</span><em>var</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#VariableWrapper"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.VariableWrapper" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">dragonn.synthetic.util.</code><code class="descname">VariableWrapper</code><span class="sig-paren">(</span><em>var</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.VariableWrapper" title="Permalink to this definition">¶</a></dt>
 <dd><p>For when I want reference-type access to an immutable</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.absentOrNone">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">absentOrNone</code><span class="sig-paren">(</span><em>obj</em>, <em>attr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#absentOrNone"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.absentOrNone" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">absentOrNone</code><span class="sig-paren">(</span><em>obj</em>, <em>attr</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.absentOrNone" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.addArguments">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">addArguments</code><span class="sig-paren">(</span><em>string</em>, <em>args</em>, <em>joiner='_'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#addArguments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.addArguments" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">addArguments</code><span class="sig-paren">(</span><em>string</em>, <em>args</em>, <em>joiner='_'</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.addArguments" title="Permalink to this definition">¶</a></dt>
 <dd><p>args is an array of ArgumentToAdd.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.addDictionary">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">addDictionary</code><span class="sig-paren">(</span><em>toUpdate</em>, <em>toAdd</em>, <em>initVal=0</em>, <em>mergeFunc=&lt;function &lt;lambda&gt;&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#addDictionary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.addDictionary" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">addDictionary</code><span class="sig-paren">(</span><em>toUpdate</em>, <em>toAdd</em>, <em>initVal=0</em>, <em>mergeFunc=&lt;function &lt;lambda&gt;&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.addDictionary" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defaults to addition, technically applicable any time you want to
 update a dictionary (toUpdate) with the entries of another dictionary
 (toAdd) using a particular operation (eg: adding corresponding keys)</p>
@@ -462,228 +475,228 @@ update a dictionary (toUpdate) with the entries of another dictionary
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.arrToDict">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">arrToDict</code><span class="sig-paren">(</span><em>arr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#arrToDict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.arrToDict" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">arrToDict</code><span class="sig-paren">(</span><em>arr</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.arrToDict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Turn an array into a dictionary where each value maps to &#8216;1&#8217;
 used for membership testing.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.arrayEquals">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">arrayEquals</code><span class="sig-paren">(</span><em>arr1</em>, <em>arr2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#arrayEquals"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.arrayEquals" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">arrayEquals</code><span class="sig-paren">(</span><em>arr1</em>, <em>arr2</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.arrayEquals" title="Permalink to this definition">¶</a></dt>
 <dd><p>compares corresponding entries in arr1 and arr2</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.assertAllOrNone">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">assertAllOrNone</code><span class="sig-paren">(</span><em>obj</em>, <em>attrNames</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#assertAllOrNone"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.assertAllOrNone" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">assertAllOrNone</code><span class="sig-paren">(</span><em>obj</em>, <em>attrNames</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.assertAllOrNone" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.assertArrayElementsEqual">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">assertArrayElementsEqual</code><span class="sig-paren">(</span><em>arr1</em>, <em>arr2</em>, <em>threshold=0.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#assertArrayElementsEqual"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.assertArrayElementsEqual" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">assertArrayElementsEqual</code><span class="sig-paren">(</span><em>arr1</em>, <em>arr2</em>, <em>threshold=0.0</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.assertArrayElementsEqual" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.assertAtLeastOneSet">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">assertAtLeastOneSet</code><span class="sig-paren">(</span><em>obj</em>, <em>attrs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#assertAtLeastOneSet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.assertAtLeastOneSet" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">assertAtLeastOneSet</code><span class="sig-paren">(</span><em>obj</em>, <em>attrs</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.assertAtLeastOneSet" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.assertAttributesHaveTheSameLengths">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">assertAttributesHaveTheSameLengths</code><span class="sig-paren">(</span><em>attributes</em>, <em>attributeNames</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#assertAttributesHaveTheSameLengths"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.assertAttributesHaveTheSameLengths" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">assertAttributesHaveTheSameLengths</code><span class="sig-paren">(</span><em>attributes</em>, <em>attributeNames</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.assertAttributesHaveTheSameLengths" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.assertDoesNotHaveAttributes">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">assertDoesNotHaveAttributes</code><span class="sig-paren">(</span><em>obj</em>, <em>attributes</em>, <em>explanation</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#assertDoesNotHaveAttributes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.assertDoesNotHaveAttributes" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">assertDoesNotHaveAttributes</code><span class="sig-paren">(</span><em>obj</em>, <em>attributes</em>, <em>explanation</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.assertDoesNotHaveAttributes" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.assertHasAttributes">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">assertHasAttributes</code><span class="sig-paren">(</span><em>obj</em>, <em>attributes</em>, <em>explanation</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#assertHasAttributes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.assertHasAttributes" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">assertHasAttributes</code><span class="sig-paren">(</span><em>obj</em>, <em>attributes</em>, <em>explanation</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.assertHasAttributes" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.assertIsType">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">assertIsType</code><span class="sig-paren">(</span><em>instance</em>, <em>theClass</em>, <em>instanceVarName</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#assertIsType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.assertIsType" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">assertIsType</code><span class="sig-paren">(</span><em>instance</em>, <em>theClass</em>, <em>instanceVarName</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.assertIsType" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.assertLessThanOrEqual">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">assertLessThanOrEqual</code><span class="sig-paren">(</span><em>obj</em>, <em>smallerAttrName</em>, <em>largerAttrName</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#assertLessThanOrEqual"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.assertLessThanOrEqual" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">assertLessThanOrEqual</code><span class="sig-paren">(</span><em>obj</em>, <em>smallerAttrName</em>, <em>largerAttrName</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.assertLessThanOrEqual" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.assertMutuallyExclusiveAttributes">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">assertMutuallyExclusiveAttributes</code><span class="sig-paren">(</span><em>obj</em>, <em>attrs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#assertMutuallyExclusiveAttributes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.assertMutuallyExclusiveAttributes" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">assertMutuallyExclusiveAttributes</code><span class="sig-paren">(</span><em>obj</em>, <em>attrs</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.assertMutuallyExclusiveAttributes" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.auPRC">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">auPRC</code><span class="sig-paren">(</span><em>trueY</em>, <em>predictedYscores</em>, <em>plotFileName=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#auPRC"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.auPRC" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">auPRC</code><span class="sig-paren">(</span><em>trueY</em>, <em>predictedYscores</em>, <em>plotFileName=None</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.auPRC" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.augmentArgparseKwargsHelpWithDefault">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">augmentArgparseKwargsHelpWithDefault</code><span class="sig-paren">(</span><em>**argParseKwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#augmentArgparseKwargsHelpWithDefault"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.augmentArgparseKwargsHelpWithDefault" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">augmentArgparseKwargsHelpWithDefault</code><span class="sig-paren">(</span><em>**argParseKwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.augmentArgparseKwargsHelpWithDefault" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.autovivisect">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">autovivisect</code><span class="sig-paren">(</span><em>theDict</em>, <em>getThingToInitialiseWith</em>, <em>*keys</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#autovivisect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.autovivisect" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">autovivisect</code><span class="sig-paren">(</span><em>theDict</em>, <em>getThingToInitialiseWith</em>, <em>*keys</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.autovivisect" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.avgNumpyArrays">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">avgNumpyArrays</code><span class="sig-paren">(</span><em>numpyArrays</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#avgNumpyArrays"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.avgNumpyArrays" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">avgNumpyArrays</code><span class="sig-paren">(</span><em>numpyArrays</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.avgNumpyArrays" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.chainFunctions">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">chainFunctions</code><span class="sig-paren">(</span><em>*functions</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#chainFunctions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.chainFunctions" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">chainFunctions</code><span class="sig-paren">(</span><em>*functions</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.chainFunctions" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.checkForAttributes">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">checkForAttributes</code><span class="sig-paren">(</span><em>item</em>, <em>attributesToCheckFor</em>, <em>itemName=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#checkForAttributes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.checkForAttributes" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">checkForAttributes</code><span class="sig-paren">(</span><em>item</em>, <em>attributesToCheckFor</em>, <em>itemName=None</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.checkForAttributes" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.check_pid">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">check_pid</code><span class="sig-paren">(</span><em>pid</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#check_pid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.check_pid" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">check_pid</code><span class="sig-paren">(</span><em>pid</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.check_pid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check For the existence of a unix pid.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.combineEnums">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">combineEnums</code><span class="sig-paren">(</span><em>*enums</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#combineEnums"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.combineEnums" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">combineEnums</code><span class="sig-paren">(</span><em>*enums</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.combineEnums" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.computeConfusionMatrix">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">computeConfusionMatrix</code><span class="sig-paren">(</span><em>actual</em>, <em>predictions</em>, <em>labelOrdering=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#computeConfusionMatrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.computeConfusionMatrix" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">computeConfusionMatrix</code><span class="sig-paren">(</span><em>actual</em>, <em>predictions</em>, <em>labelOrdering=None</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.computeConfusionMatrix" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.computeCooccurence">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">computeCooccurence</code><span class="sig-paren">(</span><em>matrix</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#computeCooccurence"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.computeCooccurence" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">computeCooccurence</code><span class="sig-paren">(</span><em>matrix</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.computeCooccurence" title="Permalink to this definition">¶</a></dt>
 <dd><p>matrix: rows (first dim) are examples</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.computeRunningWindowMax">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">computeRunningWindowMax</code><span class="sig-paren">(</span><em>arr</em>, <em>windowSize</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#computeRunningWindowMax"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.computeRunningWindowMax" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">computeRunningWindowMax</code><span class="sig-paren">(</span><em>arr</em>, <em>windowSize</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.computeRunningWindowMax" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.computeRunningWindowMaxActivation_2d">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">computeRunningWindowMaxActivation_2d</code><span class="sig-paren">(</span><em>arr</em>, <em>smallerArr</em>, <em>windowSize</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#computeRunningWindowMaxActivation_2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.computeRunningWindowMaxActivation_2d" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">computeRunningWindowMaxActivation_2d</code><span class="sig-paren">(</span><em>arr</em>, <em>smallerArr</em>, <em>windowSize</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.computeRunningWindowMaxActivation_2d" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.computeRunningWindowOneOverMaxActivation_2d">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">computeRunningWindowOneOverMaxActivation_2d</code><span class="sig-paren">(</span><em>arr</em>, <em>smallerArr</em>, <em>windowSize</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#computeRunningWindowOneOverMaxActivation_2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.computeRunningWindowOneOverMaxActivation_2d" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">computeRunningWindowOneOverMaxActivation_2d</code><span class="sig-paren">(</span><em>arr</em>, <em>smallerArr</em>, <em>windowSize</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.computeRunningWindowOneOverMaxActivation_2d" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.computeRunningWindowOneOverTwoNorm_2d">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">computeRunningWindowOneOverTwoNorm_2d</code><span class="sig-paren">(</span><em>arr</em>, <em>smallerArr</em>, <em>windowSize</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#computeRunningWindowOneOverTwoNorm_2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.computeRunningWindowOneOverTwoNorm_2d" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">computeRunningWindowOneOverTwoNorm_2d</code><span class="sig-paren">(</span><em>arr</em>, <em>smallerArr</em>, <em>windowSize</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.computeRunningWindowOneOverTwoNorm_2d" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.computeRunningWindowOp">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">computeRunningWindowOp</code><span class="sig-paren">(</span><em>arr</em>, <em>windowSize</em>, <em>op</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#computeRunningWindowOp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.computeRunningWindowOp" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">computeRunningWindowOp</code><span class="sig-paren">(</span><em>arr</em>, <em>windowSize</em>, <em>op</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.computeRunningWindowOp" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.computeRunningWindowSum">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">computeRunningWindowSum</code><span class="sig-paren">(</span><em>arr</em>, <em>windowSize</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#computeRunningWindowSum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.computeRunningWindowSum" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">computeRunningWindowSum</code><span class="sig-paren">(</span><em>arr</em>, <em>windowSize</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.computeRunningWindowSum" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.computeRunningWindowSum_2d">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">computeRunningWindowSum_2d</code><span class="sig-paren">(</span><em>arr</em>, <em>smallerArr</em>, <em>windowSize</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#computeRunningWindowSum_2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.computeRunningWindowSum_2d" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">computeRunningWindowSum_2d</code><span class="sig-paren">(</span><em>arr</em>, <em>smallerArr</em>, <em>windowSize</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.computeRunningWindowSum_2d" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.computeRunningWindowTwoNorm_2d">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">computeRunningWindowTwoNorm_2d</code><span class="sig-paren">(</span><em>arr</em>, <em>smallerArr</em>, <em>windowSize</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#computeRunningWindowTwoNorm_2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.computeRunningWindowTwoNorm_2d" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">computeRunningWindowTwoNorm_2d</code><span class="sig-paren">(</span><em>arr</em>, <em>smallerArr</em>, <em>windowSize</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.computeRunningWindowTwoNorm_2d" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.crossCorrelateArraysLengthwise">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">crossCorrelateArraysLengthwise</code><span class="sig-paren">(</span><em>arr1</em>, <em>arr2</em>, <em>normaliseFunc</em>, <em>smallerPerPosNormFuncs=[]</em>, <em>largerPerPosNormFuncs=[]</em>, <em>auxLargerForPerPosNorm=None</em>, <em>auxLargerPerPosNormFuncs=[]</em>, <em>pad=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#crossCorrelateArraysLengthwise"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.crossCorrelateArraysLengthwise" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">crossCorrelateArraysLengthwise</code><span class="sig-paren">(</span><em>arr1</em>, <em>arr2</em>, <em>normaliseFunc</em>, <em>smallerPerPosNormFuncs=[]</em>, <em>largerPerPosNormFuncs=[]</em>, <em>auxLargerForPerPosNorm=None</em>, <em>auxLargerPerPosNormFuncs=[]</em>, <em>pad=True</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.crossCorrelateArraysLengthwise" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.crossCorrelation_2d">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">crossCorrelation_2d</code><span class="sig-paren">(</span><em>arr</em>, <em>smallerArr</em>, <em>windowSize</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#crossCorrelation_2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.crossCorrelation_2d" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">crossCorrelation_2d</code><span class="sig-paren">(</span><em>arr</em>, <em>smallerArr</em>, <em>windowSize</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.crossCorrelation_2d" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.defaultTransformation">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">defaultTransformation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#defaultTransformation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.defaultTransformation" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">defaultTransformation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.defaultTransformation" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.dict2str">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">dict2str</code><span class="sig-paren">(</span><em>theDict</em>, <em>sep='\n'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#dict2str"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.dict2str" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">dict2str</code><span class="sig-paren">(</span><em>theDict</em>, <em>sep='\n'</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.dict2str" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.divideByPerPositionRange">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">divideByPerPositionRange</code><span class="sig-paren">(</span><em>arr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#divideByPerPositionRange"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.divideByPerPositionRange" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">divideByPerPositionRange</code><span class="sig-paren">(</span><em>arr</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.divideByPerPositionRange" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.doPCAonFile">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">doPCAonFile</code><span class="sig-paren">(</span><em>theFile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#doPCAonFile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.doPCAonFile" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">doPCAonFile</code><span class="sig-paren">(</span><em>theFile</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.doPCAonFile" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.doesNotWorkForMultithreading_redirectStdout">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">doesNotWorkForMultithreading_redirectStdout</code><span class="sig-paren">(</span><em>func</em>, <em>redirectedStdout</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#doesNotWorkForMultithreading_redirectStdout"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.doesNotWorkForMultithreading_redirectStdout" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">doesNotWorkForMultithreading_redirectStdout</code><span class="sig-paren">(</span><em>func</em>, <em>redirectedStdout</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.doesNotWorkForMultithreading_redirectStdout" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.enum">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">enum</code><span class="sig-paren">(</span><em>**enums</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#enum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.enum" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">enum</code><span class="sig-paren">(</span><em>**enums</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.enum" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.enumerate_skipFirst">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">enumerate_skipFirst</code><span class="sig-paren">(</span><em>aList</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#enumerate_skipFirst"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.enumerate_skipFirst" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">enumerate_skipFirst</code><span class="sig-paren">(</span><em>aList</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.enumerate_skipFirst" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.executeAsSystemCall">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">executeAsSystemCall</code><span class="sig-paren">(</span><em>commandToExecute</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#executeAsSystemCall"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.executeAsSystemCall" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">executeAsSystemCall</code><span class="sig-paren">(</span><em>commandToExecute</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.executeAsSystemCall" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.executeForAllFilesInDirectory">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">executeForAllFilesInDirectory</code><span class="sig-paren">(</span><em>directory</em>, <em>function</em>, <em>fileFilterFunction=&lt;function &lt;lambda&gt;&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#executeForAllFilesInDirectory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.executeForAllFilesInDirectory" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">executeForAllFilesInDirectory</code><span class="sig-paren">(</span><em>directory</em>, <em>function</em>, <em>fileFilterFunction=&lt;function &lt;lambda&gt;&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.executeForAllFilesInDirectory" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.floatRange">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">floatRange</code><span class="sig-paren">(</span><em>start</em>, <em>end</em>, <em>step</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#floatRange"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.floatRange" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">floatRange</code><span class="sig-paren">(</span><em>start</em>, <em>end</em>, <em>step</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.floatRange" title="Permalink to this definition">¶</a></dt>
 <dd><p>Like range but for floats...</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.formatDictAsArgsString">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">formatDictAsArgsString</code><span class="sig-paren">(</span><em>theDict</em>, <em>subDictEnclosingChars='&quot;'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#formatDictAsArgsString"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.formatDictAsArgsString" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">formatDictAsArgsString</code><span class="sig-paren">(</span><em>theDict</em>, <em>subDictEnclosingChars='&quot;'</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.formatDictAsArgsString" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.formattedJsonDump">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">formattedJsonDump</code><span class="sig-paren">(</span><em>jsonData</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#formattedJsonDump"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.formattedJsonDump" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">formattedJsonDump</code><span class="sig-paren">(</span><em>jsonData</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.formattedJsonDump" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.fracToRainbowColour">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">fracToRainbowColour</code><span class="sig-paren">(</span><em>frac</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#fracToRainbowColour"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.fracToRainbowColour" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">fracToRainbowColour</code><span class="sig-paren">(</span><em>frac</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.fracToRainbowColour" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="docutils">
 <dt>frac is a number from 0 to 1. Map to</dt>
 <dd>a 3-tuple representing a rainbow colour.</dd>
@@ -697,12 +710,12 @@ used for membership testing.</p>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.getAllPossibleSubsets">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">getAllPossibleSubsets</code><span class="sig-paren">(</span><em>arr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#getAllPossibleSubsets"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.getAllPossibleSubsets" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">getAllPossibleSubsets</code><span class="sig-paren">(</span><em>arr</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.getAllPossibleSubsets" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.getBest">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">getBest</code><span class="sig-paren">(</span><em>arr</em>, <em>getterFunc</em>, <em>takeMax</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#getBest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.getBest" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">getBest</code><span class="sig-paren">(</span><em>arr</em>, <em>getterFunc</em>, <em>takeMax</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.getBest" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="docutils">
 <dt>Will return a tuple of the</dt>
 <dd>index and the value of the best
@@ -712,43 +725,43 @@ as extracted by getterFunc</dd>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.getBestLengthwiseCrossCorrelationOfArrays">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">getBestLengthwiseCrossCorrelationOfArrays</code><span class="sig-paren">(</span><em>arr1</em>, <em>arr2</em>, <em>normaliseFunc</em>, <em>smallerPerPosNormFuncs</em>, <em>largerPerPosNormFuncs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#getBestLengthwiseCrossCorrelationOfArrays"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.getBestLengthwiseCrossCorrelationOfArrays" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">getBestLengthwiseCrossCorrelationOfArrays</code><span class="sig-paren">(</span><em>arr1</em>, <em>arr2</em>, <em>normaliseFunc</em>, <em>smallerPerPosNormFuncs</em>, <em>largerPerPosNormFuncs</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.getBestLengthwiseCrossCorrelationOfArrays" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.getDateTimeString">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">getDateTimeString</code><span class="sig-paren">(</span><em>datetimeFormat='%y-%m-%d-%H-%M'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#getDateTimeString"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.getDateTimeString" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">getDateTimeString</code><span class="sig-paren">(</span><em>datetimeFormat='%y-%m-%d-%H-%M'</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.getDateTimeString" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.getErrorTraceback">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">getErrorTraceback</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#getErrorTraceback"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.getErrorTraceback" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">getErrorTraceback</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.getErrorTraceback" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.getExtremeN">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">getExtremeN</code><span class="sig-paren">(</span><em>toSort</em>, <em>N</em>, <em>keyFunc</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#getExtremeN"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.getExtremeN" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">getExtremeN</code><span class="sig-paren">(</span><em>toSort</em>, <em>N</em>, <em>keyFunc</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.getExtremeN" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the indices</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.getFromEnum">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">getFromEnum</code><span class="sig-paren">(</span><em>theEnum</em>, <em>enumName</em>, <em>string</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#getFromEnum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.getFromEnum" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">getFromEnum</code><span class="sig-paren">(</span><em>theEnum</em>, <em>enumName</em>, <em>string</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.getFromEnum" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.getIntervals">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">getIntervals</code><span class="sig-paren">(</span><em>minVal</em>, <em>numSteps</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#getIntervals"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.getIntervals" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">getIntervals</code><span class="sig-paren">(</span><em>minVal</em>, <em>numSteps</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.getIntervals" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.getMaxIndex">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">getMaxIndex</code><span class="sig-paren">(</span><em>arr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#getMaxIndex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.getMaxIndex" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">getMaxIndex</code><span class="sig-paren">(</span><em>arr</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.getMaxIndex" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.getNthInterval">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">getNthInterval</code><span class="sig-paren">(</span><em>minVal</em>, <em>maxVal</em>, <em>numSteps</em>, <em>n</em>, <em>logarithmic</em>, <em>roundTo</em>, <em>cast</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#getNthInterval"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.getNthInterval" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">getNthInterval</code><span class="sig-paren">(</span><em>minVal</em>, <em>maxVal</em>, <em>numSteps</em>, <em>n</em>, <em>logarithmic</em>, <em>roundTo</em>, <em>cast</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.getNthInterval" title="Permalink to this definition">¶</a></dt>
 <dd><p>logarithmic: boolean indicating if want log numSteps vs linear
 roundTo: can be set to None for no rounding
 cast: can be set to just lambda x: x</p>
@@ -756,184 +769,184 @@ cast: can be set to just lambda x: x</p>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.getRandomString">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">getRandomString</code><span class="sig-paren">(</span><em>size</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#getRandomString"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.getRandomString" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">getRandomString</code><span class="sig-paren">(</span><em>size</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.getRandomString" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.getSingleton">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">getSingleton</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#getSingleton"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.getSingleton" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">getSingleton</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.getSingleton" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.getStackTrace">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">getStackTrace</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#getStackTrace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.getStackTrace" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">getStackTrace</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.getStackTrace" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.getTempDir">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">getTempDir</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#getTempDir"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.getTempDir" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">getTempDir</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.getTempDir" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.imageToSeq">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">imageToSeq</code><span class="sig-paren">(</span><em>image</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#imageToSeq"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.imageToSeq" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">imageToSeq</code><span class="sig-paren">(</span><em>image</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.imageToSeq" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.intersects">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">intersects</code><span class="sig-paren">(</span><em>chromStartEnd1</em>, <em>chromStartEnd2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#intersects"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.intersects" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">intersects</code><span class="sig-paren">(</span><em>chromStartEnd1</em>, <em>chromStartEnd2</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.intersects" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.invertIndices">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">invertIndices</code><span class="sig-paren">(</span><em>selectedIndices</em>, <em>fullSetOfIndices</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#invertIndices"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.invertIndices" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">invertIndices</code><span class="sig-paren">(</span><em>selectedIndices</em>, <em>fullSetOfIndices</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.invertIndices" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns all indices in fullSet but not in selected.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.invertPermutation">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">invertPermutation</code><span class="sig-paren">(</span><em>permutation</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#invertPermutation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.invertPermutation" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">invertPermutation</code><span class="sig-paren">(</span><em>permutation</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.invertPermutation" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.isBetter">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">isBetter</code><span class="sig-paren">(</span><em>value</em>, <em>referenceValue</em>, <em>isLargerBetter</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#isBetter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.isBetter" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">isBetter</code><span class="sig-paren">(</span><em>value</em>, <em>referenceValue</em>, <em>isLargerBetter</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.isBetter" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.isBetterOrEqual">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">isBetterOrEqual</code><span class="sig-paren">(</span><em>value</em>, <em>referenceValue</em>, <em>isLargerBetter</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#isBetterOrEqual"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.isBetterOrEqual" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">isBetterOrEqual</code><span class="sig-paren">(</span><em>value</em>, <em>referenceValue</em>, <em>isLargerBetter</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.isBetterOrEqual" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.isNumpy">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">isNumpy</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#isNumpy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.isNumpy" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">isNumpy</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.isNumpy" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.iter_skipFirst">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">iter_skipFirst</code><span class="sig-paren">(</span><em>aList</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#iter_skipFirst"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.iter_skipFirst" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">iter_skipFirst</code><span class="sig-paren">(</span><em>aList</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.iter_skipFirst" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.linecount">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">linecount</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#linecount"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.linecount" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">linecount</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.linecount" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.makeChromStartEnd">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">makeChromStartEnd</code><span class="sig-paren">(</span><em>chrom</em>, <em>start</em>, <em>end</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#makeChromStartEnd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.makeChromStartEnd" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">makeChromStartEnd</code><span class="sig-paren">(</span><em>chrom</em>, <em>start</em>, <em>end</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.makeChromStartEnd" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.multiprocessing_map_printProgress">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">multiprocessing_map_printProgress</code><span class="sig-paren">(</span><em>secondsBetweenUpdates</em>, <em>numThreads</em>, <em>func</em>, <em>iterable</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#multiprocessing_map_printProgress"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.multiprocessing_map_printProgress" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">multiprocessing_map_printProgress</code><span class="sig-paren">(</span><em>secondsBetweenUpdates</em>, <em>numThreads</em>, <em>func</em>, <em>iterable</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.multiprocessing_map_printProgress" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.normaliseByRowsAndColumns">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">normaliseByRowsAndColumns</code><span class="sig-paren">(</span><em>theMatrix</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#normaliseByRowsAndColumns"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.normaliseByRowsAndColumns" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">normaliseByRowsAndColumns</code><span class="sig-paren">(</span><em>theMatrix</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.normaliseByRowsAndColumns" title="Permalink to this definition">¶</a></dt>
 <dd><p>The matrix is as a dictionary</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.normaliseEntriesByMeanAndSdev">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">normaliseEntriesByMeanAndSdev</code><span class="sig-paren">(</span><em>arr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#normaliseEntriesByMeanAndSdev"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.normaliseEntriesByMeanAndSdev" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">normaliseEntriesByMeanAndSdev</code><span class="sig-paren">(</span><em>arr</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.normaliseEntriesByMeanAndSdev" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.normaliseEntriesByMeanAndTwoNorm">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">normaliseEntriesByMeanAndTwoNorm</code><span class="sig-paren">(</span><em>arr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#normaliseEntriesByMeanAndTwoNorm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.normaliseEntriesByMeanAndTwoNorm" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">normaliseEntriesByMeanAndTwoNorm</code><span class="sig-paren">(</span><em>arr</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.normaliseEntriesByMeanAndTwoNorm" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.normaliseEntriesBySdev">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">normaliseEntriesBySdev</code><span class="sig-paren">(</span><em>arr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#normaliseEntriesBySdev"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.normaliseEntriesBySdev" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">normaliseEntriesBySdev</code><span class="sig-paren">(</span><em>arr</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.normaliseEntriesBySdev" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.normaliseEntriesByTwoNorm">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">normaliseEntriesByTwoNorm</code><span class="sig-paren">(</span><em>arr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#normaliseEntriesByTwoNorm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.normaliseEntriesByTwoNorm" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">normaliseEntriesByTwoNorm</code><span class="sig-paren">(</span><em>arr</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.normaliseEntriesByTwoNorm" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.normaliseEntriesZeroToOne">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">normaliseEntriesZeroToOne</code><span class="sig-paren">(</span><em>arr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#normaliseEntriesZeroToOne"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.normaliseEntriesZeroToOne" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">normaliseEntriesZeroToOne</code><span class="sig-paren">(</span><em>arr</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.normaliseEntriesZeroToOne" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.normaliseRowsByMeanAndSdev">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">normaliseRowsByMeanAndSdev</code><span class="sig-paren">(</span><em>arr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#normaliseRowsByMeanAndSdev"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.normaliseRowsByMeanAndSdev" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">normaliseRowsByMeanAndSdev</code><span class="sig-paren">(</span><em>arr</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.normaliseRowsByMeanAndSdev" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.normaliseRowsByMeanAndSdev_firstFourSeq">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">normaliseRowsByMeanAndSdev_firstFourSeq</code><span class="sig-paren">(</span><em>arr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#normaliseRowsByMeanAndSdev_firstFourSeq"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.normaliseRowsByMeanAndSdev_firstFourSeq" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">normaliseRowsByMeanAndSdev_firstFourSeq</code><span class="sig-paren">(</span><em>arr</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.normaliseRowsByMeanAndSdev_firstFourSeq" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.npArrayIfList">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">npArrayIfList</code><span class="sig-paren">(</span><em>arr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#npArrayIfList"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.npArrayIfList" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">npArrayIfList</code><span class="sig-paren">(</span><em>arr</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.npArrayIfList" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.objectFromArgsAndKwargs">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">objectFromArgsAndKwargs</code><span class="sig-paren">(</span><em>classOfObject</em>, <em>args=[]</em>, <em>kwargs={}</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#objectFromArgsAndKwargs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.objectFromArgsAndKwargs" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">objectFromArgsAndKwargs</code><span class="sig-paren">(</span><em>classOfObject</em>, <em>args=[]</em>, <em>kwargs={}</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.objectFromArgsAndKwargs" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.objectFromArgsAndKwargsFromYaml">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">objectFromArgsAndKwargsFromYaml</code><span class="sig-paren">(</span><em>classOfObject</em>, <em>yamlWithArgsAndKwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#objectFromArgsAndKwargsFromYaml"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.objectFromArgsAndKwargsFromYaml" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">objectFromArgsAndKwargsFromYaml</code><span class="sig-paren">(</span><em>classOfObject</em>, <em>yamlWithArgsAndKwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.objectFromArgsAndKwargsFromYaml" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.overrides">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">overrides</code><span class="sig-paren">(</span><em>interface_class</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#overrides"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.overrides" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">overrides</code><span class="sig-paren">(</span><em>interface_class</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.overrides" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.parseJsonFile">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">parseJsonFile</code><span class="sig-paren">(</span><em>fileName</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#parseJsonFile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.parseJsonFile" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">parseJsonFile</code><span class="sig-paren">(</span><em>fileName</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.parseJsonFile" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.parseMultipleYamlFiles">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">parseMultipleYamlFiles</code><span class="sig-paren">(</span><em>pathsToYaml</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#parseMultipleYamlFiles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.parseMultipleYamlFiles" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">parseMultipleYamlFiles</code><span class="sig-paren">(</span><em>pathsToYaml</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.parseMultipleYamlFiles" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.parseYamlFile">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">parseYamlFile</code><span class="sig-paren">(</span><em>fileName</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#parseYamlFile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.parseYamlFile" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">parseYamlFile</code><span class="sig-paren">(</span><em>fileName</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.parseYamlFile" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.parseYamlFileHandle">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">parseYamlFileHandle</code><span class="sig-paren">(</span><em>fileHandle</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#parseYamlFileHandle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.parseYamlFileHandle" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">parseYamlFileHandle</code><span class="sig-paren">(</span><em>fileHandle</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.parseYamlFileHandle" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.plotPRC">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">plotPRC</code><span class="sig-paren">(</span><em>precision</em>, <em>recall</em>, <em>auc</em>, <em>plotFileName</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#plotPRC"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.plotPRC" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">plotPRC</code><span class="sig-paren">(</span><em>precision</em>, <em>recall</em>, <em>auc</em>, <em>plotFileName</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.plotPRC" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.presentAndNotNone">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">presentAndNotNone</code><span class="sig-paren">(</span><em>obj</em>, <em>attr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#presentAndNotNone"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.presentAndNotNone" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">presentAndNotNone</code><span class="sig-paren">(</span><em>obj</em>, <em>attr</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.presentAndNotNone" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.presentAndNotNoneOrFalse">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">presentAndNotNoneOrFalse</code><span class="sig-paren">(</span><em>obj</em>, <em>attr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#presentAndNotNoneOrFalse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.presentAndNotNoneOrFalse" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">presentAndNotNoneOrFalse</code><span class="sig-paren">(</span><em>obj</em>, <em>attr</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.presentAndNotNoneOrFalse" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.printAttributes">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">printAttributes</code><span class="sig-paren">(</span><em>entities</em>, <em>attributesToPrint</em>, <em>outputFile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#printAttributes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.printAttributes" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">printAttributes</code><span class="sig-paren">(</span><em>entities</em>, <em>attributesToPrint</em>, <em>outputFile</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.printAttributes" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.printCoordinatesForLabelSubsets">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">printCoordinatesForLabelSubsets</code><span class="sig-paren">(</span><em>regionIds</em>, <em>labels</em>, <em>labelSetsToFilterFor</em>, <em>outputFilePrefix</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#printCoordinatesForLabelSubsets"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.printCoordinatesForLabelSubsets" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">printCoordinatesForLabelSubsets</code><span class="sig-paren">(</span><em>regionIds</em>, <em>labels</em>, <em>labelSetsToFilterFor</em>, <em>outputFilePrefix</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.printCoordinatesForLabelSubsets" title="Permalink to this definition">¶</a></dt>
 <dd><p>assumes regionIds of the form chr:start-end
 labelSetsToFilter as an iterable of iterables of the</p>
 <blockquote>
@@ -947,115 +960,115 @@ Will be incorportated into the filename</div></blockquote>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.printRegionIds">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">printRegionIds</code><span class="sig-paren">(</span><em>regionIds</em>, <em>labels</em>, <em>labelFilter</em>, <em>outputFile</em>, <em>idTransformation=&lt;function &lt;lambda&gt;&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#printRegionIds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.printRegionIds" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">printRegionIds</code><span class="sig-paren">(</span><em>regionIds</em>, <em>labels</em>, <em>labelFilter</em>, <em>outputFile</em>, <em>idTransformation=&lt;function &lt;lambda&gt;&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.printRegionIds" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.randomlySampleFromArr">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">randomlySampleFromArr</code><span class="sig-paren">(</span><em>arr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#randomlySampleFromArr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.randomlySampleFromArr" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">randomlySampleFromArr</code><span class="sig-paren">(</span><em>arr</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.randomlySampleFromArr" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.readMultilineRawInput">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">readMultilineRawInput</code><span class="sig-paren">(</span><em>prompt</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#readMultilineRawInput"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.readMultilineRawInput" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">readMultilineRawInput</code><span class="sig-paren">(</span><em>prompt</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.readMultilineRawInput" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.redirectStdoutToString">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">redirectStdoutToString</code><span class="sig-paren">(</span><em>func</em>, <em>logger=None</em>, <em>emailErrorFunc=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#redirectStdoutToString"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.redirectStdoutToString" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">redirectStdoutToString</code><span class="sig-paren">(</span><em>func</em>, <em>logger=None</em>, <em>emailErrorFunc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.redirectStdoutToString" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.reverseComplement">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">reverseComplement</code><span class="sig-paren">(</span><em>sequence</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#reverseComplement"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.reverseComplement" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">reverseComplement</code><span class="sig-paren">(</span><em>sequence</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.reverseComplement" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.reverse_enumerate">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">reverse_enumerate</code><span class="sig-paren">(</span><em>aList</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#reverse_enumerate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.reverse_enumerate" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">reverse_enumerate</code><span class="sig-paren">(</span><em>aList</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.reverse_enumerate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.roundToNearest">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">roundToNearest</code><span class="sig-paren">(</span><em>val</em>, <em>nearest</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#roundToNearest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.roundToNearest" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">roundToNearest</code><span class="sig-paren">(</span><em>val</em>, <em>nearest</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.roundToNearest" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.rowNormalise">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">rowNormalise</code><span class="sig-paren">(</span><em>matrix</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#rowNormalise"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.rowNormalise" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">rowNormalise</code><span class="sig-paren">(</span><em>matrix</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.rowNormalise" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.runningWindowOneOver">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">runningWindowOneOver</code><span class="sig-paren">(</span><em>func</em>, <em>arr</em>, <em>smallerArr</em>, <em>windowSize</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#runningWindowOneOver"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.runningWindowOneOver" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">runningWindowOneOver</code><span class="sig-paren">(</span><em>func</em>, <em>arr</em>, <em>smallerArr</em>, <em>windowSize</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.runningWindowOneOver" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.sampleFromDiscreteDistribution">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">sampleFromDiscreteDistribution</code><span class="sig-paren">(</span><em>discereteDistribution</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#sampleFromDiscreteDistribution"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.sampleFromDiscreteDistribution" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">sampleFromDiscreteDistribution</code><span class="sig-paren">(</span><em>discereteDistribution</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.sampleFromDiscreteDistribution" title="Permalink to this definition">¶</a></dt>
 <dd><p>Expecting an instance of DiscreteDistribution</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.sampleFromNumSteps">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">sampleFromNumSteps</code><span class="sig-paren">(</span><em>numSteps</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#sampleFromNumSteps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.sampleFromNumSteps" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">sampleFromNumSteps</code><span class="sig-paren">(</span><em>numSteps</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.sampleFromNumSteps" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.sampleFromProbsArr">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">sampleFromProbsArr</code><span class="sig-paren">(</span><em>arrWithProbs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#sampleFromProbsArr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.sampleFromProbsArr" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">sampleFromProbsArr</code><span class="sig-paren">(</span><em>arrWithProbs</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.sampleFromProbsArr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Will return a sampled index</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.sampleFromRangeWithStepSize">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">sampleFromRangeWithStepSize</code><span class="sig-paren">(</span><em>minVal</em>, <em>maxVal</em>, <em>stepSize</em>, <em>cast</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#sampleFromRangeWithStepSize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.sampleFromRangeWithStepSize" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">sampleFromRangeWithStepSize</code><span class="sig-paren">(</span><em>minVal</em>, <em>maxVal</em>, <em>stepSize</em>, <em>cast</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.sampleFromRangeWithStepSize" title="Permalink to this definition">¶</a></dt>
 <dd><p>cast can be just max-min</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.sampleNinstancesFromDiscreteDistribution">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">sampleNinstancesFromDiscreteDistribution</code><span class="sig-paren">(</span><em>N</em>, <em>discreteDistribution</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#sampleNinstancesFromDiscreteDistribution"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.sampleNinstancesFromDiscreteDistribution" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">sampleNinstancesFromDiscreteDistribution</code><span class="sig-paren">(</span><em>N</em>, <em>discreteDistribution</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.sampleNinstancesFromDiscreteDistribution" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.sampleWithoutReplacement">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">sampleWithoutReplacement</code><span class="sig-paren">(</span><em>arr</em>, <em>numToSample</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#sampleWithoutReplacement"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.sampleWithoutReplacement" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">sampleWithoutReplacement</code><span class="sig-paren">(</span><em>arr</em>, <em>numToSample</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.sampleWithoutReplacement" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.sendEmail">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">sendEmail</code><span class="sig-paren">(</span><em>to</em>, <em>frm</em>, <em>subject</em>, <em>contents</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#sendEmail"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.sendEmail" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">sendEmail</code><span class="sig-paren">(</span><em>to</em>, <em>frm</em>, <em>subject</em>, <em>contents</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.sendEmail" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.sendEmails">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">sendEmails</code><span class="sig-paren">(</span><em>tos</em>, <em>frm</em>, <em>subject</em>, <em>contents</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#sendEmails"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.sendEmails" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">sendEmails</code><span class="sig-paren">(</span><em>tos</em>, <em>frm</em>, <em>subject</em>, <em>contents</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.sendEmails" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.seqTo2DImages_fillInArray">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">seqTo2DImages_fillInArray</code><span class="sig-paren">(</span><em>zerosArray</em>, <em>sequence</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#seqTo2DImages_fillInArray"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.seqTo2DImages_fillInArray" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">seqTo2DImages_fillInArray</code><span class="sig-paren">(</span><em>zerosArray</em>, <em>sequence</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.seqTo2DImages_fillInArray" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.seqTo2Dimage">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">seqTo2Dimage</code><span class="sig-paren">(</span><em>sequence</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#seqTo2Dimage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.seqTo2Dimage" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">seqTo2Dimage</code><span class="sig-paren">(</span><em>sequence</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.seqTo2Dimage" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.setOfSeqsTo2Dimages">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">setOfSeqsTo2Dimages</code><span class="sig-paren">(</span><em>sequences</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#setOfSeqsTo2Dimages"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.setOfSeqsTo2Dimages" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">setOfSeqsTo2Dimages</code><span class="sig-paren">(</span><em>sequences</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.setOfSeqsTo2Dimages" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.shuffleArray">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">shuffleArray</code><span class="sig-paren">(</span><em>*arrs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#shuffleArray"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.shuffleArray" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">shuffleArray</code><span class="sig-paren">(</span><em>*arrs</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.shuffleArray" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.sortByLabels">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">sortByLabels</code><span class="sig-paren">(</span><em>arr</em>, <em>labels</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#sortByLabels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.sortByLabels" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">sortByLabels</code><span class="sig-paren">(</span><em>arr</em>, <em>labels</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.sortByLabels" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="docutils">
 <dt>intended use case: sorting by cluster labels for</dt>
 <dd>plotting a heatmap</dd>
@@ -1064,59 +1077,59 @@ Will be incorportated into the filename</div></blockquote>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.splitChromStartEnd">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">splitChromStartEnd</code><span class="sig-paren">(</span><em>chromId</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#splitChromStartEnd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.splitChromStartEnd" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">splitChromStartEnd</code><span class="sig-paren">(</span><em>chromId</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.splitChromStartEnd" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.splitIgnoringQuotes">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">splitIgnoringQuotes</code><span class="sig-paren">(</span><em>string</em>, <em>charToSplitOn=' '</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#splitIgnoringQuotes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.splitIgnoringQuotes" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">splitIgnoringQuotes</code><span class="sig-paren">(</span><em>string</em>, <em>charToSplitOn=' '</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.splitIgnoringQuotes" title="Permalink to this definition">¶</a></dt>
 <dd><p>will split on charToSplitOn, ignoring things that are in quotes</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.splitIntegerIntoProportions">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">splitIntegerIntoProportions</code><span class="sig-paren">(</span><em>integer</em>, <em>proportions</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#splitIntegerIntoProportions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.splitIntegerIntoProportions" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">splitIntegerIntoProportions</code><span class="sig-paren">(</span><em>integer</em>, <em>proportions</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.splitIntegerIntoProportions" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.submitProcess">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">submitProcess</code><span class="sig-paren">(</span><em>command</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#submitProcess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.submitProcess" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">submitProcess</code><span class="sig-paren">(</span><em>command</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.submitProcess" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.sumAbsDifferences">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">sumAbsDifferences</code><span class="sig-paren">(</span><em>arr1</em>, <em>arr2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#sumAbsDifferences"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.sumAbsDifferences" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">sumAbsDifferences</code><span class="sig-paren">(</span><em>arr1</em>, <em>arr2</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.sumAbsDifferences" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.sumNumpyArrays">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">sumNumpyArrays</code><span class="sig-paren">(</span><em>numpyArrays</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#sumNumpyArrays"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.sumNumpyArrays" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">sumNumpyArrays</code><span class="sig-paren">(</span><em>numpyArrays</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.sumNumpyArrays" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.swapIndices">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">swapIndices</code><span class="sig-paren">(</span><em>arr</em>, <em>idx1</em>, <em>idx2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#swapIndices"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.swapIndices" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">swapIndices</code><span class="sig-paren">(</span><em>arr</em>, <em>idx1</em>, <em>idx2</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.swapIndices" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.throwErrorIfUnequalSets">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">throwErrorIfUnequalSets</code><span class="sig-paren">(</span><em>given</em>, <em>expected</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#throwErrorIfUnequalSets"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.throwErrorIfUnequalSets" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">throwErrorIfUnequalSets</code><span class="sig-paren">(</span><em>given</em>, <em>expected</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.throwErrorIfUnequalSets" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.transformType">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">transformType</code><span class="sig-paren">(</span><em>inp</em>, <em>theType</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#transformType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.transformType" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">transformType</code><span class="sig-paren">(</span><em>inp</em>, <em>theType</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.transformType" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.valToIndexMap">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">valToIndexMap</code><span class="sig-paren">(</span><em>arr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#valToIndexMap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.valToIndexMap" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">valToIndexMap</code><span class="sig-paren">(</span><em>arr</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.valToIndexMap" title="Permalink to this definition">¶</a></dt>
 <dd><p>A map from a value to the index at which it occurs</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="dragonn.synthetic.util.yamlToArgsString">
-<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">yamlToArgsString</code><span class="sig-paren">(</span><em>yamlString</em>, <em>subDictEnclosingChars='&quot;'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/synthetic/util.html#yamlToArgsString"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.synthetic.util.yamlToArgsString" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.synthetic.util.</code><code class="descname">yamlToArgsString</code><span class="sig-paren">(</span><em>yamlString</em>, <em>subDictEnclosingChars='&quot;'</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.synthetic.util.yamlToArgsString" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -1124,6 +1137,15 @@ Will be incorportated into the filename</div></blockquote>
 
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="dragonn.hyperparameter_search.html" class="btn btn-neutral float-right" title="dragonn.hyperparameter_search module">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="dragonn.synthetic.synthetic.html" class="btn btn-neutral" title="dragonn.synthetic.synthetic module"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

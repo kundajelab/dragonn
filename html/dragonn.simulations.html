@@ -30,7 +30,10 @@
   
 
   
-    <link rel="top" title="DragoNN 0.1 documentation" href="index.html"/> 
+    <link rel="top" title="DragoNN 0.1 documentation" href="index.html"/>
+        <link rel="up" title="dragonn package" href="dragonn.html"/>
+        <link rel="next" title="dragonn.tutorial_utils module" href="dragonn.tutorial_utils.html"/>
+        <link rel="prev" title="dragonn.plot module" href="dragonn.plot.html"/> 
 
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
@@ -61,7 +64,13 @@
         
           
           
-              <ul class="simple">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="dragonn.html">dragonn package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="dragonn.html#subpackages">Subpackages</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="dragonn.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dragonn.html#module-dragonn">Module contents</a></li>
+</ul>
+</li>
 </ul>
 
           
@@ -86,6 +95,8 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
+          <li><a href="dragonn.html">dragonn package</a> &raquo;</li>
+      
     <li>dragonn.simulations module</li>
       <li class="wy-breadcrumbs-aside">
         
@@ -101,24 +112,24 @@
 <span id="dragonn-simulations-module"></span><h1>dragonn.simulations module<a class="headerlink" href="#module-dragonn.simulations" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="dragonn.simulations.get_distribution">
-<code class="descclassname">dragonn.simulations.</code><code class="descname">get_distribution</code><span class="sig-paren">(</span><em>GC_fraction</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/simulations.html#get_distribution"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.simulations.get_distribution" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.simulations.</code><code class="descname">get_distribution</code><span class="sig-paren">(</span><em>GC_fraction</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.simulations.get_distribution" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dragonn.simulations.motif_density">
-<code class="descclassname">dragonn.simulations.</code><code class="descname">motif_density</code><span class="sig-paren">(</span><em>motif_name</em>, <em>seq_length</em>, <em>num_seqs</em>, <em>min_counts</em>, <em>max_counts</em>, <em>GC_fraction</em>, <em>central_bp=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/simulations.html#motif_density"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.simulations.motif_density" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.simulations.</code><code class="descname">motif_density</code><span class="sig-paren">(</span><em>motif_name</em>, <em>seq_length</em>, <em>num_seqs</em>, <em>min_counts</em>, <em>max_counts</em>, <em>GC_fraction</em>, <em>central_bp=None</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.simulations.motif_density" title="Permalink to this definition">¶</a></dt>
 <dd><p>returns sequences with motif density.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="dragonn.simulations.simple_motif_embedding">
-<code class="descclassname">dragonn.simulations.</code><code class="descname">simple_motif_embedding</code><span class="sig-paren">(</span><em>motif_name</em>, <em>seq_length</em>, <em>num_seqs</em>, <em>GC_fraction</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/simulations.html#simple_motif_embedding"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.simulations.simple_motif_embedding" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.simulations.</code><code class="descname">simple_motif_embedding</code><span class="sig-paren">(</span><em>motif_name</em>, <em>seq_length</em>, <em>num_seqs</em>, <em>GC_fraction</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.simulations.simple_motif_embedding" title="Permalink to this definition">¶</a></dt>
 <dd><p>returns sequence array</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="dragonn.simulations.simulate_differential_accessibility">
-<code class="descclassname">dragonn.simulations.</code><code class="descname">simulate_differential_accessibility</code><span class="sig-paren">(</span><em>pos_motif_names</em>, <em>neg_motif_names</em>, <em>seq_length</em>, <em>min_num_motifs</em>, <em>max_num_motifs</em>, <em>num_pos</em>, <em>num_neg</em>, <em>GC_fraction</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/simulations.html#simulate_differential_accessibility"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.simulations.simulate_differential_accessibility" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.simulations.</code><code class="descname">simulate_differential_accessibility</code><span class="sig-paren">(</span><em>pos_motif_names</em>, <em>neg_motif_names</em>, <em>seq_length</em>, <em>min_num_motifs</em>, <em>max_num_motifs</em>, <em>num_pos</em>, <em>num_neg</em>, <em>GC_fraction</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.simulations.simulate_differential_accessibility" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates data for differential accessibility task.</p>
 <dl class="docutils">
 <dt>pos_motif_names <span class="classifier-delimiter">:</span> <span class="classifier">list</span></dt>
@@ -142,7 +153,7 @@ GC_fraction : float</p>
 
 <dl class="function">
 <dt id="dragonn.simulations.simulate_heterodimer_grammar">
-<code class="descclassname">dragonn.simulations.</code><code class="descname">simulate_heterodimer_grammar</code><span class="sig-paren">(</span><em>motif1</em>, <em>motif2</em>, <em>seq_length</em>, <em>min_spacing</em>, <em>max_spacing</em>, <em>num_pos</em>, <em>num_neg</em>, <em>GC_fraction</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/simulations.html#simulate_heterodimer_grammar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.simulations.simulate_heterodimer_grammar" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.simulations.</code><code class="descname">simulate_heterodimer_grammar</code><span class="sig-paren">(</span><em>motif1</em>, <em>motif2</em>, <em>seq_length</em>, <em>min_spacing</em>, <em>max_spacing</em>, <em>num_pos</em>, <em>num_neg</em>, <em>GC_fraction</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.simulations.simulate_heterodimer_grammar" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="docutils">
 <dt>Simulates two classes of sequences with motif1 and motif2:</dt>
 <dd><ul class="first simple">
@@ -171,7 +182,7 @@ max_spacing : int, maximum inter motif spacing</p>
 
 <dl class="function">
 <dt id="dragonn.simulations.simulate_motif_counting">
-<code class="descclassname">dragonn.simulations.</code><code class="descname">simulate_motif_counting</code><span class="sig-paren">(</span><em>motif_name</em>, <em>seq_length</em>, <em>pos_counts</em>, <em>neg_counts</em>, <em>num_pos</em>, <em>num_neg</em>, <em>GC_fraction</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/simulations.html#simulate_motif_counting"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.simulations.simulate_motif_counting" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.simulations.</code><code class="descname">simulate_motif_counting</code><span class="sig-paren">(</span><em>motif_name</em>, <em>seq_length</em>, <em>pos_counts</em>, <em>neg_counts</em>, <em>num_pos</em>, <em>num_neg</em>, <em>GC_fraction</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.simulations.simulate_motif_counting" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates data for motif counting task.
 Parameters
 &#8212;&#8212;&#8212;-
@@ -200,7 +211,7 @@ sequence_arr : 1darray</p>
 
 <dl class="function">
 <dt id="dragonn.simulations.simulate_motif_density_localization">
-<code class="descclassname">dragonn.simulations.</code><code class="descname">simulate_motif_density_localization</code><span class="sig-paren">(</span><em>motif_name</em>, <em>seq_length</em>, <em>center_size</em>, <em>min_motif_counts</em>, <em>max_motif_counts</em>, <em>num_pos</em>, <em>num_neg</em>, <em>GC_fraction</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/simulations.html#simulate_motif_density_localization"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.simulations.simulate_motif_density_localization" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.simulations.</code><code class="descname">simulate_motif_density_localization</code><span class="sig-paren">(</span><em>motif_name</em>, <em>seq_length</em>, <em>center_size</em>, <em>min_motif_counts</em>, <em>max_motif_counts</em>, <em>num_pos</em>, <em>num_neg</em>, <em>GC_fraction</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.simulations.simulate_motif_density_localization" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="docutils">
 <dt>Simulates two classes of seqeuences:</dt>
 <dd><ul class="first last simple">
@@ -241,7 +252,7 @@ between minimum and maximum motif counts.</p>
 
 <dl class="function">
 <dt id="dragonn.simulations.simulate_multi_motif_embedding">
-<code class="descclassname">dragonn.simulations.</code><code class="descname">simulate_multi_motif_embedding</code><span class="sig-paren">(</span><em>motif_names</em>, <em>seq_length</em>, <em>min_num_motifs</em>, <em>max_num_motifs</em>, <em>num_seqs</em>, <em>GC_fraction</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/simulations.html#simulate_multi_motif_embedding"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.simulations.simulate_multi_motif_embedding" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.simulations.</code><code class="descname">simulate_multi_motif_embedding</code><span class="sig-paren">(</span><em>motif_names</em>, <em>seq_length</em>, <em>min_num_motifs</em>, <em>max_num_motifs</em>, <em>num_seqs</em>, <em>GC_fraction</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.simulations.simulate_multi_motif_embedding" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates data for multi motif recognition task.
 Parameters
 &#8212;&#8212;&#8212;-
@@ -266,7 +277,7 @@ sequence_arr : 1darray</p>
 
 <dl class="function">
 <dt id="dragonn.simulations.simulate_single_motif_detection">
-<code class="descclassname">dragonn.simulations.</code><code class="descname">simulate_single_motif_detection</code><span class="sig-paren">(</span><em>motif_name</em>, <em>seq_length</em>, <em>num_pos</em>, <em>num_neg</em>, <em>GC_fraction</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dragonn/simulations.html#simulate_single_motif_detection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dragonn.simulations.simulate_single_motif_detection" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dragonn.simulations.</code><code class="descname">simulate_single_motif_detection</code><span class="sig-paren">(</span><em>motif_name</em>, <em>seq_length</em>, <em>num_pos</em>, <em>num_neg</em>, <em>GC_fraction</em><span class="sig-paren">)</span><a class="headerlink" href="#dragonn.simulations.simulate_single_motif_detection" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="docutils">
 <dt>Simulates two classes of seqeuences:</dt>
 <dd><ul class="first last simple">
@@ -301,6 +312,15 @@ embedded anywhere in the sequence</li>
 
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="dragonn.tutorial_utils.html" class="btn btn-neutral float-right" title="dragonn.tutorial_utils module">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="dragonn.plot.html" class="btn btn-neutral" title="dragonn.plot module"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
