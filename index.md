@@ -12,3 +12,7 @@ The `dragonn` package implements deep neural networks (DNNs) for predictive mode
 You can install dragonn from [anaconda](https://anaconda.org/kundajelab/dragonn) with:
 
 `conda install -c kundajelab dragonn`
+
+### Documentation
+
+Complete documentation can be found in this [manual]({{ site.baseurl }}/manual.pdf).
