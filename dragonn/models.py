@@ -165,7 +165,7 @@ class SequenceDNN(Model):
             num_positives = y.sum()
             num_sequences = len(y)
             num_negatives = num_sequences - num_positives
-        self.callbacks = [EarlyStopping(monitor='val_loss', patience=2)]
+        self.callbacks = [EarlyStopping(monitor='val_loss', patience=5)]
         if self.verbose >= 1:
             self.callbacks.append(self.PrintMetrics(validation_data, self))
             print('Training model...')
@@ -273,12 +273,17 @@ class MotifScoreRNN(Model):
 
 class gkmSVM(Model):
 
-    def __init__(self, prefix='./gkmSVM', word_length=11, mismatches=3, C=1):
+    def __init__(self, prefix='./gkmSVM', word_length=11, mismatches=3, C=1,
+                 threads=1, cache_memory=100):
         self.word_length = word_length
         self.mismatches = mismatches
         self.C = C
-        self.prefix = '_'.join(
-            map(str, (prefix, self.word_length, self.mismatches, self.C)))
+        self.threads = threads
+        self.prefix = '_'.join(map(str, (prefix, word_length, mismatches, C)))
+        options_list = zip(
+            ['-l', '-d', '-c', '-T', '-m'],
+            map(str, (word_length, mismatches, C, threads, cache_memory)))
+        self.options = ' '.join([' '.join(option) for option in options_list])
 
     @property
     def model_file(self):
@@ -307,7 +312,8 @@ class gkmSVM(Model):
         self.encode_sequence_into_fasta_file(pos_sequence, pos_fname)
         self.encode_sequence_into_fasta_file(neg_sequence, neg_fname)
         # run command
-        command = ' '.join(('gkmtrain', pos_fname, neg_fname, self.prefix))
+        command = ' '.join(
+            ('gkmtrain', self.options, pos_fname, neg_fname, self.prefix))
         process = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True)
         process.wait()  # wait for it to finish
         # remove fasta files
@@ -322,8 +328,12 @@ class gkmSVM(Model):
         self.encode_sequence_into_fasta_file(X, test_fname)
         # test gkmsvm
         temp_ofp = tempfile.NamedTemporaryFile()
-        command = ' '.join(
-            ['gkmpredict', test_fname, self.model_file, temp_ofp.name])
+        threads_option = '-T %s' % (str(self.threads))
+        command = ' '.join(['gkmpredict',
+                            test_fname,
+                            self.model_file,
+                            temp_ofp.name,
+                            threads_option])
         process = subprocess.Popen(command, shell=True)
         process.wait()  # wait for it to finish
         os.system("rm %s" % test_fname)  # remove fasta file
