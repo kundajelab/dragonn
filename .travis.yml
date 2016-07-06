@@ -15,13 +15,11 @@ before_install:
   # Install in batch mode
   - ./miniconda.sh -b  -p $HOME/miniconda
   - export PATH=$HOME/miniconda/bin:$PATH
-  - which python
   - conda update --yes conda
 
 install:
-  # Install Theano dependency in advance
-  # pip cannot easily install scipy on the Travis CI server
-  - conda install --yes python=$TRAVIS_PYTHON_VERSION scipy
+  # pip cannot easily install scipy or matplotlib on the Travis CI server
+  - conda install --yes python=$TRAVIS_PYTHON_VERSION scipy matplotlib
   # Install the cloned dragonn package from source using Anaconda
   # Process the deeplift dependency_links in setup.py
   - pip install . --process-dependency-links
