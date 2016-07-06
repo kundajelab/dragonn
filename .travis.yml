@@ -1,11 +1,27 @@
 # Config file for automatic testing at travis-ci.org
+# Conda testing for Travis CI from https://gist.github.com/dan-blanchard/7045057
 language: python
 
 python:
-  - "2.7"
+  - 2.7
+
+notifications:
+  email: false
+  
+# Setup Anaconda
+before_install:
+  - wget http://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh -O miniconda.sh
+  - chmod +x miniconda.sh
+  # Install in batch mode
+  - ./miniconda.sh -b
+  - export PATH=/home/travis/miniconda/bin:$PATH
+  - conda update --yes conda
 
 install:
-  # Install the cloned dragonn package from source
+  # Install Theano dependency in advance
+  # pip cannot easily install scipy on the Travis CI server
+  - conda install --yes python=$TRAVIS_PYTHON_VERSION scipy
+  # Install the cloned dragonn package from source using Anaconda
   # Process the deeplift dependency_links in setup.py
   - pip install . --process-dependency-links
 
