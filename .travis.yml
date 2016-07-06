@@ -13,8 +13,9 @@ before_install:
   - wget http://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh -O miniconda.sh
   - chmod +x miniconda.sh
   # Install in batch mode
-  - ./miniconda.sh -b
-  - export PATH=/home/travis/miniconda/bin:$PATH
+  - ./miniconda.sh -b  -p $HOME/miniconda
+  - export PATH=$HOME/miniconda/bin:$PATH
+  - which python
   - conda update --yes conda
 
 install:
