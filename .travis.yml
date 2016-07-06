@@ -6,7 +6,8 @@ python:
 
 install:
   # Install the cloned dragonn package from source
-  - pip install .
+  # Process the deeplift dependency_links in setup.py
+  - pip install . --process-dependency-links
 
 # Do not test the package functionality, simply run an arbitrary tutorial function
 script: python -c 'from dragonn.tutorial_utils import print_available_simulations; print_available_simulations()'
