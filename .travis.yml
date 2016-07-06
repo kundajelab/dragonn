@@ -1,0 +1,12 @@
+# Config file for automatic testing at travis-ci.org
+language: python
+
+python:
+  - "2.7"
+
+install:
+  # Install the cloned dragonn package from source
+  - pip install .
+
+# Do not test the package functionality, simply run an arbitrary tutorial function
+script: python -c 'from dragonn.tutorial_utils import print_available_simulations; print_available_simulations()'
