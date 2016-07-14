@@ -78,3 +78,17 @@ def one_hot_encode(sequences):
 
 def reverse_complement(encoded_seqs):
     return encoded_seqs[..., ::-1, ::-1]
+
+
+def get_sequence_strings(encoded_sequences):
+    """
+    Converts encoded sequences into an array with sequence strings
+    """
+    num_samples, _, _, seq_length = np.shape(encoded_sequences)
+    sequence_characters = np.chararray((num_samples, seq_length))
+    sequence_characters[:] = 'N'
+    for i, letter in enumerate(['A', 'C', 'G', 'T']):
+        letter_indxs = (encoded_sequences[:, :, i, :] == 1).squeeze()
+        sequence_characters[letter_indxs] = letter
+    # return 1D view of sequence characters
+    return sequence_characters.view('S%s' % (seq_length)).ravel()
