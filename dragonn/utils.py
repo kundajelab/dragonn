@@ -69,11 +69,13 @@ def one_hot_encode(sequences):
     sequence_length = len(sequences[0])
     integer_type = np.int8 if sys.version_info[
         0] == 2 else np.int32  # depends on Python version
-    integer_array = LabelEncoder().fit(np.array(('ACGT',)).view(integer_type)).transform(
+    integer_array = LabelEncoder().fit(np.array(('ACGTN',)).view(integer_type)).transform(
         sequences.view(integer_type)).reshape(len(sequences), sequence_length)
     one_hot_encoding = OneHotEncoder(
-        sparse=False, n_values=4).fit_transform(integer_array)
-    return one_hot_encoding.reshape(len(sequences), 1, sequence_length, 4).swapaxes(2, 3)
+        sparse=False, n_values=5).fit_transform(integer_array)
+
+    return one_hot_encoding.reshape(
+        len(sequences), 1, sequence_length, 5).swapaxes(2, 3)[:, :, [0, 1, 2, 4], :]
 
 
 def reverse_complement(encoded_seqs):
@@ -92,3 +94,24 @@ def get_sequence_strings(encoded_sequences):
         sequence_characters[letter_indxs] = letter
     # return 1D view of sequence characters
     return sequence_characters.view('S%s' % (seq_length)).ravel()
+
+
+def encode_fasta_sequences(fname):
+    """
+    One hot encodes sequences in fasta file
+    """
+    name, seq_chars = None, []
+    sequences = []
+    with open(fname) as fp:
+        for line in fp:
+            line = line.rstrip()
+            if line.startswith(">"):
+                if name:
+                    sequences.append(''.join(seq_chars).upper())
+                name, seq_chars = line, []
+            else:
+                seq_chars.append(line)
+    if name is not None:
+        sequences.append(''.join(seq_chars).upper())
+
+    return one_hot_encode(np.array(sequences))
