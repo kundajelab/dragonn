@@ -2,7 +2,7 @@ from __future__ import absolute_import, division, print_function
 import numpy as np
 from collections import OrderedDict
 from sklearn.metrics import auc, precision_recall_curve, roc_auc_score
-from dragonn.prg import create_prg_curve, calc_auprg
+from prg.prg import create_prg_curve, calc_auprg
 
 
 class IgnoreNumpyErrors(object):
