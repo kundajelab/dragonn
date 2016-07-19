@@ -274,15 +274,15 @@ class MotifScoreRNN(Model):
 class gkmSVM(Model):
 
     def __init__(self, prefix='./gkmSVM', word_length=11, mismatches=3, C=1,
-                 threads=1, cache_memory=100):
+                 threads=1, cache_memory=100, verbosity=4):
         self.word_length = word_length
         self.mismatches = mismatches
         self.C = C
         self.threads = threads
         self.prefix = '_'.join(map(str, (prefix, word_length, mismatches, C)))
         options_list = zip(
-            ['-l', '-d', '-c', '-T', '-m'],
-            map(str, (word_length, mismatches, C, threads, cache_memory)))
+            ['-l', '-d', '-c', '-T', '-m', '-v'],
+            map(str, (word_length, mismatches, C, threads, cache_memory, verbosity)))
         self.options = ' '.join([' '.join(option) for option in options_list])
 
     @property
