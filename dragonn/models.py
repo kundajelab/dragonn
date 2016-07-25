@@ -4,6 +4,7 @@ import os
 import subprocess
 import tempfile
 from abc import abstractmethod, ABCMeta
+import json
 from keras.models import Sequential
 from keras.callbacks import Callback, EarlyStopping
 from keras.layers.core import (
@@ -43,6 +44,13 @@ class Model(object):
 
     def score(self, X, y, metric):
         return self.test(X, y)[metric]
+
+
+def load_sequence_dnn(model_fname, weights_fname):
+    model_params = json.load(open(model_fname, 'rb'))
+    sequence_dnn = SequenceDNN(**model_params)
+    sequence_dnn.model.load_weights(weights_fname)
+    return sequence_dnn
 
 
 class SequenceDNN(Model):
@@ -119,6 +127,7 @@ class SequenceDNN(Model):
                  num_filters_2=15, conv_width_2=15, num_filters_3=15,
                  conv_width_3=15, pool_width=35, L1=0, dropout=0.0,
                  GRU_size=35, TDD_size=15, verbose=1):
+        self.saved_params = locals()
         self.seq_length = seq_length
         self.input_shape = (1, 4, self.seq_length)
         self.conv_width = conv_width
@@ -182,6 +191,12 @@ class SequenceDNN(Model):
 
     def predict(self, X):
         return self.model.predict(X, batch_size=128, verbose=False)
+
+    def save(self, model_fname, weights_fname):
+        if 'self' in self.saved_params:
+            del self.saved_params['self']
+        json.dump(self.saved_params, open(model_fname, 'wb'), indent=4)
+        self.model.save_weights(weights_fname, overwrite = True)
 
     def get_sequence_filters(self):
         """
