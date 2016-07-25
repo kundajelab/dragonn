@@ -5,17 +5,6 @@ from sklearn.metrics import auc, precision_recall_curve, roc_auc_score
 from prg.prg import create_prg_curve, calc_auprg
 
 
-class IgnoreNumpyErrors(object):
-    # Ignore warnings from comparing with nan, division by 0 and numerical
-    # overflow/underflow
-
-    def __enter__(self):
-        self.prev_error_handler = np.seterr(all='ignore')
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        np.seterr(**self.prev_error_handler)
-
-
 def positive_accuracy(labels, predictions, threshold=0.5):
     return 100 * (predictions[labels] > threshold).mean()
 
@@ -82,4 +71,4 @@ class ClassificationResult(object):
             for task_index, results in enumerate(self.results))
 
     def __getitem__(self, item):
-        return self.results[item]
+        return np.array([task_results[item] for task_results in self.results])

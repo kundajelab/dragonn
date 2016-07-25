@@ -150,7 +150,7 @@ def plot_SequenceDNN_layer_outputs(dnn, simulation_data):
     fig = plt.figure(figsize=(15, 12))
     ax1 = fig.add_subplot(3, 1, 3)
     heatmap = ax1.imshow(conv_outputs, aspect='auto', interpolation='None', cmap='seismic')
-    colorbar = fig.colorbar(heatmap)
+    fig.colorbar(heatmap)
     ax1.set_ylabel("Convolutional Filters")
     ax1.set_xlabel("Position")
     ax1.get_yaxis().set_ticks([])
@@ -160,7 +160,7 @@ def plot_SequenceDNN_layer_outputs(dnn, simulation_data):
 
     ax2 = fig.add_subplot(3, 1, 2)
     heatmap = ax2.imshow(conv_relu_outputs, aspect='auto', interpolation='None', cmap='seismic')
-    colorbar = fig.colorbar(heatmap)
+    fig.colorbar(heatmap)
     ax2.set_ylabel("Convolutional Filters")
     ax2.get_yaxis().set_ticks([])
     ax2.get_xaxis().set_ticks([])
@@ -169,7 +169,7 @@ def plot_SequenceDNN_layer_outputs(dnn, simulation_data):
 
     ax3 = fig.add_subplot(3, 1, 1)
     heatmap = ax3.imshow(maxpool_outputs, aspect='auto', interpolation='None', cmap='seismic')
-    colorbar = fig.colorbar(heatmap)
+    fig.colorbar(heatmap)
     ax3.set_title("DNN outputs after max pooling")
     ax3.set_ylabel("Convolutional Filters")
     ax3.get_yaxis().set_ticks([])
@@ -208,15 +208,17 @@ def interpret_SequenceDNN_integrative(dnn, simulation_data):
     # get motif scores, ISM scores, and DeepLIFT scores
     scores_dict = defaultdict(OrderedDict)
     scores_dict['Positive']['Motif Scores'] = get_motif_scores(pos_X, simulation_data.motif_names)
-    scores_dict['Positive']['ISM Scores'] =  dnn.in_silico_mutagenesis(pos_X).sum(axis=-2)
-    scores_dict['Positive']['DeepLIFT Scores'] = dnn.deeplift(pos_X).sum(axis=-2)
+    scores_dict['Positive']['ISM Scores'] =  dnn.in_silico_mutagenesis(pos_X).max(axis=-2)
+    scores_dict['Positive']['DeepLIFT Scores'] = dnn.deeplift(pos_X).max(axis=-2)
     scores_dict['Negative']['Motif Scores'] = get_motif_scores(neg_X, simulation_data.motif_names)
-    scores_dict['Negative']['ISM Scores'] =  dnn.in_silico_mutagenesis(neg_X).sum(axis=-2)
-    scores_dict['Negative']['DeepLIFT Scores'] = dnn.deeplift(neg_X).sum(axis=-2)
+    scores_dict['Negative']['ISM Scores'] =  dnn.in_silico_mutagenesis(neg_X).max(axis=-2)
+    scores_dict['Negative']['DeepLIFT Scores'] = dnn.deeplift(neg_X).max(axis=-2)
     # get motif site locations
     motif_sites = {}
-    motif_sites['Positive'] = [np.argmax(scores_dict['Positive']['Motif Scores'][0, i, :]) for i in range(len(simulation_data.motif_names))]
-    motif_sites['Negative'] = [np.argmax(scores_dict['Negative']['Motif Scores'][0, i, :]) for i in range(len(simulation_data.motif_names))]
+    motif_sites['Positive'] = [np.argmax(scores_dict['Positive']['Motif Scores'][0, i, :])
+                               for i in range(len(simulation_data.motif_names))]
+    motif_sites['Negative'] = [np.argmax(scores_dict['Negative']['Motif Scores'][0, i, :])
+                               for i in range(len(simulation_data.motif_names))]
     # organize legends
     motif_label_dict = {}
     motif_label_dict['Motif Scores'] = simulation_data.motif_names
@@ -231,7 +233,6 @@ def interpret_SequenceDNN_integrative(dnn, simulation_data):
     plots_per_column = 3
     ylim_dict = {'Motif Scores': (-80, 30), 'ISM Scores': (-1.5, 3.0), 'DeepLIFT Scores': (-1.5, 3.0)}
     motif_colors = ['b', 'r', 'c', 'm', 'g', 'k', 'y']
-    motif_labels_cache = []
     font_size = 12
     num_x_ticks = 5
     highlight_width = 5
@@ -276,17 +277,19 @@ def interpret_SequenceDNN_integrative(dnn, simulation_data):
                 if score_type=='Motif Scores':
                     scores_to_plot = scores[0, _i, :]
                 else:
-                    scores_to_plot = scores.squeeze()
+                    scores_to_plot = scores.squeeze(axis=2)
                 if motif_label not in motif_labels_cache:
                     motif_labels_cache.append(motif_label)
                     add_legend = True
                 motif_color = motif_colors[motif_labels_cache.index(motif_label)]
                 ax.plot(scores_to_plot, label=motif_label, c=motif_color)
                 if add_legend:
-                    leg = ax.legend(loc=[0,0.85], frameon=False, fontsize=font_size, ncol=3, handlelength=-0.5)
+                    leg = ax.legend(loc=[0,0.85], frameon=False, fontsize=font_size,
+                                    ncol=3, handlelength=-0.5)
                     for legobj in leg.legendHandles:
                         legobj.set_color('w')
                     for _i, text in enumerate(leg.get_texts()):
                         text.set_color(motif_color)
             for motif_site in motif_sites[key]:
-                ax.axvspan(motif_site - highlight_width, motif_site + highlight_width, color='grey', alpha=0.1)
+                ax.axvspan(motif_site - highlight_width, motif_site + highlight_width,
+                           color='grey', alpha=0.1)

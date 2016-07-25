@@ -1,17 +1,13 @@
 import re
 
-from math import ceil
-from math import floor
-
-from itertools import izip
-
+import matplotlib
+matplotlib.use('pdf')
 from matplotlib import pyplot
 from matplotlib.patches import PathPatch
 from matplotlib.path import Path
 
 from shapely.wkt import loads as load_wkt
 from shapely import affinity
-from shapely.geometry import asLineString
 
 import numpy as np
 from dragonn.synthetic.synthetic import LoadedEncodeMotifs
@@ -170,7 +166,7 @@ def standardize_polygons_str(data_str):
     polygons_data = []
     for path_str in path_strs:
         data = np.array([
-            map(float, x.split()) for x in path_str.strip().split(",")])
+            tuple(map(float, x.split())) for x in path_str.strip().split(",")])
         polygons_data.append(data)
 
     # standardize the coordinates
@@ -195,7 +191,7 @@ letters_polygons['G'] = standardize_polygons_str(G_data)
 letters_polygons['T'] = standardize_polygons_str(T_data)
 
 
-colors = dict(izip(
+colors = dict(zip(
     'ACGT', (('green', 'white'), ('blue',), ('orange',), ('red',))
 ))
 
@@ -204,7 +200,7 @@ def add_letter_to_axis(ax, let, x, y, height):
     """Add 'let' with position x,y and height height to matplotlib axis 'ax'.
 
     """
-    for polygon, color in izip(letters_polygons[let], colors[let]):
+    for polygon, color in zip(letters_polygons[let], colors[let]):
         new_polygon = affinity.scale(
             polygon, yfact=height, origin=(0, 0, 0))
         new_polygon = affinity.translate(
@@ -213,6 +209,34 @@ def add_letter_to_axis(ax, let, x, y, height):
             new_polygon, edgecolor=color, facecolor=color)
         ax.add_patch(patch)
     return
+
+
+def plot_bases_on_ax(letter_heights, ax):
+    """
+    Plot the N letters with heights taken from the Nx4 matrix letter_heights.
+
+    Parameters
+    ----------
+    letter_heights: Nx4 array
+    ax: axis to plot on
+    """
+
+    assert letter_heights.shape[1] == 4, letter_heights.shape
+    for x_pos, heights in enumerate(letter_heights):
+        letters_and_heights = sorted(zip(heights, 'ACGT'))
+        y_pos_pos = 0.0
+        y_neg_pos = 0.0
+        for height, letter in letters_and_heights:
+            if height > 0:
+                add_letter_to_axis(ax, letter, 0.5 + x_pos, y_pos_pos, height)
+                y_pos_pos += height
+            elif height < 0:
+                add_letter_to_axis(ax, letter, 0.5 + x_pos, y_neg_pos, height)
+                y_neg_pos += height
+    ax.set_xlim(0, letter_heights.shape[0] + 1)
+    ax.set_xticks(np.arange(1, letter_heights.shape[0] + 1))
+    ax.set_aspect(aspect='auto', adjustable='box')
+    ax.autoscale_view()
 
 
 def plot_bases(letter_heights, figsize=(12, 6), ylab='bits'):
@@ -228,39 +252,12 @@ def plot_bases(letter_heights, figsize=(12, 6), ylab='bits'):
     -------
     pyplot figure
     """
-    assert letter_heights.shape[1] == 4
+    assert letter_heights.shape[1] == 4, letter_heights.shape
 
     fig = pyplot.figure(figsize=figsize)
-
-    x_range = [1, letter_heights.shape[0]]
-
-    pos_heights = np.copy(letter_heights)
-    pos_heights[letter_heights < 0] = 0
-
-    neg_heights = np.copy(letter_heights)
-    neg_heights[letter_heights > 0] = 0
-
     ax = fig.add_subplot(111)
-    for x_pos, heights in enumerate(letter_heights):
-        letters_and_heights = sorted(izip(heights, 'ACGT'))
-        y_pos_pos = 0.0
-        y_neg_pos = 0.0
-        for height, letter in letters_and_heights:
-            if height > 0:
-                add_letter_to_axis(ax, letter, 0.5 + x_pos, y_pos_pos, height)
-                y_pos_pos += height
-            else:
-                add_letter_to_axis(ax, letter, 0.5 + x_pos, y_neg_pos, height)
-                y_neg_pos += height
-
     ax.set_xlabel('pos')
     ax.set_ylabel(ylab)
-
-    ax.set_xlim(x_range[0] - 1, x_range[1] + 1)
-    ax.set_xticks(range(*x_range) + [x_range[-1]])
-
-    ax.set_aspect(aspect='auto', adjustable='box')
-    ax.autoscale_view()
 
     return fig
 
@@ -308,7 +305,7 @@ def add_letters_to_axis(ax, letter_heights):
     neg_heights[letter_heights > 0] = 0
 
     for x_pos, heights in enumerate(letter_heights):
-        letters_and_heights = sorted(izip(heights, 'ACGT'))
+        letters_and_heights = sorted(zip(heights, 'ACGT'))
         y_pos_pos = 0.0
         y_neg_pos = 0.0
         for height, letter in letters_and_heights:
