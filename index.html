@@ -9,26 +9,41 @@
   <link rel="stylesheet" href="/dragonn/css/normalize.css">
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="/dragonn/css/cayman.css">
+
+  <!-- google analytics -->
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-79329804-1', 'auto');
+      ga('send', 'pageview');
+  </script>
+
 </head>
+
 
   <body>
     <section class="page-header">
   <h1 class="project-name">DragoNN</h1>
   <h2 class="project-tagline">The dragonn package implements deep neural networks (DNNs) for regulatory genomics, methods for DNN interpretation, and provides tutorials showcasing dragonn models using sequence simulations.</h2>
   <a href="/dragonn/index.html" class="btn">Overview</a>
+  <a href="/dragonn/getting_started.html" class="btn">Start Here</a>
   <a href="/dragonn/workshops/index.html" class="btn">Workshops</a>
-  <a href="/dragonn/html/index.html" class="btn">Documentation</a>
   <a href="https://github.com/kundajelab/dragonn" class="btn">View on GitHub</a>
-  <a href="https://github.com/kundajelab/dragonn/zipball/master" class="btn">Download .zip</a>
-  <a href="https://github.com/kundajelab/dragonn/tarball/master" class="btn">Download .tar.gz</a>
+  <a href="https://github.com/kundajelab/dragonn/archive/0.1.0.zip" class="btn">Download .zip</a>
+  <a href="https://github.com/kundajelab/dragonn/archive/0.1.0.tar.gz" class="btn">Download .tar.gz</a>
 </section>
+
 
 
     <section class="main-content">
       
       <h3 id="overview-of-dragonn">Overview of DragoNN</h3>
 
-<p>The <code class="highlighter-rouge">dragonn</code> package implements deep neural networks (DNNs) for predictive modeling of regulatory genomics, feature importance methods such as <a href="https://arxiv.org/abs/1605.01713">DeepLIFT</a> and in-silico mutagenesis to interpret DNNs, and sequence simulations to systematically assess model development and interpretation.</p>
+<p>The <code class="highlighter-rouge">dragonn</code> package implements Deep RegulAtory GenOmic Neural Networks (DragoNNs) for predictive modeling of regulatory genomics, nucleotide-resolution feature discovery, and simulations for systematic development and benchmarking.</p>
+
+<p><img src="http://i.imgur.com/1fAgrt2.gif" alt="demo" /></p>
 
 <h3 id="installation">Installation</h3>
 
@@ -36,9 +51,9 @@
 
 <p><code class="highlighter-rouge">conda install -c kundajelab dragonn</code></p>
 
-<h3 id="documentation">Documentation</h3>
+<h3 id="getting-started">Getting started</h3>
 
-<p>Complete documentation can be found in this <a href="/dragonn/manual.pdf">manual</a>.</p>
+<p>See our <a href="/dragonn/getting_started.html">start here page</a> for step-by-step guide to dragonn.</p>
 
 
       <footer class="site-footer">
