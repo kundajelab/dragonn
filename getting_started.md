@@ -5,13 +5,13 @@ title: {{ site.name }}
 
 # Getting Started 
 The Dragonn software and associated tutorial can be accessed as a public image through Amazon Web Services. We recommend this option for users who 
-do not have access to GPU's on their local systems, as the AWS instance will allow them to run Dragonn on a GPU. Alternativelly, users have the option to install 
-Dragonn locally on their system. 
+do not have access to GPUs on their local systems, as the AWS instance will allow them to run Dragonn on a GPU. Alternativelly, users have the option to install 
+Dragonn locally on their system through Anaconda. 
 
 #Table of Contents
-##[Launching an Amazon instance with Dragonn](##launching an amazon instance with dragonn)  
-##[Installing Dragonn locally](##installing dragonn locally) 
-##[Additional resources](##additional resources) 
+##[Launching an Amazon instance with Dragonn](##launching-an-amazon-instance-with-dragonn)  
+##[Installing Dragonn locally](##installing-dragonn-locally) 
+##[Additional resources](##additional-resources) 
 
 
 
@@ -160,6 +160,4 @@ Will start a jupter notebook server, allowing you to navigate to the **workshop_
 
 
 
-#Additional Resources# 
-
-
+#Additional Resources
