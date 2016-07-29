@@ -7,9 +7,7 @@ title: {{ site.name }}
 
 ## Launching an Amazon AWS instance with Dragonn 
 
-1. Create an account with [Amazon AWS](<http://www.aws.amazon.com>)
-
-![AWS login window](https://github.com/annashcherbina/dragonn/blob/gh-pages-jekyll/images/aws_login.png "AWS Login Window")
+1. Create an account with [Amazon AWS](<http://www.aws.amazon.com>)![AWS login window](https://github.com/annashcherbina/dragonn/blob/gh-pages-jekyll/images/aws_login.png "AWS Login Window")
 
 2. Login to your AWS account, and set your region to "US West (Oregon)" or to "US West (Northern California)"
 
@@ -30,7 +28,9 @@ or "DragonnTutorial_KundajeLab_OREGON" if you are in the Oregon region. You will
   a. In "Step 2: Choose an Instance Type" select "g2.2xlarge".  
   ![AWS GPU Instance](https://github.com/annashcherbina/dragonn/blob/gh-pages-jekyll/images/aws_gpuinstance.png "AWS GPU Instance")
   b. In "Step 3: Configure Instance Details" use the default options. 
+  ![Step 3: Configure Instance Details](https://github.com/annashcherbina/dragonn/blob/gh-pages-jekyll/images/aws_step3.png "Step 3: Configure Instance Details")
   c. In "Step 4: Add Storage" set the Size(GiB) value to 20. 
+  ![Step 4: Add Storage](https://github.com/annashcherbina/dragonn/blob/gh-pages-jekyll/images/aws_step4.png "Step 4: Add Storage")
   d. In "Step 5: Tag Instance" leave the defaults (expert users may want to add tags to identify the instance uniquely). 
   e. In "Step 6: Configure Security Group" follow these steps: 
      	i. Add Rule --> "Custom TCP Rule" ; Port Range --> 8443; Source --> Anywhere 
