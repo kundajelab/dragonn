@@ -8,6 +8,7 @@ title: {{ site.name }}
 ## Launching an Amazon AWS instance with Dragonn 
 
 1. Create an account with [Amazon AWS](<http://www.aws.amazon.com>)
+
  ![AWS login window](https://github.com/annashcherbina/dragonn/blob/gh-pages-jekyll/images/aws_login.png "AWS Login Window")
 
 2. Login to your AWS account, and set your region to "US West (Oregon)" or to "US West (Northern California)"
