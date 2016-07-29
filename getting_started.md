@@ -27,6 +27,7 @@ or **DragonnTutorial_KundajeLab_OREGON** if you are in the Oregon region. You wi
 5. Select the AMI and click **Launch**. 
 
 6. Go through the setup tutorial  to configure your Dragonn instance, making sure to select the following options: 
+
   a. In **Step 2: Choose an Instance Type** select **g2.2xlarge**.  
 
    ![AWS GPU Instance](https://github.com/annashcherbina/dragonn/blob/gh-pages-jekyll/images/aws_gpuinstance.png "AWS GPU Instance")
@@ -44,8 +45,11 @@ or **DragonnTutorial_KundajeLab_OREGON** if you are in the Oregon region. You wi
    ![Step 5: Tag Instance](https://github.com/annashcherbina/dragonn/blob/gh-pages-jekyll/images/aws_step5.png "Step 5: Tag Instance")
 
   e. In **Step 6: Configure Security Group** follow these steps: 
+
      i. Add Rule --> "Custom TCP Rule" ; Port Range --> 8443; Source --> Anywhere 
+
      ii. Add Rule --> HTTP; Port Range --> 80; Source --> Anywhere 
+
      iii. Add Rule --> HTTPS; Port Range --> 8443; Source --> Anywhere
  
    ![Step 6: Configure Security Group](https://github.com/annashcherbina/dragonn/blob/gh-pages-jekyll/images/aws_step6.png "Step 6: Configure Security Group")
@@ -104,7 +108,7 @@ is $0.65 per hour.
 
 15. Click on "workshop_tutorial.ipynb" to launch the Jupyter notebook for the tutorial. 
 
- ![Dragonn tutorial](https://github.com/annashcherbina/dragonn/blob/gh-pages-jekyll/images/aws_notebook3.png "Dragonn tutorial")
+ ![Dragonn tutorial](https://github.com/annashcherbina/dragonn/blob/gh-pages-jekyll/images/aws_notebook_3.png "Dragonn tutorial")
 
 When you are finished with the Amazon instance, follow these steps to shutdown the instance (and avoid incurring extra usage fees): 
 
