@@ -13,7 +13,7 @@ title: {{ site.name }}
 
 2. Login to your AWS account, and set your region to "US West (Oregon)" or to "US West (Northern California)"
 
-![AWS Region](https://github.com/annashcherbina/dragonn/blob/gh-pages-jekyll/images/aws_regions.png "AWS Select Region")
+![AWS Region](https://github.com/annashcherbina/dragonn/blob/gh-pages-jekyll/images/aws_region.png "AWS Select Region")
 
 3. Go to the "services" tab and select "EC2" 
 
