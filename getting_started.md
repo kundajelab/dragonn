@@ -7,6 +7,6 @@ title: {{ site.name }}
 
 ## Launching an Amazon AWS instance with Dragonn 
 
-1. Create an account with [Amazon AWS](<http://www.aws.amazon.com/signin>)
+1. Create an account with [Amazon AWS](<http://www.aws.amazon.com>)
 
 ## Installing Dragonn Locally 
