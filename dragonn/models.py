@@ -102,8 +102,8 @@ class SequenceDNN(Model):
             self.valid_losses.append(self.sequence_DNN.model.evaluate(
                 self.X_valid, self.y_valid, verbose=False))
 
-    def __init__(self, seq_length, use_RNN=False,
-                 num_tasks=1, num_filters=(15,), conv_width=(15,),
+    def __init__(self, seq_length, use_RNN=False, num_tasks=1,
+                 num_filters=(15, 15, 15), conv_width=(15, 15, 15),
                  pool_width=35, GRU_size=35, TDD_size=15,
                  L1=0, dropout=0.0, num_epochs=100, verbose=1):
         self.saved_params = locals()
