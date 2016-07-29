@@ -46,7 +46,7 @@ or **DragonnTutorial_KundajeLab_OREGON** if you are in the Oregon region. You wi
 
   e. In **Step 6: Configure Security Group** follow these steps: 
 
-     i. Add Rule --> "Custom TCP Rule" ; Port Range --> 8443; Source --> Anywhere 
+     i. Add Rule --> Custom TCP Rule ; Port Range --> 8443; Source --> Anywhere 
 
      ii. Add Rule --> HTTP; Port Range --> 80; Source --> Anywhere 
 
@@ -68,7 +68,7 @@ is $0.65 per hour.
 
  ![Instance running](https://github.com/annashcherbina/dragonn/blob/gh-pages-jekyll/images/aws_running.png "Instance running")
 
-8. Select your instance, and click the **Connect** button. You will see instructions on how to connect to your instance through ssh (If you are running Windows, you will need an SSH client such as [putty](<http://www.chiark.greenend.org.uk/~sgtatham/putty/>). Follow the instructions in the popup window to chmod your key file (see step 6g) and ssh into your instance. It is likely that you will need to ssh in as the "ubuntu" user rather than the root user. Modify the example command to indicate:
+8. Select your instance, and click the **Connect** button. You will see instructions on how to connect to your instance through ssh (If you are running Windows, you will need an SSH client such as [putty](<http://www.chiark.greenend.org.uk/~sgtatham/putty/>). Follow the instructions in the popup window to chmod your key file (see step 6g) and ssh into your instance. It is likely that you will need to ssh in as the "ubuntu" user rather than the "root" user. Modify the example command to indicate:
  ```
  ssh -i 'dragonn_keys.pm' ubuntu@ec2-52-43-29-19.us-west-2.compute.amazonaws.com
  ```
@@ -106,7 +106,7 @@ is $0.65 per hour.
 
  ![Select workshop tutorial](https://github.com/annashcherbina/dragonn/blob/gh-pages-jekyll/images/aws_notebook2.png "Select workshop tutorial")
 
-15. Click on "workshop_tutorial.ipynb" to launch the Jupyter notebook for the tutorial. 
+15. Click on **workshop_tutorial.ipynb** to launch the Jupyter notebook for the tutorial. 
 
  ![Dragonn tutorial](https://github.com/annashcherbina/dragonn/blob/gh-pages-jekyll/images/aws_notebook_3.png "Dragonn tutorial")
 
@@ -118,6 +118,35 @@ When you are finished with the Amazon instance, follow these steps to shutdown t
 
   ![Stopping the Amazon instance](https://github.com/annashcherbina/dragonn/blob/gh-pages-jekyll/images/aws_shutdown.png "Stopping the Amazon instance")
 
-3. Wait for your Amazon instance to shutdown. If you want to permanently delete the Amazon instance, select "Terminate" (instead of "Stop"). 
+3. Wait for your Amazon instance to shutdown. If you want to permanently delete the Amazon instance, select **Terminate** (instead of **Stop**). 
 
 ## Installing Dragonn Locally 
+
+We recommend installing Dragonn through [Anaconda](<http://www.continuum.io/downloads>).
+Once you have installed Anaconda for your computing platform, Dragonn can be installed with the following command from the terminal:
+
+```
+conda install -c kundajelab dragonn 
+``` 
+
+To access the ipython notebook for the Dragonn tutorial, clone the Dragonn repository from github: 
+
+```
+git clone https://github.com/kundajelab/dragonn.git
+cd dragonn/examples 
+```
+
+```
+python simple_motif_detection.py 
+```
+
+This will execute examples from the command line. 
+
+```
+jupyter notebook 
+```
+
+Will start a jupter notebook server, allowing you to navigate to the **workshop_tutorial.ipynb** notebook in your browser. 
+
+
+
