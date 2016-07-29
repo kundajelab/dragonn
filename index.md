@@ -5,7 +5,9 @@ title: {{ site.name }}
 
 ### Overview of DragoNN
 
-The `dragonn` package implements deep neural networks (DNNs) for predictive modeling of regulatory genomics, feature importance methods such as [DeepLIFT](https://arxiv.org/abs/1605.01713) and in-silico mutagenesis to interpret DNNs, and sequence simulations to systematically assess model development and interpretation.
+The `dragonn` package implements Deep RegulAtory GenOmic Neural Networks (DragoNNs) for predictive modeling of regulatory genomics, nucleotide-resolution feature discovery, and simulations for systematic development and benchmarking.
+
+![demo](http://i.imgur.com/1fAgrt2.gif)
 
 ### Installation 
 
@@ -13,6 +15,6 @@ You can install dragonn from [anaconda](https://anaconda.org/kundajelab/dragonn)
 
 `conda install -c kundajelab dragonn`
 
-### Documentation
+### Getting started
 
-Complete documentation can be found in this [manual]({{ site.baseurl }}/manual.pdf).
+See our [start here page]({{ site.baseurl }}/getting_started.html) for step-by-step guide to dragonn.
