@@ -9,9 +9,9 @@ do not have access to GPUs on their local systems, as the AWS instance will allo
 Dragonn locally on their system through Anaconda. 
 
 #Table of Contents
-##[Launching an Amazon instance with Dragonn](##launching-an-amazon-instance-with-dragonn)  
-##[Installing Dragonn locally](##installing-dragonn-locally) 
-##[Additional resources](##additional-resources) 
+ - [Launching an Amazon instance with Dragonn](#launching-an-amazon-instance-with-dragonn)  
+ - [Installing Dragonn locally](#installing-dragonn-locally) 
+ - [Additional resources](#additional-resources) 
 
 
 
