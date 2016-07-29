@@ -161,3 +161,5 @@ Will start a jupter notebook server, allowing you to navigate to the **workshop_
 
 
 ##Additional Resources
+
+1. [Dragonn Workshop](<http://kundajelab.github.io/dragonn/workshops/index.html>) 
