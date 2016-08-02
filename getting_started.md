@@ -2,7 +2,8 @@
 layout: default
 title: {{ site.name }}
 ---
-
+# Overview
+![demo](http://i.imgur.com/1fAgrt2.gif)
 # Getting Started 
 The Dragonn software and associated tutorial can be accessed as a public image through Amazon Web Services. We recommend this option for users who 
 do not have access to GPUs on their local systems, as the AWS instance will allow them to run Dragonn on a GPU. Alternativelly, users have the option to install 
