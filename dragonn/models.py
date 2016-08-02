@@ -114,9 +114,10 @@ class SequenceDNN(Model):
         self.verbose = verbose
         self.model = Sequential()
         assert len(num_filters) == len(conv_width)
-        for nb_filter, nb_col in zip(num_filters, conv_width):
+        for i, (nb_filter, nb_col) in enumerate(zip(num_filters, conv_width)):
+            conv_height = 4 if i == 0 else 1
             self.model.add(Convolution2D(
-                nb_filter=nb_filter, nb_row=4,
+                nb_filter=nb_filter, nb_row=conv_height,
                 nb_col=nb_col, activation='linear',
                 init='he_normal', input_shape=self.input_shape,
                 W_regularizer=l1(L1), b_regularizer=l1(L1)))
