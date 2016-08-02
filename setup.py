@@ -12,6 +12,7 @@ config = {
                          'sklearn', 'pyprg', 'pydot_ng'],
     'dependency_links': ['https://github.com/kundajelab/deeplift/tarball/master#egg=deeplift-0.2'],
     'scripts': [],
+    'entry_points': {'console_scripts': ['dragonn = dragonn.__main__:main']},
     'name': 'dragonn'
 }
 
