@@ -3,11 +3,7 @@ import json, matplotlib, numpy as np, os, subprocess, tempfile
 matplotlib.use('pdf')
 import matplotlib.pyplot as plt
 from abc import abstractmethod, ABCMeta
-from deeplift import keras_conversion as kc
-from deeplift.blobs import MxtsMode
 from dragonn.metrics import ClassificationResult
-from dragonn.plot import plot_bases_on_ax
-from dragonn.visualize_util import plot as plot_keras_model
 from keras.models import Sequential
 from keras.callbacks import Callback, EarlyStopping
 from keras.layers.core import (
@@ -175,6 +171,8 @@ class SequenceDNN(Model):
         Returns (num_task, num_samples, 1, num_bases, sequence_length) deeplift score array.
         """
         assert len(np.shape(X)) == 4 and np.shape(X)[1] == 1
+        from deeplift import keras_conversion as kc
+        from deeplift.blobs import MxtsMode
         # normalize sequence convolution weights
         kc.mean_normalise_first_conv_layer_weights(self.model, None)
         # run deeplift
@@ -219,6 +217,7 @@ class SequenceDNN(Model):
 
     @staticmethod
     def _plot_scores(X, output_directory, peak_width, score_func, score_name):
+        from dragonn.plot import plot_bases_on_ax
         scores = score_func(X).squeeze(axis=2)  # (num_task, num_samples, num_bases, sequence_length)
         try:
             os.makedirs(output_directory)
@@ -264,6 +263,7 @@ class SequenceDNN(Model):
                           score_func=self.in_silico_mutagenesis, score_name='ISM')
 
     def plot_architecture(self, output_file):
+        from dragonn.visualize_util import plot as plot_keras_model
         plot_keras_model(self.model, output_file, show_shape=True)
 
     def save(self, model_fname, weights_fname):
