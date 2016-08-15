@@ -21,7 +21,7 @@ def get_motif_scores(encoded_sequences, motif_names,
 
     Returns
     -------
-    (num_samples, seq_length, num_motifs) complete score array by default.
+    (num_samples, num_motifs, seq_length) complete score array by default.
     If max_scores, (num_samples, num_motifs*max_scores) max score array.
     If max_scores and return_positions, (num_samples, 2*num_motifs*max_scores)
     array with max scores and their positions.
