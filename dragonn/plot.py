@@ -258,6 +258,7 @@ def plot_bases(letter_heights, figsize=(12, 6), ylab='bits'):
     ax = fig.add_subplot(111)
     ax.set_xlabel('pos')
     ax.set_ylabel(ylab)
+    plot_bases_on_ax(letter_heights, ax)
 
     return fig
 
