@@ -164,7 +164,7 @@ class SequenceDNN(Model):
         """
         Returns 3D array of 2D sequence filters.
         """
-        return self.model.layers[0].get_weights()[0]
+        return self.model.layers[0].get_weights()[0].squeeze(axis=1)
 
     def deeplift(self, X, batch_size=200):
         """
