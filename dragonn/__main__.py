@@ -1,7 +1,7 @@
 import argparse
 import numpy as np
 np.random.seed(1)
-from dragonn.utils import encode_fasta_sequences
+from dragonn.utils import encode_fasta_sequences, get_sequence_strings
 from dragonn.models import SequenceDNN
 from sklearn.cross_validation import train_test_split
 
@@ -42,6 +42,11 @@ def parse_args():
                                            help='model prediction help')
     predict_parser.add_argument('--output-file', type=str, required=True,
                                help='output file for model predictions')
+    interpret_parser = subparsers.add_parser('interpret',
+                                             parents=[single_fasta_parser, model_files_parser, prefix_parser],
+                                             help='model training help')
+    interpret_parser.add_argument('--pos-threshold', type=int, default=0.5,
+                               help='Only examples with predicted positive class probability above this get interpreted. Default: 0.5')
     # return command and command arguments
     args = vars(parser.parse_args())
     command = args.pop("command", None)
@@ -122,6 +127,54 @@ def main_predict(sequences=None,
     # save predictions
     print("saving predictions to output file...")
     np.savetxt(output_file, predictions)
+    print("Done!")
+
+
+def main_interpret(sequences=None,
+                   model_file=None,
+                   weights_file=None,
+                   pos_threshold=None,
+                   peak_width=10,
+                   prefix=None):
+    # encode fasta
+    print("loading sequence data...")
+    X = encode_fasta_sequences(sequences)
+    # load model
+    print("loading model...")
+    model = SequenceDNN.load(model_file, weights_file)
+    # predict
+    print("getting predictions...")
+    predictions = model.predict(X)
+    # deeplift
+    print("getting deeplift scores...")
+    deeplift_scores = model.deeplift(X)
+    # get important sequences and write to file
+    print("extracting important sequences and writing to file...")
+    for task_index, task_scores in enumerate(deeplift_scores):
+        peak_positions = []
+        peak_sequences = []
+        for sequence_index, sequence_scores in enumerate(task_scores):
+            if predictions[sequence_index, task_index] > pos_threshold:
+                #print(sequence_scores.shape)
+                basewise_sequence_scores = sequence_scores.max(axis=(0,1))
+                peak_position = basewise_sequence_scores.argmax()
+                peak_positions.append(peak_position)
+                peak_sequences.append(X[sequence_index : sequence_index + 1,
+                                        :,
+                                        :,
+                                        peak_position - peak_width :
+                                        peak_position + peak_width])
+            else:
+                peak_positions.append(-1)
+                peak_sequences.append(np.zeros((1, 1, 4, 2 * peak_width)))
+        peak_sequences = np.concatenate(peak_sequences)
+        peak_sequence_strings = get_sequence_strings(peak_sequences)
+        # write important sequences to file
+        ofname = "%s.task_%i.important_sequences.txt" % (prefix, task_index)
+        with open(ofname, "w") as wf:
+            for i, peak_position in enumerate(peak_positions):
+                wf.write("> sequence_%i\n" % (i))
+                wf.write("%i: %s\n" %(peak_position, peak_sequence_strings[i]))
     print("Done!")
 
 
