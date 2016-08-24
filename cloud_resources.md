@@ -120,28 +120,4 @@ When you are finished with the Amazon instance, follow these steps to shutdown t
 
   ![Stopping the Amazon instance]({{ site.baseurl }}/images/aws_shutdown.png "Stopping the Amazon instance")
 
-3. Wait for your Amazon instance to shutdown. If you want to permanently delete the Amazon instance, select **Terminate** (instead of **Stop**). 
-
-## Installing Dragonn Locally 
-
-We recommend installing Dragonn through [Anaconda](<http://www.continuum.io/downloads>).
-Once you have installed Anaconda for your computing platform, Dragonn can be installed with the following command from the terminal:
-
-```
-conda install -c kundajelab dragonn 
-``` 
-
-To access the ipython notebook for the Dragonn tutorial, download latest dragonn version as [zip](<https://github.com/kundajelab/dragonn/archive/0.1.0.zip>) or [tar](<https://github.com/kundajelab/dragonn/archive/0.1.0.tar.gz>).
-Unpack the files, navigate to the examples directory, and run: 
-
-```
-python simple_motif_detection.py 
-```
-
-This will execute examples from the command line. To explore the workshop tutorial, run:
-
-```
-jupyter notebook
-```
-
-This will start a jupter notebook server, allowing you to navigate to the **workshop_tutorial.ipynb** notebook in your browser.
+3. Wait for your Amazon instance to shutdown. If you want to permanently delete the Amazon instance, select **Terminate** (instead of **Stop**).

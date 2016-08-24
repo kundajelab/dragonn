@@ -57,7 +57,14 @@ This will print the model's test performance metrics. Model predictions on seque
 dragonn predict --sequences examples/example_pos_sequences.fa --model-file training_example.model.json --weights-file training_example.weights.hd5 --output-file example_predictions.txt
 ```
 
-This will store the model predictions for sequences in example_pos_sequences.fa in the output file example_predictions.txt.
+This will store the model predictions for sequences in example_pos_sequences.fa in the output file example_predictions.txt. Interpret sequence data with a dragonn model by running:
+
+```
+dragonn interpret --sequences examples/example_pos_sequences.fa --model-file training_example.model.json --weights-file training_example.weights.hd5 --prefix example_interpretation
+```
+
+This will write the most important subsequence in each input sequence along with its location in the input sequence in the file example_interpretation.task_0.important_sequences.txt.
+Note: by default, only examples with predicted positive class probability >0.5 are interpreted. Examples below this thershold yield important subsequence of Ns with location -1. This default can be changed with the flag --pos-thershold.
 
 
 We encourage DragoNN users to share models in the [Model Zoo](https://github.com/kundajelab/dragonn/wiki/Model-Zoo). Enjoy!

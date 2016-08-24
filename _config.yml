@@ -1,6 +1,6 @@
 # Setup
 title:        DragoNN
-tagline:      The dragonn package implements Deep RegulAtory GenOmic Neural Networks (DragoNNs) for predictive modeling of regulatory genomics, nucleotide-resolution feature discovery, and simulations for systematic development and benchmarking.
+tagline:      DragoNN provides a toolkit to learn how to model and interpret regulatory sequence data using deep learning.
 baseurl:      "/dragonn"
 
 paginate:     1
