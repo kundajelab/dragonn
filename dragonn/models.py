@@ -1,5 +1,5 @@
 from __future__ import absolute_import, division, print_function
-import json, matplotlib, numpy as np, os, subprocess, tempfile
+import json, matplotlib, numpy as np, os, subprocess, tempfile, warnings
 matplotlib.use('pdf')
 import matplotlib.pyplot as plt
 from abc import abstractmethod, ABCMeta
@@ -82,6 +82,30 @@ class SequenceDNN(Model):
                 logs['val_loss'],
                 self.sequence_DNN.test(self.X_valid, self.y_valid)))
 
+    class SaveModelEarlyStopping(EarlyStopping):
+        def __init__(self, sequence_DNN, save_best_model_to=None,
+                     monitor='val_loss', patience=0, verbose=0, mode='auto'):
+            self.sequence_DNN = sequence_DNN
+            self.save_best_model_to = save_best_model_to
+            super(EarlyStopping, self).__init__(monitor, patience, verbose, mode)
+
+        def on_epoch_end(self, epoch, logs={}):
+            current = logs.get(self.monitor)
+            if current is None:
+                warnings.warn('Early stopping requires %s available!' %
+                              (self.monitor), RuntimeWarning)
+            if self.monitor_op(current, self.best):
+                self.best = current
+                self.wait = 0
+                if self.save_best_model_to is not None:
+                    self.sequence_DNN.save_weights(self.save_best_model_to)
+            else:
+                if self.wait >= self.patience:
+                    if self.verbose > 0:
+                        print('Epoch %05d: early stopping' % (epoch))
+                    self.model.stop_training = True
+                self.wait += 1
+
     class LossHistory(Callback):
 
         def __init__(self, X_train, y_train, validation_data, sequence_DNN):
@@ -101,13 +125,15 @@ class SequenceDNN(Model):
     def __init__(self, seq_length, use_RNN=False, num_tasks=1,
                  num_filters=(15, 15, 15), conv_width=(15, 15, 15),
                  pool_width=35, GRU_size=35, TDD_size=15,
-                 L1=0, dropout=0.0, num_epochs=100, verbose=1):
+                 L1=0, dropout=0.0, num_epochs=100, verbose=1,
+                 save_best_model_to=None):
         self.saved_params = locals()
         self.seq_length = seq_length
         self.input_shape = (1, 4, self.seq_length)
         self.num_tasks = num_tasks
         self.num_epochs = num_epochs
         self.verbose = verbose
+        self.save_best_model_to = save_best_model_to
         self.model = Sequential()
         assert len(num_filters) == len(conv_width)
         for i, (nb_filter, nb_col) in enumerate(zip(num_filters, conv_width)):
@@ -142,7 +168,8 @@ class SequenceDNN(Model):
             num_positives = y.sum()
             num_sequences = len(y)
             num_negatives = num_sequences - num_positives
-        self.callbacks = [EarlyStopping(monitor='val_loss', patience=5)]
+        self.callbacks = [self.SaveModelEarlyStopping(self, self.save_best_model_to,
+                                                      monitor='val_loss', patience=5)]
         if self.verbose >= 1:
             self.callbacks.append(self.PrintMetrics(validation_data, self))
             print('Training model...')
