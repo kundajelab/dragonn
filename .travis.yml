@@ -4,6 +4,7 @@ language: python
 
 python:
   - 2.7
+  - 3.5
 
 notifications:
   email: false
@@ -19,7 +20,9 @@ before_install:
 
 install:
   # pip cannot easily install scipy, matplotlib or graphviz on the Travis CI server
-  - conda install --yes python=$TRAVIS_PYTHON_VERSION scipy matplotlib graphviz
+  - conda create -n dragonn --yes python=$TRAVIS_PYTHON_VERSION scipy matplotlib graphviz
+  # switch to virtual env
+  - source activate dragonn
   # Install the cloned dragonn package from source using Anaconda
   # Process the deeplift dependency_links in setup.py
   - pip install . --process-dependency-links
