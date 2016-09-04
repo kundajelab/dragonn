@@ -1,4 +1,5 @@
 from __future__ import absolute_import, division, print_function
+from builtins import str, range, object
 from . import util, fileProcessing as fp
 import numpy as np
 import math

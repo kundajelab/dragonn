@@ -1,4 +1,5 @@
 from __future__ import absolute_import, division, print_function
+from builtins import next, str, object
 import re
 import os
 from . import util
@@ -31,7 +32,7 @@ def getFileNameParts(fileName):
     return FileNameParts(m.group(1), m.group(2), m.group(3))
 
 
-class FileNameParts:
+class FileNameParts(object):
 
     def __init__(self, directory, coreFileName, extension):
         self.directory = directory if (directory is not None) else os.getcwd()
@@ -122,7 +123,7 @@ def transformFile(
 # reades a line of the file on-demand.
 
 
-class FileReader:
+class FileReader(object):
 
     def __init__(self, fileHandle, preprocessing=None, filterFunction=None, transformation=lambda x: x, ignoreInputTitle=False):
         self.fileHandle = fileHandle
@@ -551,13 +552,13 @@ class FastaIterator(object):
     def __iter__(self):
         return self
 
-    def next(self):
+    def __next__(self):
         self.lineCount += 1
         printProgress(self.progressUpdate, self.lineCount,
                       self.progressUpdateFileName)
         # should raise StopIteration if at end of lines
-        keyLine = trimNewline(self.fileHandle.next())
-        sequence = trimNewline(self.fileHandle.next())
+        keyLine = trimNewline(next(self.fileHandle))
+        sequence = trimNewline(next(self.fileHandle))
         if (keyLine.startswith(">") == False):
             raise RuntimeError(
                 "Expecting a record name line that begins with > but got " + str(keyLine))

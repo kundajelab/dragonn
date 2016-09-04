@@ -1,11 +1,15 @@
 from __future__ import absolute_import, division, print_function
+
+from future import standard_library
+standard_library.install_aliases()
+from builtins import object, range
+from future.utils import with_metaclass
+
 import numpy as np, sys
 from abc import abstractmethod, ABCMeta
 
 
-class HyperparameterBackend(object):
-    __metaclass__ = ABCMeta
-
+class HyperparameterBackend(with_metaclass(ABCMeta, object)):
     @abstractmethod
     def __init__(self, grid):
         pass
@@ -31,7 +35,7 @@ class RandomSearch(HyperparameterBackend):
 
 
 if sys.version_info[0] == 2:
-    from httplib import BadStatusLine
+    from http.client import BadStatusLine
     from moe.easy_interface.experiment import Experiment
     from moe.easy_interface.simple_endpoint import gp_next_points
     from moe.optimal_learning.python.data_containers import SamplePoint
@@ -101,7 +105,7 @@ class HyperparameterSearcher(object):
             task_scores = model.score(self.validation_data[0], self.validation_data[1], self.metric)
             score = task_scores.mean()  # mean across tasks
             # Record hyperparameters and validation loss
-            self.backend.record_result(point=hyperparameters.values(), value=score)
+            self.backend.record_result(point=list(hyperparameters.values()), value=score)
             # If these hyperparameters were the best so far, store this model
             if self.maximize == (score > self.best_score):
                 self.best_score = score

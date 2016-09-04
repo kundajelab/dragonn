@@ -1,4 +1,9 @@
 from __future__ import absolute_import, division, print_function
+
+from builtins import str, zip, map, object, range
+from future.utils import with_metaclass
+from io import open
+
 import json, matplotlib, numpy as np, os, subprocess, tempfile
 matplotlib.use('pdf')
 import matplotlib.pyplot as plt
@@ -18,9 +23,7 @@ from sklearn.tree import DecisionTreeClassifier as scikit_DecisionTree
 from sklearn.ensemble import RandomForestClassifier
 
 
-class Model(object):
-    __metaclass__ = ABCMeta
-
+class Model(with_metaclass(ABCMeta, object)):
     @abstractmethod
     def __init__(self, **hyperparameters):
         pass
@@ -230,7 +233,7 @@ class SequenceDNN(Model):
                 basewise_max_sequence_scores = sequence_scores.max(axis=0)
                 plt.clf()
                 figure, (top_axis, bottom_axis) = plt.subplots(2)
-                top_axis.plot(range(1, len(basewise_max_sequence_scores) + 1),
+                top_axis.plot(list(range(1, len(basewise_max_sequence_scores) + 1)),
                               basewise_max_sequence_scores)
                 top_axis.set_title('{} scores (motif highlighted)'.format(score_name))
                 peak_position = basewise_max_sequence_scores.argmax()
@@ -269,12 +272,13 @@ class SequenceDNN(Model):
     def save(self, model_fname, weights_fname):
         if 'self' in self.saved_params:
             del self.saved_params['self']
-        json.dump(self.saved_params, open(model_fname, 'wb'), indent=4)
+        with open(model_fname, 'w') as model_fd:
+            json.dump(self.saved_params, model_fd, indent=4)
         self.model.save_weights(weights_fname, overwrite=True)
 
     @staticmethod
     def load(model_fname, weights_fname):
-        model_params = json.load(open(model_fname, 'rb'))
+        model_params = json.load(open(model_fname, 'r'))
         sequence_dnn = SequenceDNN(**model_params)
         sequence_dnn.model.load_weights(weights_fname)
         return sequence_dnn

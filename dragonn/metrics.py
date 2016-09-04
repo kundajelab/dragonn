@@ -1,4 +1,6 @@
 from __future__ import absolute_import, division, print_function
+from builtins import zip, object
+
 import numpy as np
 from collections import OrderedDict
 from sklearn.metrics import auc, precision_recall_curve, roc_auc_score

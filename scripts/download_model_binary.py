@@ -1,11 +1,17 @@
 #!/usr/bin/env python
 # Adapted from caffe source code
 # License: https://github.com/BVLC/caffe/blob/master/LICENSE 
+from __future__ import print_function
+from __future__ import division
+from builtins import int
+from future import standard_library
+standard_library.install_aliases()
+
 import os
 import sys
 import time
 import yaml
-import urllib
+import urllib.request
 import hashlib
 import argparse
 
@@ -71,7 +77,7 @@ if __name__ == '__main__':
         sys.exit(0)
 
     # Download and verify model.
-    urllib.urlretrieve(
+    urllib.request.urlretrieve(
         frontmatter['weights_url'], model_filename, reporthook)
     if not model_checks_out():
         print('ERROR: model did not download correctly! Run this again.')

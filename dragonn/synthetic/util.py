@@ -1,4 +1,8 @@
 from __future__ import absolute_import, division, print_function
+from future import standard_library
+standard_library.install_aliases()
+from builtins import next, zip, str, range, object
+
 import sys
 import os
 import datetime
@@ -198,7 +202,7 @@ class DiscreteDistribution(object):
             valToFreq: OrderedDict where the keys are the possible things to sample, and the values are their frequencies
         """
         self.valToFreq = valToFreq
-        self.freqArr = valToFreq.values()  # array representing only the probabilities
+        self.freqArr = list(valToFreq.values())  # array representing only the probabilities
         # map from index in freqArr to the corresponding value it represents
         self.indexToVal = dict((x[0], x[1])
                                for x in enumerate(valToFreq.keys()))
@@ -469,7 +473,7 @@ def floatRange(start, end, step):
         val += step
 
 
-class VariableWrapper():
+class VariableWrapper(object):
     """ For when I want reference-type access to an immutable"""
 
     def __init__(self, var):
@@ -882,8 +886,8 @@ class TitledMappingIterator(object):
         self.titledMapping = titledMapping
         self.keysIterator = iter(titledMapping.mapping)
 
-    def next(self):
-        nextKey = self.keysIterator.next()
+    def __next__(self):
+        nextKey = next(self.keysIterator)
         return self.titledMapping.getTitledArrForKey(nextKey)
 
 
@@ -938,7 +942,7 @@ class TitledMapping(object):
 
     def printToFile(self, fileHandle, includeRownames=True):
         import fileProcessing as fp
-        fp.writeMatrixToFile(fileHandle, self.mapping.values(), self.titleArr, [
+        fp.writeMatrixToFile(fileHandle, list(self.mapping.values()), self.titleArr, [
                              x for x in self.mapping.keys()])
 
 
@@ -1283,7 +1287,7 @@ class TeeOutputStreams(object):
 
 
 def redirectStdoutToString(func, logger=None, emailErrorFunc=None):
-    from StringIO import StringIO
+    from io import StringIO
     # takes a function, and returns a wrapper which redirects
     # stdout to something else for that function
     #(the function must execute in a thread)
@@ -1317,7 +1321,7 @@ def redirectStdoutToString(func, logger=None, emailErrorFunc=None):
 
 
 def doesNotWorkForMultithreading_redirectStdout(func, redirectedStdout):
-    from StringIO import StringIO
+    from io import StringIO
     # takes a function, and returns a wrapper which redirects
     # stdout to something else for that function
     #(the function must execute in a thread)
@@ -1585,7 +1589,7 @@ class IterableFromDict(object):
         self.totalLen = totalLen
         self.idx = -1
 
-    def next(self):
+    def __next__(self):
         self.idx += 1
         if self.idx == self.totalLen:
             raise StopIteration()
