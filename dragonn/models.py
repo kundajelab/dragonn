@@ -2,7 +2,6 @@ from __future__ import absolute_import, division, print_function
 
 from builtins import str, zip, map, object, range
 from future.utils import with_metaclass
-from io import open
 
 import json, matplotlib, numpy as np, os, subprocess, tempfile
 matplotlib.use('pdf')
