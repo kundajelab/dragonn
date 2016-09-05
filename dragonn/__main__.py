@@ -1,6 +1,7 @@
 import argparse
-import numpy as np
+import numpy as np, random
 np.random.seed(1)
+random.seed(1)
 from dragonn.utils import encode_fasta_sequences, get_sequence_strings
 from dragonn.models import SequenceDNN
 from sklearn.cross_validation import train_test_split

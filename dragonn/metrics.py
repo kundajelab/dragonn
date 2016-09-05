@@ -1,8 +1,12 @@
 from __future__ import absolute_import, division, print_function
 import numpy as np
 from collections import OrderedDict
-from sklearn.metrics import auc, precision_recall_curve, roc_auc_score
+from sklearn.metrics import auc, log_loss, precision_recall_curve, roc_auc_score
 from prg.prg import create_prg_curve, calc_auprg
+
+
+def loss(labels, predictions):
+    return log_loss(labels, predictions)
 
 
 def positive_accuracy(labels, predictions, threshold=0.5):
@@ -41,6 +45,7 @@ class ClassificationResult(object):
     def __init__(self, labels, predictions, task_names=None):
         assert labels.dtype == bool
         self.results = [OrderedDict((
+            ('Loss', loss(task_labels, task_predictions)),
             ('Balanced accuracy', balanced_accuracy(
                 task_labels, task_predictions)),
             ('auROC', auROC(task_labels, task_predictions)),
@@ -60,8 +65,8 @@ class ClassificationResult(object):
 
     def __str__(self):
         return '\n'.join(
-            '{}Balanced Accuracy: {:.2f}%\t '
-            'auROC: {:.3f}\t auPRC: {:.3f}\t auPRG: {:.3f}\n'
+            '{}Loss: {:.4f}\tBalanced Accuracy: {:.2f}%\t '
+            'auROC: {:.3f}\t auPRC: {:.3f}\t auPRG: {:.3f}\n\t'
             'Recall at 5%|10%|20% FDR: {:.1f}%|{:.1f}%|{:.1f}%\t '
             'Num Positives: {}\t Num Negatives: {}\t '.format(
                 '{}: '.format('Task {}'.format(

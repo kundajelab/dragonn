@@ -91,12 +91,14 @@ def train_SequenceDNN(dnn, simulation_data):
 
 
 def SequenceDNN_learning_curve(dnn):
-    if dnn.valid_losses is not None:
-        min_loss_indx = min(enumerate(dnn.valid_losses), key=lambda x: x[1])[0]
+    if dnn.valid_metrics is not None:
+        train_losses, valid_losses = [np.array([epoch_metrics['Loss'] for epoch_metrics in metrics])
+                                      for metrics in (dnn.train_metrics, dnn.valid_metrics)]
+        min_loss_indx = min(enumerate(valid_losses), key=lambda x: x[1])[0]
         f = plt.figure(figsize=(10, 4))
         ax = f.add_subplot(1, 1, 1)
-        ax.plot(range(len(dnn.train_losses)), dnn.train_losses, 'b', label='Training',lw=4)
-        ax.plot(range(len(dnn.train_losses)), dnn.valid_losses, 'r', label='Validation', lw=4)
+        ax.plot(range(len(train_losses)), train_losses, 'b', label='Training',lw=4)
+        ax.plot(range(len(train_losses)), valid_losses, 'r', label='Validation', lw=4)
         ax.plot([min_loss_indx, min_loss_indx], [0, 1.0], 'k--', label='Early Stop')
         ax.legend(loc="upper right")
         ax.set_ylabel("Loss")
