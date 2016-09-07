@@ -96,7 +96,7 @@ class ModelToDot(object):
         if self.recursive and (is_graph or is_seq):
             # We got a container layer, recursively transform it
             if is_graph:
-                child_layers = list(layer.outputs.values())
+                child_layers = layer.outputs.values()
             else:
                 child_layers = [layer.layers[-1]]
             for l in child_layers:
