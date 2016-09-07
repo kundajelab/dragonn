@@ -1,3 +1,4 @@
+from __future__ import print_function
 import argparse
 import numpy as np
 np.random.seed(1)
@@ -27,6 +28,8 @@ def parse_args():
                                     help='weights hd5 file')
     # define commands 
     subparsers = parser.add_subparsers(help='dragonn command help', dest='command')
+    subparsers.required = True #http://bugs.python.org/issue9253#msg186387
+
     train_parser = subparsers.add_parser('train',
                                          parents=[fasta_pair_parser, prefix_parser],
                                          help='model training help')

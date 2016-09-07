@@ -1,3 +1,4 @@
+from builtins import str, object
 # Adapted from Keras source code
 # License: https://github.com/fchollet/keras/blob/master/LICENSE
 

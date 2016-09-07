@@ -1,3 +1,7 @@
+from __future__ import print_function
+from __future__ import division
+from builtins import str, range
+
 import random
 random.seed(1)
 import inspect
@@ -26,7 +30,7 @@ def get_available_simulations():
 
 def print_available_simulations():
     for function_name in get_available_simulations():
-        print function_name
+        print(function_name)
 
 
 def get_simulation_function(simulation_name):
@@ -40,7 +44,7 @@ def get_simulation_function(simulation_name):
 def print_simulation_info(simulation_name):
     simulation_function = get_simulation_function(simulation_name)
     if simulation_function is not None:
-        print simulation_function.func_doc
+        print(simulation_function.__doc__)
 
 
 def get_simulation_data(simulation_name, simulation_parameters,
@@ -71,11 +75,11 @@ def get_simulation_data(simulation_name, simulation_parameters,
 
 
 def inspect_SequenceDNN():
-    print inspect.getdoc(SequenceDNN)
+    print(inspect.getdoc(SequenceDNN))
     print("\nAvailable methods:\n")
     for (method_name, _) in inspect.getmembers(SequenceDNN, predicate=inspect.ismethod):
         if method_name != "__init__":
-            print method_name
+            print(method_name)
 
 
 def get_SequenceDNN(SequenceDNN_parameters):
@@ -95,8 +99,8 @@ def SequenceDNN_learning_curve(dnn):
         min_loss_indx = min(enumerate(dnn.valid_losses), key=lambda x: x[1])[0]
         f = plt.figure(figsize=(10, 4))
         ax = f.add_subplot(1, 1, 1)
-        ax.plot(range(len(dnn.train_losses)), dnn.train_losses, 'b', label='Training',lw=4)
-        ax.plot(range(len(dnn.train_losses)), dnn.valid_losses, 'r', label='Validation', lw=4)
+        ax.plot(list(range(len(dnn.train_losses))), dnn.train_losses, 'b', label='Training',lw=4)
+        ax.plot(list(range(len(dnn.train_losses))), dnn.valid_losses, 'r', label='Validation', lw=4)
         ax.plot([min_loss_indx, min_loss_indx], [0, 1.0], 'k--', label='Early Stop')
         ax.legend(loc="upper right")
         ax.set_ylabel("Loss")
@@ -238,7 +242,7 @@ def interpret_data_with_SequenceDNN(dnn, simulation_data):
     f.set_tight_layout(True)
 
     for j, key in enumerate(['Positive', 'Negative']):
-        for i, (score_type, scores) in enumerate(scores_dict[key].iteritems()):
+        for i, (score_type, scores) in enumerate(scores_dict[key].items()):
             ax = f.add_subplot(plots_per_column, plots_per_row, plots_per_row*i+j+1)
             ax.set_ylim(ylim_dict[score_type])
             ax.set_xlim((0, seq_length))
