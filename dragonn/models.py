@@ -146,8 +146,8 @@ class SequenceDNN(Model):
         if self.verbose >= 1:
             print('Finished training after {} epochs.'.format(epoch))
             if save_best_model_to_prefix is not None:
-                print("The best model's architecture and weights were saved to {0}.arch "
-                      'and {0}.weights'.format(save_best_model_to_prefix))
+                print("The best model's architecture and weights were saved to {0}.arch.json "
+                      'and {0}.weights.h5'.format(save_best_model_to_prefix))
 
     def predict(self, X):
         return self.model.predict(X, batch_size=128, verbose=False)
@@ -259,8 +259,8 @@ class SequenceDNN(Model):
         plot_keras_model(self.model, output_file, show_shape=True)
 
     def save(self, save_best_model_to_prefix):
-        arch_fname = save_best_model_to_prefix + '.arch'
-        weights_fname = save_best_model_to_prefix + '.weights'
+        arch_fname = save_best_model_to_prefix + '.arch.json'
+        weights_fname = save_best_model_to_prefix + '.weights.h5'
         if 'self' in self.saved_params:
             del self.saved_params['self']
         json.dump(self.saved_params, open(arch_fname, 'wb'), indent=4)
