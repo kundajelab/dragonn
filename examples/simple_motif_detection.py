@@ -64,7 +64,8 @@ if not do_hyperparameter_search:
     if use_RNN:
         hyperparameters.update({'GRU_size': 35, 'TDD_size': 45})
     model = SequenceDNN(**hyperparameters)
-    model.train(X_train, y_train, validation_data=(X_valid, y_valid))
+    model.train(X_train, y_train, validation_data=(X_valid, y_valid),
+                save_best_model_to_prefix='best_model')
 
 else:
     print('Starting hyperparameter search...')

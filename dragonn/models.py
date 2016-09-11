@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from abc import abstractmethod, ABCMeta
 from dragonn.metrics import ClassificationResult
 from keras.models import Sequential
-from keras.callbacks import Callback, EarlyStopping
+from keras.callbacks import EarlyStopping
 from keras.layers.core import (
     Activation, Dense, Dropout, Flatten,
     Permute, Reshape, TimeDistributedDense
@@ -70,34 +70,6 @@ class SequenceDNN(Model):
     Compiled DNN model.
     """
 
-    class PrintMetrics(Callback):
-
-        def __init__(self, validation_data, sequence_DNN):
-            self.X_valid, self.y_valid = validation_data
-            self.sequence_DNN = sequence_DNN
-
-        def on_epoch_end(self, epoch, logs={}):
-            print('Epoch {}: validation loss: {:.3f}\n{}\n'.format(
-                epoch,
-                logs['val_loss'],
-                self.sequence_DNN.test(self.X_valid, self.y_valid)))
-
-    class LossHistory(Callback):
-
-        def __init__(self, X_train, y_train, validation_data, sequence_DNN):
-            self.X_train = X_train
-            self.y_train = y_train
-            self.X_valid, self.y_valid = validation_data
-            self.sequence_DNN = sequence_DNN
-            self.train_losses = []
-            self.valid_losses = []
-
-        def on_epoch_end(self, epoch, logs={}):
-            self.train_losses.append(self.sequence_DNN.model.evaluate(
-                self.X_train, self.y_train, verbose=False))
-            self.valid_losses.append(self.sequence_DNN.model.evaluate(
-                self.X_valid, self.y_valid, verbose=False))
-
     def __init__(self, seq_length, use_RNN=False, num_tasks=1,
                  num_filters=(15, 15, 15), conv_width=(15, 15, 15),
                  pool_width=35, GRU_size=35, TDD_size=15,
@@ -130,10 +102,11 @@ class SequenceDNN(Model):
         self.model.add(Dense(output_dim=self.num_tasks))
         self.model.add(Activation('sigmoid'))
         self.model.compile(optimizer='adam', loss='binary_crossentropy')
-        self.train_losses = None
-        self.valid_losses = None
+        self.train_metrics = []
+        self.valid_metrics = []
 
-    def train(self, X, y, validation_data):
+    def train(self, X, y, validation_data, early_stopping_metric='Loss',
+              early_stopping_patience=5, save_best_model_to_prefix=None):
         if y.dtype != bool:
             assert len(np.unique(y)) == 2
             y = y.astype(bool)
@@ -142,20 +115,39 @@ class SequenceDNN(Model):
             num_positives = y.sum()
             num_sequences = len(y)
             num_negatives = num_sequences - num_positives
-        self.callbacks = [EarlyStopping(monitor='val_loss', patience=5)]
         if self.verbose >= 1:
-            self.callbacks.append(self.PrintMetrics(validation_data, self))
             print('Training model...')
-        self.callbacks.append(self.LossHistory(X, y, validation_data, self))
-        self.model.fit(
-            X, y, batch_size=128, nb_epoch=self.num_epochs,
-            validation_data=validation_data,
-            class_weight={True: num_sequences / num_positives,
-                          False: num_sequences / num_negatives}
-            if not multitask else None,
-            callbacks=self.callbacks, verbose=self.verbose >= 2)
-        self.train_losses = self.callbacks[-1].train_losses
-        self.valid_losses = self.callbacks[-1].valid_losses
+        X_valid, y_valid = validation_data
+        early_stopping_wait = 0
+        best_metric = np.inf if early_stopping_metric == 'Loss' else -np.inf
+        for epoch in range(1, self.num_epochs + 1):
+            self.model.fit(X, y, batch_size=128, nb_epoch=1,
+                           class_weight={True: num_sequences / num_positives,
+                                         False: num_sequences / num_negatives}
+                           if not multitask else None, verbose=self.verbose >= 2)
+            epoch_train_metrics = self.test(X, y)
+            epoch_valid_metrics = self.test(X_valid, y_valid)
+            self.train_metrics.append(epoch_train_metrics)
+            self.valid_metrics.append(epoch_valid_metrics)
+            if self.verbose >= 1:
+                print('Epoch {}:'.format(epoch))
+                print('Train {}'.format(epoch_train_metrics))
+                print('Valid {}'.format(epoch_valid_metrics))
+            current_metric = epoch_valid_metrics[early_stopping_metric]
+            if (early_stopping_metric == 'Loss') == (current_metric <= best_metric):
+                best_metric = current_metric
+                early_stopping_wait = 0
+                if save_best_model_to_prefix is not None:
+                    self.save(save_best_model_to_prefix)
+            else:
+                if early_stopping_wait >= early_stopping_patience:
+                    break
+                early_stopping_wait += 1
+        if self.verbose >= 1:
+            print('Finished training after {} epochs.'.format(epoch))
+            if save_best_model_to_prefix is not None:
+                print("The best model's architecture and weights were saved to {0}.arch.json "
+                      'and {0}.weights.h5'.format(save_best_model_to_prefix))
 
     def predict(self, X):
         return self.model.predict(X, batch_size=128, verbose=False)
@@ -266,15 +258,17 @@ class SequenceDNN(Model):
         from dragonn.visualize_util import plot as plot_keras_model
         plot_keras_model(self.model, output_file, show_shape=True)
 
-    def save(self, model_fname, weights_fname):
+    def save(self, save_best_model_to_prefix):
+        arch_fname = save_best_model_to_prefix + '.arch.json'
+        weights_fname = save_best_model_to_prefix + '.weights.h5'
         if 'self' in self.saved_params:
             del self.saved_params['self']
-        json.dump(self.saved_params, open(model_fname, 'wb'), indent=4)
+        json.dump(self.saved_params, open(arch_fname, 'wb'), indent=4)
         self.model.save_weights(weights_fname, overwrite=True)
 
     @staticmethod
-    def load(model_fname, weights_fname):
-        model_params = json.load(open(model_fname, 'rb'))
+    def load(arch_fname, weights_fname):
+        model_params = json.load(open(arch_fname, 'rb'))
         sequence_dnn = SequenceDNN(**model_params)
         sequence_dnn.model.load_weights(weights_fname)
         return sequence_dnn
