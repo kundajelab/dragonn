@@ -116,7 +116,7 @@ class SequenceDNN(Model):
             num_sequences = len(y)
             num_negatives = num_sequences - num_positives
         if self.verbose >= 1:
-            print('Training model...')
+            print('Training model (* indicates new best result)...')
         X_valid, y_valid = validation_data
         early_stopping_wait = 0
         best_metric = np.inf if early_stopping_metric == 'Loss' else -np.inf
@@ -132,22 +132,28 @@ class SequenceDNN(Model):
             if self.verbose >= 1:
                 print('Epoch {}:'.format(epoch))
                 print('Train {}'.format(epoch_train_metrics))
-                print('Valid {}'.format(epoch_valid_metrics))
-            current_metric = epoch_valid_metrics[early_stopping_metric]
+                print('Valid {}'.format(epoch_valid_metrics), end='')
+            current_metric = epoch_valid_metrics[early_stopping_metric].mean()
             if (early_stopping_metric == 'Loss') == (current_metric <= best_metric):
+                if self.verbose >= 1:
+                    print(' *')
                 best_metric = current_metric
+                best_epoch = epoch
                 early_stopping_wait = 0
                 if save_best_model_to_prefix is not None:
                     self.save(save_best_model_to_prefix)
             else:
+                if self.verbose >= 1:
+                    print()
                 if early_stopping_wait >= early_stopping_patience:
                     break
                 early_stopping_wait += 1
         if self.verbose >= 1:
             print('Finished training after {} epochs.'.format(epoch))
             if save_best_model_to_prefix is not None:
-                print("The best model's architecture and weights were saved to {0}.arch.json "
-                      'and {0}.weights.h5'.format(save_best_model_to_prefix))
+                print("The best model's architecture and weights (from epoch {0}) "
+                      'were saved to {1}.arch.json and {1}.weights.h5'.format(
+                    best_epoch, save_best_model_to_prefix))
 
     def predict(self, X):
         return self.model.predict(X, batch_size=128, verbose=False)
@@ -263,12 +269,12 @@ class SequenceDNN(Model):
         weights_fname = save_best_model_to_prefix + '.weights.h5'
         if 'self' in self.saved_params:
             del self.saved_params['self']
-        json.dump(self.saved_params, open(arch_fname, 'wb'), indent=4)
+        json.dump(self.saved_params, open(arch_fname, 'w'), indent=4)
         self.model.save_weights(weights_fname, overwrite=True)
 
     @staticmethod
     def load(arch_fname, weights_fname):
-        model_params = json.load(open(arch_fname, 'rb'))
+        model_params = json.load(open(arch_fname))
         sequence_dnn = SequenceDNN(**model_params)
         sequence_dnn.model.load_weights(weights_fname)
         return sequence_dnn

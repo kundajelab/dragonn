@@ -68,7 +68,7 @@ class ClassificationResult(object):
             '{}Loss: {:.4f}\tBalanced Accuracy: {:.2f}%\t '
             'auROC: {:.3f}\t auPRC: {:.3f}\t auPRG: {:.3f}\n\t'
             'Recall at 5%|10%|20% FDR: {:.1f}%|{:.1f}%|{:.1f}%\t '
-            'Num Positives: {}\t Num Negatives: {}\t '.format(
+            'Num Positives: {}\t Num Negatives: {}'.format(
                 '{}: '.format('Task {}'.format(
                     self.task_names[task_index]
                     if self.task_names is not None else task_index))
