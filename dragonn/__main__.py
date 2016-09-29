@@ -87,7 +87,7 @@ def main_train(pos_sequences=None,
     print(valid_result)
     # save
     print("saving model files..")
-    model.save("%s.model.json" % (prefix), "%s.weights.hd5" % (prefix))
+    model.save(prefix)
     print("Done!")
 
 
