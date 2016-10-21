@@ -46,9 +46,11 @@ class SequenceDNN(Model):
 
     Parameters
     ----------
-    seq_length : int
+    seq_length : int, optional
         length of input sequence.
-    num_tasks : int,
+    keras_model : instance of keras.models.Sequential, optional
+        seq_length or keras_model must be specified.
+    num_tasks : int, optional
         number of tasks. Default: 1.
     num_filters : list[int] | tuple[int]
         number of convolutional filters in each layer. Default: (15,).
@@ -60,8 +62,6 @@ class SequenceDNN(Model):
         strength of L1 penalty.
     dropout : float
         dropout probability in every convolutional layer. Default: 0.
-    num_tasks : int
-        Number of prediction tasks or labels. Default: 1.
     verbose: int
         Verbosity level during training. Valida values: 0, 1, 2.
 
@@ -70,45 +70,49 @@ class SequenceDNN(Model):
     Compiled DNN model.
     """
 
-    def __init__(self, seq_length, use_RNN=False, num_tasks=1,
+    def __init__(self, seq_length=None, keras_model=None,
+                 use_RNN=False, num_tasks=1,
                  num_filters=(15, 15, 15), conv_width=(15, 15, 15),
                  pool_width=35, GRU_size=35, TDD_size=15,
                  L1=0, dropout=0.0, num_epochs=100, verbose=1):
-        self.saved_params = locals()
-        self.seq_length = seq_length
-        self.input_shape = (1, 4, self.seq_length)
         self.num_tasks = num_tasks
         self.num_epochs = num_epochs
         self.verbose = verbose
-        self.model = Sequential()
-        assert len(num_filters) == len(conv_width)
-        for i, (nb_filter, nb_col) in enumerate(zip(num_filters, conv_width)):
-            conv_height = 4 if i == 0 else 1
-            self.model.add(Convolution2D(
-                nb_filter=nb_filter, nb_row=conv_height,
-                nb_col=nb_col, activation='linear',
-                init='he_normal', input_shape=self.input_shape,
-                W_regularizer=l1(L1), b_regularizer=l1(L1)))
-            self.model.add(Activation('relu'))
-            self.model.add(Dropout(dropout))
-        self.model.add(MaxPooling2D(pool_size=(1, pool_width)))
-        if use_RNN:
-            num_max_pool_outputs = self.model.layers[-1].output_shape[-1]
-            self.model.add(Reshape((num_filters[-1], num_max_pool_outputs)))
-            self.model.add(Permute((2, 1)))
-            self.model.add(GRU(GRU_size, return_sequences=True))
-            self.model.add(TimeDistributedDense(TDD_size, activation='relu'))
-        self.model.add(Flatten())
-        self.model.add(Dense(output_dim=self.num_tasks))
-        self.model.add(Activation('sigmoid'))
-        self.model.compile(optimizer='adam', loss='binary_crossentropy')
         self.train_metrics = []
         self.valid_metrics = []
+        if keras_model is not None and seq_length is None:
+            self.model = keras_model
+            self.num_tasks = keras_model.layers[-1].get_output().shape[-1]
+        elif seq_length is not None and keras_model is None:
+            self.model = Sequential()
+            assert len(num_filters) == len(conv_width)
+            for i, (nb_filter, nb_col) in enumerate(zip(num_filters, conv_width)):
+                conv_height = 4 if i == 0 else 1
+                self.model.add(Convolution2D(
+                    nb_filter=nb_filter, nb_row=conv_height,
+                    nb_col=nb_col, activation='linear',
+                    init='he_normal', input_shape=(1, 4, seq_length),
+                    W_regularizer=l1(L1), b_regularizer=l1(L1)))
+                self.model.add(Activation('relu'))
+                self.model.add(Dropout(dropout))
+            self.model.add(MaxPooling2D(pool_size=(1, pool_width)))
+            if use_RNN:
+                num_max_pool_outputs = self.model.layers[-1].output_shape[-1]
+                self.model.add(Reshape((num_filters[-1], num_max_pool_outputs)))
+                self.model.add(Permute((2, 1)))
+                self.model.add(GRU(GRU_size, return_sequences=True))
+                self.model.add(TimeDistributedDense(TDD_size, activation='relu'))
+            self.model.add(Flatten())
+            self.model.add(Dense(output_dim=self.num_tasks))
+            self.model.add(Activation('sigmoid'))
+            self.model.compile(optimizer='adam', loss='binary_crossentropy')
+        else:
+            raise ValueError("Exactly one of seq_length or keras_model must be specified!")
 
     def train(self, X, y, validation_data, early_stopping_metric='Loss',
               early_stopping_patience=5, save_best_model_to_prefix=None):
         if y.dtype != bool:
-            assert len(np.unique(y)) == 2
+            assert set(np.unique(y)) == {0, 1}
             y = y.astype(bool)
         multitask = y.shape[1] > 1
         if not multitask:
@@ -267,16 +271,16 @@ class SequenceDNN(Model):
     def save(self, save_best_model_to_prefix):
         arch_fname = save_best_model_to_prefix + '.arch.json'
         weights_fname = save_best_model_to_prefix + '.weights.h5'
-        if 'self' in self.saved_params:
-            del self.saved_params['self']
-        json.dump(self.saved_params, open(arch_fname, 'w'), indent=4)
+        open(arch_fname, 'w').write(self.model.to_json())
         self.model.save_weights(weights_fname, overwrite=True)
 
     @staticmethod
-    def load(arch_fname, weights_fname):
-        model_params = json.load(open(arch_fname))
-        sequence_dnn = SequenceDNN(**model_params)
-        sequence_dnn.model.load_weights(weights_fname)
+    def load(arch_fname, weights_fname=None):
+        from keras.models import model_from_json
+        model_json_string = open(arch_fname).read()
+        sequence_dnn = SequenceDNN(keras_model=model_from_json(model_json_string))
+        if weights_fname is not None:
+            sequence_dnn.model.load_weights(weights_fname)
         return sequence_dnn
 
 class MotifScoreRNN(Model):

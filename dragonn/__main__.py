@@ -3,7 +3,6 @@ import numpy as np, random
 np.random.seed(1)
 random.seed(1)
 from dragonn.utils import encode_fasta_sequences, get_sequence_strings
-from dragonn.models import SequenceDNN
 from sklearn.cross_validation import train_test_split
 
 def parse_args():
@@ -22,19 +21,29 @@ def parse_args():
     prefix_parser.add_argument('--prefix', type=str, required=True,
                                help='prefix to output files')
     model_files_parser = argparse.ArgumentParser(add_help=False)
-    model_files_parser.add_argument('--model-file', type=str, required=True,
+    model_files_parser.add_argument('--arch-file', type=str, required=True,
                                     help='model json file')
     model_files_parser.add_argument('--weights-file', type=str, required=True,
                                     help='weights hd5 file')
+    sequence_dnn_args_parser = argparse.ArgumentParser(add_help=False)
+    sequence_dnn_args_parser.add_argument('--num-filters', type=int, nargs="+")
+    sequence_dnn_args_parser.add_argument('--conv-width', type=int, nargs="+")
+    sequence_dnn_args_parser.add_argument('--pool-width', type=int)
+    sequence_dnn_args_parser.add_argument('--L1', type=float)
+    sequence_dnn_args_parser.add_argument('--dropout', type=float)
+    sequence_dnn_args_parser.add_argument('--verbose', type=int)
     # define commands 
     subparsers = parser.add_subparsers(help='dragonn command help', dest='command')
     train_parser = subparsers.add_parser('train',
-                                         parents=[fasta_pair_parser, prefix_parser],
+                                         parents=[fasta_pair_parser,
+                                                  prefix_parser,
+                                                  sequence_dnn_args_parser],
                                          help='model training help')
-    train_parser.add_argument('--model-file', type=str, required=False,
+    train_parser.add_argument('--arch-file', type=str, required=False, default=None,
                               help='model json file')
-    train_parser.add_argument('--weights-file', type=str, required=False,
+    train_parser.add_argument('--weights-file', type=str, required=False, default=None,
                               help='weights hd5 file')
+
     test_parser = subparsers.add_parser('test',
                                         parents=[fasta_pair_parser, model_files_parser],
                                         help='model testing help')
@@ -52,18 +61,18 @@ def parse_args():
     args = vars(parser.parse_args())
     command = args.pop("command", None)
     if command == "train": # check for valid model and weights files
-        if args["model_file"] is None and args["weights_file"] is not None:
-            parser.error("You must provide a weights file corresponding to the provided model file! Exiting!")
-        if args["weights_file"] is None and args["model_file"] is not None:
-            parser.error("You must provide a model file corresponding to the provided weights file! Exiting!")
+        if args["arch_file"] is None and args["weights_file"] is not None:
+            parser.error("You must provide an --arch-file corresponding to the provided --weights-file! Exiting!")
     return command, args
 
 
 def main_train(pos_sequences=None,
                neg_sequences=None,
                prefix=None,
-               model_file=None,
-               weights_file=None):
+               arch_file=None,
+               weights_file=None,
+               **kwargs):
+    kwargs = {key: value for key, value in kwargs.items() if value is not None}
     # encode fastas
     print("loading sequence data...")
     X_pos = encode_fasta_sequences(pos_sequences)
@@ -73,12 +82,12 @@ def main_train(pos_sequences=None,
     X = np.concatenate((X_pos, X_neg))
     y = np.concatenate((y_pos, y_neg))
     X_train, X_valid, y_train, y_valid = train_test_split(X, y, test_size=0.2)
-    if model_file is not None and weights_file is not None: # load  model
+    if arch_file is not None: # load  model
         print("loading model...")
-        model = SequenceDNN.load(model_file, weights_file)
+        model = SequenceDNN.load(arch_file, weights_file)
     else: # initialize model
         print("initializing model...")
-        model = SequenceDNN(seq_length=X_train.shape[-1])
+        model = SequenceDNN(seq_length=X_train.shape[-1], **kwargs)
     # train
     print("starting model training...")
     model.train(X_train, y_train, validation_data=(X_valid, y_valid))
@@ -93,7 +102,7 @@ def main_train(pos_sequences=None,
 
 def main_test(pos_sequences=None,
               neg_sequences=None,
-              model_file=None,
+              arch_file=None,
               weights_file=None):
     # encode fastas
     print("loading sequence data...")
@@ -105,7 +114,7 @@ def main_test(pos_sequences=None,
     y_test = np.concatenate((y_test_pos, y_test_neg))
     # load model
     print("loading model...")
-    model = SequenceDNN.load(model_file, weights_file)
+    model = SequenceDNN.load(arch_file, weights_file)
     # test
     print("testing model...")
     test_result = model.test(X_test, y_test)
@@ -113,7 +122,7 @@ def main_test(pos_sequences=None,
 
 
 def main_predict(sequences=None,
-                 model_file=None,
+                 arch_file=None,
                  weights_file=None,
                  output_file=None):
     # encode fasta
@@ -121,7 +130,7 @@ def main_predict(sequences=None,
     X = encode_fasta_sequences(sequences)
     # load model
     print("loading model...")
-    model = SequenceDNN.load(model_file, weights_file)
+    model = SequenceDNN.load(arch_file, weights_file)
     # predict
     print("getting predictions...")
     predictions = model.predict(X)
@@ -132,7 +141,7 @@ def main_predict(sequences=None,
 
 
 def main_interpret(sequences=None,
-                   model_file=None,
+                   arch_file=None,
                    weights_file=None,
                    pos_threshold=None,
                    peak_width=10,
@@ -142,7 +151,7 @@ def main_interpret(sequences=None,
     X = encode_fasta_sequences(sequences)
     # load model
     print("loading model...")
-    model = SequenceDNN.load(model_file, weights_file)
+    model = SequenceDNN.load(arch_file, weights_file)
     # predict
     print("getting predictions...")
     predictions = model.predict(X)
@@ -185,4 +194,6 @@ def main():
                          'predict': main_predict,
                          'interpret': main_interpret}
     command, args = parse_args()
+    global SequenceDNN
+    from dragonn.models import SequenceDNN
     command_functions[command](**args)
