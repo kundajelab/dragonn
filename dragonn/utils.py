@@ -3,7 +3,7 @@ import numpy as np
 import sys
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder
 from scipy.signal import correlate2d
-from dragonn.simulations import loaded_motifs
+from simdna.simulations import loaded_motifs
 
 
 def get_motif_scores(encoded_sequences, motif_names,
