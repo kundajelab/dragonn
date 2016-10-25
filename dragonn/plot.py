@@ -10,7 +10,7 @@ from shapely.wkt import loads as load_wkt
 from shapely import affinity
 
 import numpy as np
-from dragonn.synthetic.synthetic import LoadedEncodeMotifs
+from simdna.synthetic import LoadedEncodeMotifs
 from pkg_resources import resource_filename
 
 ##########################################################################
