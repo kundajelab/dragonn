@@ -82,7 +82,7 @@ class SequenceDNN(Model):
         self.valid_metrics = []
         if keras_model is not None and seq_length is None:
             self.model = keras_model
-            self.num_tasks = keras_model.layers[-1].get_output().shape[-1]
+            self.num_tasks = keras_model.layers[-1].output_shape[-1]
         elif seq_length is not None and keras_model is None:
             self.model = Sequential()
             assert len(num_filters) == len(conv_width)
