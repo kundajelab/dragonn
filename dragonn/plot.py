@@ -10,7 +10,7 @@ from shapely.wkt import loads as load_wkt
 from shapely import affinity
 
 import numpy as np
-from simdna.synthetic import LoadedEncodeMotifs
+from simdna.simulations import loaded_motifs
 from pkg_resources import resource_filename
 
 ##########################################################################
@@ -279,10 +279,6 @@ def plot_motif(motif_name, figsize, ylab='bits', information_content=True):
     """
     Plot motifs from encode motifs file
     """
-    ENCODE_MOTIFS_PATH = resource_filename(
-        'dragonn.synthetic', 'motifs.txt.gz')
-    loaded_motifs = LoadedEncodeMotifs(
-        ENCODE_MOTIFS_PATH, pseudocountProb=0.001)
     motif_letter_heights = loaded_motifs.getPwm(motif_name).getRows()
     return plot_pwm(motif_letter_heights, figsize,
                     ylab=ylab, information_content=information_content)
