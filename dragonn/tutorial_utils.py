@@ -225,7 +225,7 @@ def interpret_data_with_SequenceDNN(dnn, simulation_data):
         motif_label_dict['ISM Scores'] = ['_'.join(simulation_data.motif_names)]
     motif_label_dict['DeepLIFT Scores'] = motif_label_dict['ISM Scores']
     # plot scores and highlight motif site locations
-    seq_length = dnn.seq_length
+    seq_length = pos_X.shape[-1]
     plots_per_row = 2
     plots_per_column = 3
     ylim_dict = {'Motif Scores': (-80, 30), 'ISM Scores': (-1.5, 3.0), 'DeepLIFT Scores': (-1.5, 3.0)}
