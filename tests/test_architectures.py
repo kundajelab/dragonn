@@ -1,16 +1,16 @@
 from __future__ import absolute_import, division, print_function
-import numpy as np, pytest, random, sys
+import numpy as np, pytest, sys
 sys.path.append('../dragonn')
-np.random.seed(1)
-random.seed(1)
 from collections import OrderedDict
-from dragonn.models import SequenceDNN
-from dragonn.simulations import simulate_single_motif_detection
-from dragonn.utils import one_hot_encode, reverse_complement
-from sklearn.cross_validation import train_test_split
-
 
 def run(use_deep_CNN, use_RNN, label, golden_results):
+    import random
+    np.random.seed(1)
+    random.seed(1)
+    from dragonn.models import SequenceDNN
+    from simdna.simulations import simulate_single_motif_detection
+    from dragonn.utils import one_hot_encode, reverse_complement
+    from sklearn.cross_validation import train_test_split
     seq_length = 50
     num_sequences = 100
     num_positives = 50
@@ -71,19 +71,6 @@ def test_deep_CNN():
                                     ('Recall at 20% FDR', 16.666666666666664),
                                     ('Num Positives', 12),
                                     ('Num Negatives', 8))))
-
-
-def test_RNN():
-    run(use_deep_CNN=False, use_RNN=True, label='RNN',
-        golden_results=OrderedDict((('Balanced accuracy', 65.384615384615387),
-                                    ('auROC', 0.70329670329670335),
-                                    ('auPRC', 0.82143508515114849),
-                                    ('auPRG', 0.34909241712272016),
-                                    ('Recall at 5% FDR', 30.76923076923077),
-                                    ('Recall at 10% FDR', 30.76923076923077),
-                                    ('Recall at 20% FDR', 30.76923076923077),
-                                    ('Num Positives', 13),
-                                    ('Num Negatives', 7))))
 
 
 if __name__ == '__main__':

@@ -10,7 +10,7 @@ np.random.seed(1)
 from sklearn.cross_validation import train_test_split
 import theano
 
-import dragonn.simulations
+from simdna import simulations
 from dragonn.utils import get_motif_scores, one_hot_encode
 from dragonn.models import SequenceDNN
 from dragonn.plot import add_letters_to_axis, plot_motif
@@ -20,7 +20,7 @@ Data = namedtuple('Data', ['X_train', 'X_valid', 'X_test',
                            'motif_names'])
 
 def get_available_simulations():
-    return [function_name for function_name in dir(dragonn.simulations)
+    return [function_name for function_name in dir(simulations)
             if "simulate" in function_name]
 
 
@@ -31,7 +31,7 @@ def print_available_simulations():
 
 def get_simulation_function(simulation_name):
     if simulation_name in get_available_simulations():
-        return getattr(dragonn.simulations, simulation_name)
+        return getattr(simulations, simulation_name)
     else:
         print("%s is not available. Available simulations are:" % (simulation_name))
         print_available_simulations()
