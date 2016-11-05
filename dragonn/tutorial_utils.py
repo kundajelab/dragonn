@@ -198,9 +198,9 @@ def interpret_SequenceDNN_filters(dnn, simulation_data):
 
 def interpret_data_with_SequenceDNN(dnn, simulation_data):
     # get a positive and a negative example from the simulation data
-    pos_indx = np.where(simulation_data.y_valid==1)[0][0]
+    pos_indx = np.where(simulation_data.y_valid==1)[0][2]
+    neg_indx = np.where(simulation_data.y_valid==0)[0][2]
     pos_X = simulation_data.X_valid[pos_indx:(pos_indx+1)]
-    neg_indx = np.where(simulation_data.y_valid==0)[0][0]
     neg_X = simulation_data.X_valid[neg_indx:(neg_indx+1)]
     # get motif scores, ISM scores, and DeepLIFT scores
     scores_dict = defaultdict(OrderedDict)
