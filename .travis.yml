@@ -25,4 +25,4 @@ install:
   - pip install . --process-dependency-links
 
 # Do not test the package functionality, simply run an arbitrary tutorial function
-script: python -c 'from dragonn.tutorial_utils import print_available_simulations; print_available_simulations()'
+script: KERAS_BACKEND="theano" python -c 'from dragonn.tutorial_utils import print_available_simulations; print_available_simulations()'

@@ -197,3 +197,7 @@ def main():
     global SequenceDNN
     from dragonn.models import SequenceDNN
     command_functions[command](**args)
+
+
+if __name__ == "__main__":
+    main()
