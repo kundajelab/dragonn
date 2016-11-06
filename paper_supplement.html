@@ -40,8 +40,19 @@
 
     <section class="main-content">
       
-      <p>Models, data, and code to reproduce results in the DragoNN paper will be available soon.</p>
+      <h2 id="online-paper-supplement-contents">Online paper supplement contents</h2>
+<p>We provide trained models, data, and code in <a href="https://github.com/kundajelab/dragonn/tree/master/paper_supplement">paper_supplement</a> to reproduce results in the DragoNN manuscript. Data files in <a href="https://github.com/kundajelab/dragonn/tree/master/paper_supplement/simulation_data">paper_supplement/simulation_data</a> are named based on parameters of <a href="https://github.com/kundajelab/simdna/blob/master/simdna/simulations.py">simulations functions</a> and contain training, validation, and test data for each simulation in the manuscript. We provide architecture and weights files for 139 models discussed in the manuscript in <a href="https://github.com/kundajelab/dragonn/tree/master/paper_supplement/simulation_models">paper_supplement/simulation_models</a>. Architecture and weights files of models based on simulations are prefixed with <code class="highlighter-rouge">&lt;simulation_function_name&gt;.&lt;model_architecture_parameters&gt;</code>.</p>
 
+<h2 id="how-to-reproduce-results-in-the-dragonn-manuscript">How to reproduce results in the DragoNN manuscript</h2>
+<p>To obtain the plots with model performance on simulations for varying data size and model architectures, run:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>python paper_supplement/simulation_performance_results.py --model-files-dir paper_supplement/simulation_models/ --data-files-dir paper_supplement/simulation_data/ --results-dir paper_supplement/simulation_results
+</code></pre>
+</div>
+
+<p>This command will write pdf files with the plots in <code class="highlighter-rouge">paper_supplement/simulation_results/</code>. The pdf files are named with the following format: <code class="highlighter-rouge">&lt;simulation_type&gt;.results.&lt;plot_type&gt;.pdf</code>.</p>
+
+<p>For example, <code class="highlighter-rouge">simulate_multi_motif_embedding.results.pool_width.pdf</code> will plot performance on the multiple motif embedding simulation for varying pooling width. For each simulation, there is also a <code class="highlighter-rouge">&lt;simulation_type&gt;.results.RandomForest.pdf</code> plot showing how a Random Forest model based on motif features performs for varying training data size. This model serves as an “empirical upper bound” for the rest of the results for that simulation as it is based on the motif features in the simulation (see the paper supplement for more details).</p>
 
 
       <footer class="site-footer">
