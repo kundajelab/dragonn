@@ -11,7 +11,7 @@ To install the latest released version of DragoNN, install the [Anaconda](https:
 ```
 conda install dragonn -c kundajelab
 ```
-DragoNN is compatible with Python2 and Python3. Specific optional features such as [DeepLIFT](https://github.com/kundajelab/deeplift) method and [MOE](https://github.com/Yelp/MOE) are compatible with Python2 only.
+DragoNN is compatible with Python2 and Python3. Specific optional features such as [DeepLIFT](https://github.com/kundajelab/deeplift) and [MOE](https://github.com/Yelp/MOE) are compatible with Python2 only.
 
 
 ## 15 seconds to your first DragoNN model
