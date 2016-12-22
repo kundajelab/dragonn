@@ -8,6 +8,14 @@ class HyperparameterBackend(object):
 
     @abstractmethod
     def __init__(self, grid):
+        """
+        Parameters
+        ----------
+        grid: dict
+            Keys are hyperparameter names and values are either
+            a single (min, max) tuple for single value parameters
+            or a tuple of (min, max) tuples for tuple-valued parameters.
+        """
         pass
 
     @abstractmethod
@@ -15,7 +23,15 @@ class HyperparameterBackend(object):
         pass
 
     @abstractmethod
-    def record_result(self, point, value):
+    def record_result(self, hyperparam_dict, score):
+        """
+        Parameters
+        ----------
+        hyperparam_dict: dict
+            hyperparameter names as keys and values as values.
+        score: int or float
+            The result, or metric value, of using the hyparameters.
+        """
         pass
 
 
@@ -26,30 +42,30 @@ class RandomSearch(HyperparameterBackend):
     def get_next_hyperparameters(self):
         return [np.random.uniform(start, end) for start, end in self.grid]
 
-    def record_result(self, point, value):
+    def record_result(self, hyperparam_dict, score):
         pass  # Random search doesn't base its decisions on the results of previous trials
 
 
-if sys.version_info[0] == 2:
-    from httplib import BadStatusLine
-    from moe.easy_interface.experiment import Experiment
-    from moe.easy_interface.simple_endpoint import gp_next_points
-    from moe.optimal_learning.python.data_containers import SamplePoint
+class MOESearch(HyperparameterBackend):
+    def __init__(self, grid):
+        if sys.version_info[0] == 2:
+            from httplib import BadStatusLine
+            from moe.easy_interface.experiment import Experiment
+            from moe.easy_interface.simple_endpoint import gp_next_points
+            from moe.optimal_learning.python.data_containers import SamplePoint
+        else:
+            raise RuntimeError("MOESearch requires Python2!")
+        self.experiment = Experiment(grid)
 
+    def get_next_hyperparameters(self):
+        try:
+            return gp_next_points(self.experiment)[0]
+        except BadStatusLine:
+            raise RuntimeError('MOE server is not running!')
 
-    class MOESearch(HyperparameterBackend):
-        def __init__(self, grid):
-            self.experiment = Experiment(grid)
-
-        def get_next_hyperparameters(self):
-            try:
-                return gp_next_points(self.experiment)[0]
-            except BadStatusLine:
-                raise RuntimeError('MOE server is not running!')
-
-        def record_result(self, point, value):
-            self.experiment.historical_data.append_sample_points(
-                [SamplePoint(point=point, value=value)])
+    def record_result(self, hyperparam_dict, score):
+        self.experiment.historical_data.append_sample_points(
+            [SamplePoint(point=hyperparam_dict.values(), value=score)])
 
 
 class HyperparameterSearcher(object):
@@ -101,7 +117,7 @@ class HyperparameterSearcher(object):
             task_scores = model.score(self.validation_data[0], self.validation_data[1], self.metric)
             score = task_scores.mean()  # mean across tasks
             # Record hyperparameters and validation loss
-            self.backend.record_result(point=hyperparameters.values(), value=score)
+            self.backend.record_result(hyperparameters, score)
             # If these hyperparameters were the best so far, store this model
             if self.maximize == (score > self.best_score):
                 self.best_score = score

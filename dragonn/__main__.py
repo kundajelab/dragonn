@@ -3,7 +3,7 @@ import numpy as np, random
 np.random.seed(1)
 random.seed(1)
 from dragonn.utils import encode_fasta_sequences, get_sequence_strings
-from sklearn.cross_validation import train_test_split
+from sklearn.model_selection import train_test_split
 
 def parse_args():
     parser = argparse.ArgumentParser(
@@ -34,6 +34,7 @@ def parse_args():
     sequence_dnn_args_parser.add_argument('--verbose', type=int)
     # define commands 
     subparsers = parser.add_subparsers(help='dragonn command help', dest='command')
+    subparsers.required = True #http://bugs.python.org/issue9253#msg186387
     train_parser = subparsers.add_parser('train',
                                          parents=[fasta_pair_parser,
                                                   prefix_parser,

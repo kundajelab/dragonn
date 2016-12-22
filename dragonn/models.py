@@ -1,5 +1,11 @@
 from __future__ import absolute_import, division, print_function
-import json, matplotlib, numpy as np, os, subprocess, tempfile
+import json
+import matplotlib
+import numpy as np
+import os
+import subprocess
+import sys
+import tempfile
 matplotlib.use('pdf')
 import matplotlib.pyplot as plt
 from abc import abstractmethod, ABCMeta
@@ -172,6 +178,8 @@ class SequenceDNN(Model):
         """
         Returns (num_task, num_samples, 1, num_bases, sequence_length) deeplift score array.
         """
+        if sys.version_info[0] != 2:
+            raise RuntimeError("DeepLIFT requires Python2!")
         assert len(np.shape(X)) == 4 and np.shape(X)[1] == 1
         from deeplift.conversion import keras_conversion as kc
         from deeplift.blobs import NonlinearMxtsMode
