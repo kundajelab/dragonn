@@ -4,6 +4,7 @@ language: python
 
 python:
   - 2.7
+  - 3.5
 
 notifications:
   email: false
@@ -19,10 +20,10 @@ before_install:
 
 install:
   # pip cannot easily install scipy, matplotlib or graphviz on the Travis CI server
-  - conda install --yes python=$TRAVIS_PYTHON_VERSION scipy matplotlib graphviz
+  - conda install --yes python=$TRAVIS_PYTHON_VERSION scipy matplotlib graphviz pytest
   # Install the cloned dragonn package from source using Anaconda
   # Process the deeplift dependency_links in setup.py
   - pip install . --process-dependency-links
 
-# Do not test the package functionality, simply run an arbitrary tutorial function
-script: KERAS_BACKEND="theano" python -c 'from dragonn.tutorial_utils import print_available_simulations; print_available_simulations()'
+# run tests
+script: py.test
