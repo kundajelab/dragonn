@@ -269,7 +269,7 @@ def plot_pwm(letter_heights,
     Plots pwm. Displays information content by default.
     """
     if information_content:
-        letter_heights *= (
+        letter_heights = letter_heights * (
             2 + (letter_heights *
                  np.log2(letter_heights)).sum(axis=1))[:, np.newaxis]
     return plot_bases(letter_heights, figsize, ylab=ylab)
