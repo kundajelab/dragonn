@@ -6,6 +6,13 @@ The `dragonn` package implements Deep RegulAtory GenOmic Neural Networks (DragoN
 
 ![demo](http://i.imgur.com/1fAgrt2.gif)
 
+## Installation
+To install the latest released version of DragoNN, install the [Anaconda](https://www.continuum.io/downloads) python distribution. Then, run:
+```
+conda install dragonn -c kundajelab
+```
+DragoNN is compatible with Python2 and Python3. Specific optional features such as [DeepLIFT](https://github.com/kundajelab/deeplift) method and [MOE](https://github.com/Yelp/MOE) are compatible with Python2 only.
+
 
 ## 15 seconds to your first DragoNN model
 The `dragonn` package provides a simple command line interface to train DragoNN models, test them, and predict on sequence data. Train an example model by running:

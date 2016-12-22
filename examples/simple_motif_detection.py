@@ -5,7 +5,8 @@ random.seed(1)
 from dragonn.models import SequenceDNN
 from simdna.simulations import simulate_single_motif_detection
 from dragonn.utils import one_hot_encode, get_motif_scores, reverse_complement
-from sklearn.cross_validation import train_test_split
+from sklearn.model_selection import train_test_split
+import sys
 
 # Settings
 
@@ -92,6 +93,7 @@ print('Test results: {}'.format(model.test(X_test, y_test)))
 
 # Plot DeepLift and ISM scores for the first 10 test examples, and model architecture
 
-model.plot_deeplift(X_test[:10], output_directory='deeplift_plots')
+if sys.version[0] == 2:
+    model.plot_deeplift(X_test[:10], output_directory='deeplift_plots')
 model.plot_in_silico_mutagenesis(X_test[:10], output_directory='ISM_plots')
 model.plot_architecture(output_file='architecture_plot.png')

@@ -5,7 +5,7 @@ import os
 import sys
 import time
 import yaml
-import urllib
+import urllib.request
 import hashlib
 import argparse
 
@@ -71,7 +71,7 @@ if __name__ == '__main__':
         sys.exit(0)
 
     # Download and verify model.
-    urllib.urlretrieve(
+    urllib.request.urlretrieve(
         frontmatter['weights_url'], model_filename, reporthook)
     if not model_checks_out():
         print('ERROR: model did not download correctly! Run this again.')

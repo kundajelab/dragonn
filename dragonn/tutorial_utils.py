@@ -7,7 +7,7 @@ from matplotlib.lines import Line2D
 
 import numpy as np
 np.random.seed(1)
-from sklearn.cross_validation import train_test_split
+from sklearn.model_selection import train_test_split
 import theano
 
 from simdna import simulations
@@ -26,7 +26,7 @@ def get_available_simulations():
 
 def print_available_simulations():
     for function_name in get_available_simulations():
-        print function_name
+        print(function_name)
 
 
 def get_simulation_function(simulation_name):
@@ -40,17 +40,13 @@ def get_simulation_function(simulation_name):
 def print_simulation_info(simulation_name):
     simulation_function = get_simulation_function(simulation_name)
     if simulation_function is not None:
-        print simulation_function.func_doc
+        print(simulation_function.__doc__)
 
 
 def get_simulation_data(simulation_name, simulation_parameters,
                         test_set_size=4000, validation_set_size=3200):
     simulation_function = get_simulation_function(simulation_name)
-    try:
-        sequences, y = simulation_function(**simulation_parameters)
-    except Exception as e:
-        return
-
+    sequences, y = simulation_function(**simulation_parameters)
     if simulation_name=="simulate_heterodimer_grammar":
         motif_names = [simulation_parameters["motif1"],
                        simulation_parameters["motif2"]]
@@ -71,11 +67,11 @@ def get_simulation_data(simulation_name, simulation_parameters,
 
 
 def inspect_SequenceDNN():
-    print inspect.getdoc(SequenceDNN)
+    print(inspect.getdoc(SequenceDNN))
     print("\nAvailable methods:\n")
     for (method_name, _) in inspect.getmembers(SequenceDNN, predicate=inspect.ismethod):
         if method_name != "__init__":
-            print method_name
+            print(method_name)
 
 
 def get_SequenceDNN(SequenceDNN_parameters):
@@ -210,6 +206,7 @@ def interpret_data_with_SequenceDNN(dnn, simulation_data):
     scores_dict['Negative']['Motif Scores'] = get_motif_scores(neg_X, simulation_data.motif_names)
     scores_dict['Negative']['ISM Scores'] =  dnn.in_silico_mutagenesis(neg_X).max(axis=-2)
     scores_dict['Negative']['DeepLIFT Scores'] = dnn.deeplift(neg_X).max(axis=-2)
+
     # get motif site locations
     motif_sites = {}
     motif_sites['Positive'] = [np.argmax(scores_dict['Positive']['Motif Scores'][0, i, :])
@@ -240,7 +237,7 @@ def interpret_data_with_SequenceDNN(dnn, simulation_data):
     f.set_tight_layout(True)
 
     for j, key in enumerate(['Positive', 'Negative']):
-        for i, (score_type, scores) in enumerate(scores_dict[key].iteritems()):
+        for i, (score_type, scores) in enumerate(scores_dict[key].items()):
             ax = f.add_subplot(plots_per_column, plots_per_row, plots_per_row*i+j+1)
             ax.set_ylim(ylim_dict[score_type])
             ax.set_xlim((0, seq_length))
