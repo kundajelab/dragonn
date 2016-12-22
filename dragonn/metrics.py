@@ -2,7 +2,6 @@ from __future__ import absolute_import, division, print_function
 import numpy as np
 from collections import OrderedDict
 from sklearn.metrics import auc, log_loss, precision_recall_curve, roc_auc_score
-from prg.prg import create_prg_curve, calc_auprg
 
 
 def loss(labels, predictions):
@@ -31,10 +30,6 @@ def auPRC(labels, predictions):
     return auc(recall, precision)
 
 
-def auPRG(labels, predictions):
-    return calc_auprg(create_prg_curve(labels, predictions))
-
-
 def recall_at_precision_threshold(labels, predictions, precision_threshold):
     precision, recall = precision_recall_curve(labels, predictions)[:2]
     return 100 * recall[np.searchsorted(precision - precision_threshold, 0)]
@@ -50,7 +45,6 @@ class ClassificationResult(object):
                 task_labels, task_predictions)),
             ('auROC', auROC(task_labels, task_predictions)),
             ('auPRC', auPRC(task_labels, task_predictions)),
-            ('auPRG', auPRG(task_labels, task_predictions)),
             ('Recall at 5% FDR', recall_at_precision_threshold(
                 task_labels, task_predictions, 0.95)),
             ('Recall at 10% FDR', recall_at_precision_threshold(
@@ -66,7 +60,7 @@ class ClassificationResult(object):
     def __str__(self):
         return '\n'.join(
             '{}Loss: {:.4f}\tBalanced Accuracy: {:.2f}%\t '
-            'auROC: {:.3f}\t auPRC: {:.3f}\t auPRG: {:.3f}\n\t'
+            'auROC: {:.3f}\t auPRC: {:.3f}\n\t'
             'Recall at 5%|10%|20% FDR: {:.1f}%|{:.1f}%|{:.1f}%\t '
             'Num Positives: {}\t Num Negatives: {}'.format(
                 '{}: '.format('Task {}'.format(
