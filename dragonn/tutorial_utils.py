@@ -1,3 +1,4 @@
+from __future__ import division
 import random
 random.seed(1)
 import inspect
@@ -7,17 +8,22 @@ from matplotlib.lines import Line2D
 
 import numpy as np
 np.random.seed(1)
-from sklearn.model_selection import train_test_split
+try:
+    from sklearn.model_selection import train_test_split  # sklearn >= 0.18
+except ImportError:
+    from sklearn.cross_validation import train_test_split  # sklearn < 0.18
 import theano
 
 from simdna import simulations
+from simdna.synthetic import StringEmbeddable
 from dragonn.utils import get_motif_scores, one_hot_encode
 from dragonn.models import SequenceDNN
 from dragonn.plot import add_letters_to_axis, plot_motif
 
-Data = namedtuple('Data', ['X_train', 'X_valid', 'X_test',
+Data = namedtuple('Data', ('X_train', 'X_valid', 'X_test',
+                           'train_embeddings', 'valid_embeddings', 'test_embeddings',
                            'y_train', 'y_valid', 'y_test',
-                           'motif_names'])
+                           'motif_names'))
 
 def get_available_simulations():
     return [function_name for function_name in dir(simulations)
@@ -46,24 +52,25 @@ def print_simulation_info(simulation_name):
 def get_simulation_data(simulation_name, simulation_parameters,
                         test_set_size=4000, validation_set_size=3200):
     simulation_function = get_simulation_function(simulation_name)
-    sequences, y = simulation_function(**simulation_parameters)
-    if simulation_name=="simulate_heterodimer_grammar":
+    sequences, y, embeddings = simulation_function(**simulation_parameters)
+    if simulation_name == "simulate_heterodimer_grammar":
         motif_names = [simulation_parameters["motif1"],
                        simulation_parameters["motif2"]]
-    elif simulation_name=="simulate_multi_motif_embedding":
+    elif simulation_name == "simulate_multi_motif_embedding":
         motif_names = simulation_parameters["motif_names"]
     else:
         motif_names = [simulation_parameters["motif_name"]]
 
-    train_sequences, test_sequences, y_train, y_test = train_test_split(
-        sequences, y, test_size=test_set_size)
-    train_sequences, valid_sequences, y_train, y_valid = train_test_split(
-        train_sequences, y_train, test_size=validation_set_size)
+    train_sequences, test_sequences, train_embeddings, test_embeddings, y_train, y_test = \
+        train_test_split(sequences, embeddings, y, test_size=test_set_size)
+    train_sequences, valid_sequences, train_embeddings, valid_embeddings, y_train, y_valid = \
+        train_test_split(train_sequences, train_embeddings, y_train, test_size=validation_set_size)
     X_train = one_hot_encode(train_sequences)
     X_valid = one_hot_encode(valid_sequences)
     X_test = one_hot_encode(test_sequences)
 
-    return Data(X_train, X_valid, X_test, y_train, y_valid, y_test, motif_names)
+    return Data(X_train, X_valid, X_test, train_embeddings, valid_embeddings, test_embeddings,
+                y_train, y_valid, y_test, motif_names)
 
 
 def inspect_SequenceDNN():
@@ -194,10 +201,10 @@ def interpret_SequenceDNN_filters(dnn, simulation_data):
 
 def interpret_data_with_SequenceDNN(dnn, simulation_data):
     # get a positive and a negative example from the simulation data
-    pos_indx = np.where(simulation_data.y_valid==1)[0][2]
-    neg_indx = np.where(simulation_data.y_valid==0)[0][2]
-    pos_X = simulation_data.X_valid[pos_indx:(pos_indx+1)]
-    neg_X = simulation_data.X_valid[neg_indx:(neg_indx+1)]
+    pos_indx = np.flatnonzero(simulation_data.y_valid==1)[2]
+    neg_indx = np.flatnonzero(simulation_data.y_valid==0)[2]
+    pos_X = simulation_data.X_valid[pos_indx:pos_indx+1]
+    neg_X = simulation_data.X_valid[neg_indx:neg_indx+1]
     # get motif scores, ISM scores, and DeepLIFT scores
     scores_dict = defaultdict(OrderedDict)
     scores_dict['Positive']['Motif Scores'] = get_motif_scores(pos_X, simulation_data.motif_names)
@@ -208,11 +215,20 @@ def interpret_data_with_SequenceDNN(dnn, simulation_data):
     scores_dict['Negative']['DeepLIFT Scores'] = dnn.deeplift(neg_X).max(axis=-2)
 
     # get motif site locations
-    motif_sites = {}
-    motif_sites['Positive'] = [np.argmax(scores_dict['Positive']['Motif Scores'][0, i, :])
-                               for i in range(len(simulation_data.motif_names))]
-    motif_sites['Negative'] = [np.argmax(scores_dict['Negative']['Motif Scores'][0, i, :])
-                               for i in range(len(simulation_data.motif_names))]
+    # motif_sites = {}
+    # motif_sites['Positive'] = [np.argmax(scores_dict['Positive']['Motif Scores'][0, i, :])
+    #                            for i in range(len(simulation_data.motif_names))]
+    # motif_sites['Negative'] = [np.argmax(scores_dict['Negative']['Motif Scores'][0, i, :])
+    #                            for i in range(len(simulation_data.motif_names))]
+    motif_sites = {key: [embedded_motif.startPos + len(embedded_motif.what.string) // 2
+                         for embedded_motif in
+                         (next(embedded_motif for embedded_motif in
+                               simulation_data.valid_embeddings[index]
+                               if isinstance(embedded_motif.what, StringEmbeddable)
+                               and motif_name in embedded_motif.what.stringDescription)
+                          for motif_name in simulation_data.motif_names)]
+                   for key, index in (('Positive', pos_indx), ('Negative', neg_indx))}
+
     # organize legends
     motif_label_dict = {}
     motif_label_dict['Motif Scores'] = simulation_data.motif_names

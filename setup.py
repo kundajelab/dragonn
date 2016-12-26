@@ -8,7 +8,7 @@ config = {
     'packages': ['dragonn'],
     'setup_requires': [],
     'install_requires': ['numpy>=1.9', 'keras==0.3.3', 'deeplift==0.3', 'shapely', 'simdna==0.1', 'matplotlib<=1.5.3',
-                         'scikit-learn>=0.18', 'pydot_ng==1.0.0', 'h5py'],
+                         'scikit-learn', 'pydot_ng==1.0.0', 'h5py'],
     'dependency_links': ["https://github.com/kundajelab/deeplift/tarball/v0.3-alpha#egg=deeplift-0.3",
                          "https://github.com/kundajelab/simdna/tarball/0.1#egg=simdna-0.1"],
     'scripts': [],

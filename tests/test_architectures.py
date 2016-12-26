@@ -1,18 +1,19 @@
 from __future__ import absolute_import, division, print_function
-import numpy as np, pytest, sys
-sys.path.append('../dragonn')
-from collections import OrderedDict
-import os
+import numpy as np, os, pytest, random
 os.environ["THEANO_FLAGS"] = "device=cpu"
+np.random.seed(1)
+random.seed(1)
+from collections import OrderedDict
+from dragonn.models import SequenceDNN
+from dragonn.utils import one_hot_encode, reverse_complement
+from simdna.simulations import simulate_single_motif_detection
+try:
+    from sklearn.model_selection import train_test_split  # sklearn >= 0.18
+except ImportError:
+    from sklearn.cross_validation import train_test_split  # sklearn < 0.18
 
-def run(use_deep_CNN, use_RNN, label, golden_results):
-    import random
-    np.random.seed(1)
-    random.seed(1)
-    from dragonn.models import SequenceDNN
-    from simdna.simulations import simulate_single_motif_detection
-    from dragonn.utils import one_hot_encode, reverse_complement
-    from sklearn.cross_validation import train_test_split
+
+def run(use_deep_CNN, use_RNN, label, golden_first_sequence, golden_results):
     seq_length = 100
     num_sequences = 200
     num_positives = 100
@@ -20,9 +21,10 @@ def run(use_deep_CNN, use_RNN, label, golden_results):
     GC_fraction = 0.4
     test_fraction = 0.2
     num_epochs = 1
-
-    sequences, labels = simulate_single_motif_detection(
+    sequences, labels, embeddings = simulate_single_motif_detection(
         'SPI1_disc1', seq_length, num_positives, num_negatives, GC_fraction)
+    assert sequences[0] == golden_first_sequence, 'first sequence = {}, golden = {}'.format(
+        sequences[0], golden_first_sequence)
     encoded_sequences = one_hot_encode(sequences)
     X_train, X_test, y_train, y_test = train_test_split(
         encoded_sequences, labels, test_size=test_fraction)
@@ -48,6 +50,8 @@ def run(use_deep_CNN, use_RNN, label, golden_results):
 
 def test_shallow_CNN():
     run(use_deep_CNN=False, use_RNN=False, label='Shallow CNN',
+        golden_first_sequence='CGATTTAACCGTACTATGGCCAGTTTCTTTTTTTTCGAACGGCTAAGTGA'
+                              'TAGGAACTATCAAATTAAATTCCAGAAAGGGGAAGTATTAGCAGGAGAAT',
         golden_results=OrderedDict([('Loss', 0.87961949128096106),
                                     ('Balanced accuracy', 50.0),
                                     ('auROC', 0.4987212276214833),
@@ -61,6 +65,8 @@ def test_shallow_CNN():
 
 def test_deep_CNN():
     run(use_deep_CNN=True, use_RNN=False, label='Deep CNN',
+        golden_first_sequence='CACTCTTTCGTTAGGACCTAACTTTACGGGGTATTTGGTACTGCTTGGAG'
+                              'ATAAGGGGAAGTATATCTTTAGTGTGGCCAGCAAACTGTCAATTGAGATA',
         golden_results=OrderedDict([('Loss', 0.78251894472793504),
                                     ('Balanced accuracy', 50.0),
                                     ('auROC', 0.40409207161125321),

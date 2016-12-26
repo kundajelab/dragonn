@@ -5,7 +5,10 @@ random.seed(1)
 from dragonn.models import SequenceDNN
 from simdna.simulations import simulate_single_motif_detection
 from dragonn.utils import one_hot_encode, get_motif_scores, reverse_complement
-from sklearn.model_selection import train_test_split
+try:
+    from sklearn.model_selection import train_test_split  # sklearn >= 0.18
+except ImportError:
+    from sklearn.cross_validation import train_test_split  # sklearn < 0.18
 import sys
 
 # Settings
@@ -25,7 +28,7 @@ use_RNN = False
 
 print('Generating sequences...')
 
-sequences, labels = simulate_single_motif_detection(
+sequences, labels, embeddings = simulate_single_motif_detection(
     'SPI1_disc1', seq_length, num_positives, num_negatives, GC_fraction)
 
 print('One-hot encoding sequences...')
