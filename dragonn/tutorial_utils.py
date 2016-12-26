@@ -5,7 +5,7 @@ import inspect
 from collections import namedtuple, defaultdict, OrderedDict
 from matplotlib import pyplot as plt
 from matplotlib.lines import Line2D
-
+from math import floor, ceil
 import numpy as np
 np.random.seed(1)
 try:
@@ -13,7 +13,6 @@ try:
 except ImportError:
     from sklearn.cross_validation import train_test_split  # sklearn < 0.18
 import theano
-
 from simdna import simulations
 from simdna.synthetic import StringEmbeddable
 from dragonn.utils import get_motif_scores, one_hot_encode
@@ -220,7 +219,9 @@ def interpret_data_with_SequenceDNN(dnn, simulation_data):
     #                            for i in range(len(simulation_data.motif_names))]
     # motif_sites['Negative'] = [np.argmax(scores_dict['Negative']['Motif Scores'][0, i, :])
     #                            for i in range(len(simulation_data.motif_names))]
-    motif_sites = {key: [embedded_motif.startPos + len(embedded_motif.what.string) // 2
+    motif_sites = {key: [embedded_motif.startPos + ceil(len(embedded_motif.what.string) / 2) - 1
+                         if embedded_motif.what.stringDescription.startswith('revComp') else
+                         embedded_motif.startPos + floor(len(embedded_motif.what.string) / 2) - 1
                          for embedded_motif in
                          (next(embedded_motif for embedded_motif in
                                simulation_data.valid_embeddings[index]
@@ -228,7 +229,6 @@ def interpret_data_with_SequenceDNN(dnn, simulation_data):
                                and motif_name in embedded_motif.what.stringDescription)
                           for motif_name in simulation_data.motif_names)]
                    for key, index in (('Positive', pos_indx), ('Negative', neg_indx))}
-
     # organize legends
     motif_label_dict = {}
     motif_label_dict['Motif Scores'] = simulation_data.motif_names
