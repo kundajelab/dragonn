@@ -26,7 +26,7 @@ def get_motif_scores(encoded_sequences, motif_names,
     If max_scores and return_positions, (num_samples, 2*num_motifs*max_scores)
     array with max scores and their positions.
     """
-    num_samples, _, _, seq_length = np.shape(encoded_sequences)
+    num_samples, _, _, seq_length = encoded_sequences.shape
     scores = np.ones((num_samples, len(motif_names), seq_length))
     for j, motif_name in enumerate(motif_names):
         pwm = loaded_motifs.getPwm(motif_name).getRows().T
@@ -50,19 +50,41 @@ def get_motif_scores(encoded_sequences, motif_names,
 
 
 def get_pssm_scores(encoded_sequences, pssm):
-    encoded_sequences = np.squeeze(encoded_sequences, axis=1)
-    num_samples, num_bases, seq_length = np.shape(encoded_sequences)
-    scores = np.ones((num_samples, num_bases, seq_length))
-    for base_indx in range(num_bases):
-        base_pssm = pssm[base_indx].reshape(1, len(pssm[0]))
-        fwd_scores = correlate2d(
-            encoded_sequences[:, base_indx, :], base_pssm, mode='same')
-        rc_base_pssm = pssm[-(base_indx + 1), ::-1].reshape(1, len(pssm[0]))
-        rc_scores = correlate2d(
-            encoded_sequences[:, base_indx, :], rc_base_pssm, mode='same')
-        scores[:, base_indx, :] = np.maximum(fwd_scores, rc_scores)
+    """
+    Convolves pssm and its reverse complement with encoded sequences
+    and returns the maximum score at each position of each sequence.
 
-    return scores.sum(axis=1)
+    Parameters
+    ----------
+    encoded_sequences: 3darray
+         (num_examples, 1, 4, seq_length) array
+    pssm: 2darray
+        (4, pssm_length) array
+
+    Returns
+    -------
+    scores: 2darray
+        (num_examples, seq_length) array
+    """
+    encoded_sequences = encoded_sequences.squeeze(axis=1)
+    # initialize fwd and reverse scores to -infinity
+    fwd_scores = np.full_like(encoded_sequences, -np.inf, float)
+    rc_scores = np.full_like(encoded_sequences, -np.inf, float)
+    # cross-correlate separately for each base,
+    # for both the PSSM and its reverse complement
+    for base_indx in range(encoded_sequences.shape[1]):
+        base_pssm = pssm[base_indx][None]
+        base_pssm_rc = base_pssm[:, ::-1]
+        fwd_scores[:, base_indx, :] = correlate2d(
+            encoded_sequences[:, base_indx, :], base_pssm, mode='same')
+        rc_scores[:, base_indx, :] = correlate2d(
+            encoded_sequences[:, -(base_indx + 1), :], base_pssm_rc, mode='same')
+    # sum over the bases
+    fwd_scores = fwd_scores.sum(axis=1)
+    rc_scores = rc_scores.sum(axis=1)
+    # take max of fwd and reverse scores at each position
+    scores = np.maximum(fwd_scores, rc_scores)
+    return scores
 
 
 def one_hot_encode(sequences):

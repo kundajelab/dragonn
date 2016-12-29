@@ -1,18 +1,19 @@
 from __future__ import absolute_import, division, print_function
-import numpy as np, pytest, sys
-sys.path.append('../dragonn')
-from collections import OrderedDict
-import os
+import numpy as np, os, pytest, random
 os.environ["THEANO_FLAGS"] = "device=cpu"
+np.random.seed(1)
+random.seed(1)
+from collections import OrderedDict
+from dragonn.models import SequenceDNN
+from dragonn.utils import one_hot_encode, reverse_complement
+from simdna.simulations import simulate_single_motif_detection
+try:
+    from sklearn.model_selection import train_test_split  # sklearn >= 0.18
+except ImportError:
+    from sklearn.cross_validation import train_test_split  # sklearn < 0.18
 
-def run(use_deep_CNN, use_RNN, label, golden_results):
-    import random
-    np.random.seed(1)
-    random.seed(1)
-    from dragonn.models import SequenceDNN
-    from simdna.simulations import simulate_single_motif_detection
-    from dragonn.utils import one_hot_encode, reverse_complement
-    from sklearn.cross_validation import train_test_split
+
+def run(use_deep_CNN, use_RNN, label, golden_first_sequence, golden_results):
     seq_length = 100
     num_sequences = 200
     num_positives = 100
@@ -20,9 +21,10 @@ def run(use_deep_CNN, use_RNN, label, golden_results):
     GC_fraction = 0.4
     test_fraction = 0.2
     num_epochs = 1
-
-    sequences, labels = simulate_single_motif_detection(
+    sequences, labels, embeddings = simulate_single_motif_detection(
         'SPI1_disc1', seq_length, num_positives, num_negatives, GC_fraction)
+    assert sequences[0] == golden_first_sequence, 'first sequence = {}, golden = {}'.format(
+        sequences[0], golden_first_sequence)
     encoded_sequences = one_hot_encode(sequences)
     X_train, X_test, y_train, y_test = train_test_split(
         encoded_sequences, labels, test_size=test_fraction)
@@ -48,28 +50,32 @@ def run(use_deep_CNN, use_RNN, label, golden_results):
 
 def test_shallow_CNN():
     run(use_deep_CNN=False, use_RNN=False, label='Shallow CNN',
-        golden_results=OrderedDict([('Loss', 0.87961949128096106),
+        golden_first_sequence='TTGAACAAGGTGAGTAATTCTAATAAGGCTGTTCAAATATGTTCCGTGTC'
+                              'AATGTTATTAACAATCAGTAGAACAGTTCCCCTTATCTTAGTTAACGTGT',
+        golden_results=OrderedDict((('Loss', 1.613392511974697),
                                     ('Balanced accuracy', 50.0),
-                                    ('auROC', 0.4987212276214833),
-                                    ('auPRC', 0.62190125670014862),
-                                    ('Recall at 5% FDR', 13.043478260869565),
-                                    ('Recall at 10% FDR', 13.043478260869565),
-                                    ('Recall at 20% FDR', 13.043478260869565),
-                                    ('Num Positives', 23),
-                                    ('Num Negatives', 17)]))
+                                    ('auROC', 0.581453634085213),
+                                    ('auPRC', 0.48312846202300236),
+                                    ('Recall at 5% FDR', 0.0),
+                                    ('Recall at 10% FDR', 0.0),
+                                    ('Recall at 20% FDR', 0.0),
+                                    ('Num Positives', 19),
+                                    ('Num Negatives', 21))))
 
 
 def test_deep_CNN():
     run(use_deep_CNN=True, use_RNN=False, label='Deep CNN',
-        golden_results=OrderedDict([('Loss', 0.78251894472793504),
-                                    ('Balanced accuracy', 50.0),
-                                    ('auROC', 0.40409207161125321),
-                                    ('auPRC', 0.49822937725846766),
-                                    ('Recall at 5% FDR', 0.0),
-                                    ('Recall at 10% FDR', 0.0),
-                                    ('Recall at 20% FDR', 0.0),
-                                    ('Num Positives', 23),
-                                    ('Num Negatives', 17)]))
+        golden_first_sequence='AACTCTGCTGATCTATTAGAGCTACTATCGTCCAAAGCCCTCGCTACTGC'
+                              'TAGGATTATTGCTGAAGAGGAAGTAAATAATTTTTATTACCAATGCATGT',
+        golden_results=OrderedDict((('Loss', 0.9269361595503689),
+                                     ('Balanced accuracy', 50.0),
+                                     ('auROC', 0.34335839598997497),
+                                     ('auPRC', 0.4227729924796752),
+                                     ('Recall at 5% FDR', 0.0),
+                                     ('Recall at 10% FDR', 0.0),
+                                     ('Recall at 20% FDR', 0.0),
+                                     ('Num Positives', 21),
+                                     ('Num Negatives', 19))))
 
 
 if __name__ == '__main__':

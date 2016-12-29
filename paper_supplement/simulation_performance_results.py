@@ -4,7 +4,7 @@ import cPickle as pickle
 import logging
 import matplotlib
 matplotlib.use('Agg')
-from matplotlib import pyplot as plt
+import matplotlib.pyplot as plt
 import numpy as np
 import os
 import random
@@ -13,7 +13,7 @@ random.seed(1)
 from sklearn.cross_validation import train_test_split
 from simdna import simulations
 from dragonn.utils import one_hot_encode, reverse_complement,get_motif_scores
-from dragonn.models import SequenceDNN, ClassificationResult, RandomForest
+from dragonn.models import SequenceDNN, RandomForest
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--model-files-dir", required=True, help="Directory with architecture and weights files.")
