@@ -3,7 +3,7 @@ import random
 random.seed(1)
 import inspect
 from collections import namedtuple, defaultdict, OrderedDict
-from matplotlib import pyplot as plt
+import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 from math import floor, ceil
 import numpy as np
@@ -12,7 +12,6 @@ try:
     from sklearn.model_selection import train_test_split  # sklearn >= 0.18
 except ImportError:
     from sklearn.cross_validation import train_test_split  # sklearn < 0.18
-import theano
 from simdna import simulations
 from simdna.synthetic import StringEmbeddable
 from dragonn.utils import get_motif_scores, one_hot_encode
@@ -135,6 +134,7 @@ def plot_sequence_filters(dnn):
 
 def plot_SequenceDNN_layer_outputs(dnn, simulation_data):
     # define layer out functions
+    import theano
     get_conv_output = theano.function([dnn.model.layers[0].input],
                                       dnn.model.layers[0].get_output(train=False),
                                           allow_input_downcast=True)
