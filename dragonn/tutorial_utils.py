@@ -3,8 +3,6 @@ import random
 random.seed(1)
 import inspect
 from collections import namedtuple, defaultdict, OrderedDict
-import matplotlib.pyplot as plt
-from matplotlib.lines import Line2D
 from math import floor, ceil
 import numpy as np
 np.random.seed(1)
@@ -17,6 +15,8 @@ from simdna.synthetic import StringEmbeddable
 from dragonn.utils import get_motif_scores, one_hot_encode
 from dragonn.models import SequenceDNN
 from dragonn.plot import add_letters_to_axis, plot_motif
+import matplotlib.pyplot as plt
+from matplotlib.lines import Line2D
 
 Data = namedtuple('Data', ('X_train', 'X_valid', 'X_test',
                            'train_embeddings', 'valid_embeddings', 'test_embeddings',
