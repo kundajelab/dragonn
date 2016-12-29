@@ -1,5 +1,4 @@
 from __future__ import absolute_import, division, print_function
-import json
 import matplotlib
 import numpy as np
 import os
@@ -10,15 +9,6 @@ matplotlib.use('pdf')
 import matplotlib.pyplot as plt
 from abc import abstractmethod, ABCMeta
 from dragonn.metrics import ClassificationResult
-from keras.models import Sequential
-from keras.callbacks import EarlyStopping
-from keras.layers.core import (
-    Activation, Dense, Dropout, Flatten,
-    Permute, Reshape, TimeDistributedDense
-)
-from keras.layers.convolutional import Convolution2D, MaxPooling2D
-from keras.layers.recurrent import GRU
-from keras.regularizers import l1
 from sklearn.svm import SVC as scikit_SVC
 from sklearn.tree import DecisionTreeClassifier as scikit_DecisionTree
 from sklearn.ensemble import RandomForestClassifier
@@ -81,6 +71,14 @@ class SequenceDNN(Model):
                  num_filters=(15, 15, 15), conv_width=(15, 15, 15),
                  pool_width=35, GRU_size=35, TDD_size=15,
                  L1=0, dropout=0.0, num_epochs=100, verbose=1):
+        from keras.models import Sequential
+        from keras.layers.core import (
+            Activation, Dense, Dropout, Flatten,
+            Permute, Reshape, TimeDistributedDense
+        )
+        from keras.layers.convolutional import Convolution2D, MaxPooling2D
+        from keras.layers.recurrent import GRU
+        from keras.regularizers import l1
         self.num_tasks = num_tasks
         self.num_epochs = num_epochs
         self.verbose = verbose
@@ -297,6 +295,11 @@ class SequenceDNN(Model):
 class MotifScoreRNN(Model):
 
     def __init__(self, input_shape, gru_size=10, tdd_size=4):
+        from keras.models import Sequential
+        from keras.layers.core import (
+            Activation, Dense, Flatten, TimeDistributedDense
+        )
+        from keras.layers.recurrent import GRU
         self.model = Sequential()
         self.model.add(GRU(gru_size, return_sequences=True,
                            input_shape=input_shape))
@@ -309,6 +312,7 @@ class MotifScoreRNN(Model):
         self.model.compile(optimizer='adam', loss='binary_crossentropy')
 
     def train(self, X, y, validation_data):
+        from keras.callbacks import EarlyStopping
         print('Training model...')
         multitask = y.shape[1] > 1
         if not multitask:
