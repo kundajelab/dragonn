@@ -3,7 +3,6 @@ import random
 random.seed(1)
 import inspect
 from collections import namedtuple, defaultdict, OrderedDict
-from math import floor, ceil
 import numpy as np
 np.random.seed(1)
 try:
@@ -219,9 +218,7 @@ def interpret_data_with_SequenceDNN(dnn, simulation_data):
     #                            for i in range(len(simulation_data.motif_names))]
     # motif_sites['Negative'] = [np.argmax(scores_dict['Negative']['Motif Scores'][0, i, :])
     #                            for i in range(len(simulation_data.motif_names))]
-    motif_sites = {key: [embedded_motif.startPos + ceil(len(embedded_motif.what.string) / 2) - 1
-                         if embedded_motif.what.stringDescription.startswith('revComp') else
-                         embedded_motif.startPos + floor(len(embedded_motif.what.string) / 2) - 1
+    motif_sites = {key: [embedded_motif.startPos + len(embedded_motif.what.string) // 2
                          for embedded_motif in
                          (next(embedded_motif for embedded_motif in
                                simulation_data.valid_embeddings[index]
