@@ -4,7 +4,7 @@ config = {
     'include_package_data': True,
     'description': 'Deep RegulAtory GenOmic Neural Networks (DragoNN)',
     'download_url': 'https://github.com/kundajelab/dragonn',
-    'version': '0.1.2',
+    'version': '0.1.3',
     'packages': ['dragonn'],
     'setup_requires': [],
     'install_requires': ['numpy>=1.9', 'keras==0.3.3', 'deeplift==0.3', 'shapely', 'simdna==0.2', 'matplotlib<=1.5.3',
