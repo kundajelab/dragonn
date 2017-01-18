@@ -9,7 +9,7 @@ if [ ! -f $DIRNAME/readme.md ]; then
     echo "  <dirname>/readme.md must exist"
 fi
 cd $DIRNAME
-FILES=`find . -maxdepth 1 -type f ! -name "*.hd5*" | xargs echo` # skip over weights file
+FILES=`find . -maxdepth 1 -type f ! -name "*.h5*" | xargs echo` # skip over weights file
 
 # Check for gist tool.
 gist -v >/dev/null 2>&1 || { echo >&2 "I require 'gist' but it's not installed. Do 'gem install gist'."; exit 1; }
