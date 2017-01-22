@@ -95,11 +95,13 @@ def get_train_valid_test_data(simulation_func, prefix=None, test_size=0.2, valid
             logger.debug("{} not found. Simulating data..".format(simulation_fname))
             pass
 
-    sequences, y = simulation_func(**kwargs)
-    train_sequences, test_sequences, y_train, y_test = train_test_split(
-        sequences, y, test_size=test_size)
-    train_sequences, valid_sequences, y_train, y_valid = train_test_split(
-        train_sequences, y_train, test_size=valid_size)
+    sequences, y, embeddings = simulation_func(**kwargs)
+    ( train_sequences, test_sequences,
+      train_embeddings, test_embeddings,
+      y_train, y_test ) = train_test_split(sequences, embeddings, y, test_size=test_size)
+    ( train_sequences, valid_sequences,
+      train_embeddings, valid_embeddings,
+      y_train, y_valid ) = train_test_split(train_sequences, train_embeddings, y_train, test_size=valid_size)
     X_train = one_hot_encode(train_sequences)
     X_valid = one_hot_encode(valid_sequences)
     X_test = one_hot_encode(test_sequences)
@@ -108,6 +110,9 @@ def get_train_valid_test_data(simulation_func, prefix=None, test_size=0.2, valid
         logger.debug("Saving simulated data to simulation_fname...".format(simulation_fname))
         np.savez_compressed(simulation_fname,
                             X_train=X_train, X_valid=X_valid, X_test=X_test,
+                            train_embeddings=train_embeddings,
+                            valid_embeddings=valid_embeddings,
+                            test_embeddings=test_embeddings,
                             y_train=y_train, y_valid=y_valid, y_test=y_test)
     
     return ( X_train, X_valid, X_test,
@@ -127,7 +132,7 @@ def train_test_dnn_vary_data_size(prefix, model_parameters=None,
         ofname_infix = "%s.train_set_size_%s" % (ofname_infix, str(train_set_size))
         ofname_prefix = "%s.%s" % (prefix, ofname_infix)
         model_fname = "%s.arch.json" % (ofname_prefix)
-        weights_fname = "%s.weights.hd5" % (ofname_prefix)
+        weights_fname = "%s.weights.h5" % (ofname_prefix)
         try:
             logger.debug("Checking for model files {} and {}...".format(model_fname, weights_fname))
             best_dnn = SequenceDNN.load(model_fname, weights_fname)
@@ -152,7 +157,7 @@ def train_test_dnn_vary_data_size(prefix, model_parameters=None,
                 mean_auROC = sum(auROCs) / len(auROCs)
                 if mean_auROC > best_auROC:
                     best_auROC = mean_auROC
-                    dnn.save(model_fname, weights_fname)
+                    dnn.save(ofname_prefix)
                     best_dnn = dnn
         dnn_results.append(best_dnn.test(X_test, y_test))
     # reset to original random seed
@@ -200,7 +205,7 @@ def train_test_dnn_vary_parameter(prefix,
         ofname_infix = dict2string(model_parameters)
         ofname_prefix = "%s.%s" % (prefix, ofname_infix)
         model_fname = "%s.arch.json" % (ofname_prefix)
-        weights_fname = "%s.weights.hd5" % (ofname_prefix)
+        weights_fname = "%s.weights.h5" % (ofname_prefix)
         try:
             logger.debug("Checking for model files {} and {}...".format(model_fname, weights_fname))
             dnn = SequenceDNN.load(model_fname, weights_fname)
@@ -210,7 +215,7 @@ def train_test_dnn_vary_parameter(prefix,
             dnn = SequenceDNN(**model_parameters)
             logger.info("training with %s %s .." % (param_name, param_value))
             dnn.train(X_train, y_train, (X_valid, y_valid))
-            dnn.save(model_fname, weights_fname)
+            dnn.save(ofname_prefix)
         dnn_results.append(dnn.test(X_test, y_test))
         
     return dnn_results
@@ -312,6 +317,15 @@ for simulation_func_name, kwargs in sorted(simulation_func_args.items()):
                                    num_filters_list, dnn_num_filters_auROCs]))
     with open(simulation_results_fname, 'wb') as fp:
         pickle.dump(simulation_results, fp)
+
+
+def simpleaxis(ax): # removes top and right axes
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    ax.get_xaxis().tick_bottom()
+    ax.get_yaxis().tick_left()
+
+
 # plot simulation performance results
 xy_pairs = [{'x': 'train_set_sizes', 'y': 'rf_auROCs'},
             {'x': 'train_set_sizes', 'y': 'dnn_auROCs'},
@@ -330,7 +344,7 @@ results_colors = {'simulate_single_motif_detection': ['b'],
                   'simulate_heterodimer_grammar': ['m']}
 logger.info("Generating performance plots in {}".format(args.results_dir))
 for simulation_func_name, kwargs in sorted(simulation_func_args.items()):
-    simulation_results_fname = prefix="{}/{}.results.pkl".format(args.results_dir, simulation_func_name)
+    simulation_results_fname ="{}/{}.results.pkl".format(args.results_dir, simulation_func_name)
     # load simulation results
     logger.debug("loading %s.." %(simulation_results_fname))
     with open(simulation_results_fname, 'rb') as fp:
@@ -341,8 +355,8 @@ for simulation_func_name, kwargs in sorted(simulation_func_args.items()):
     for xy_pair in xy_pairs:
         for i in range(results[xy_pair['y']].shape[1]):
             plt.plot(results[xy_pair['x']], results[xy_pair['y']][:, i], c=results_colors[simulation_func_name][i])
-        plt.ylim((0.5, 1))
-        plt.axis('off')
+        plt.ylim((0.4, 1))
+        simpleaxis(plt.gca())
         plt.savefig("{}/{}.results.{}.pdf".format(args.results_dir, simulation_func_name, y2fname_infix[xy_pair['y']]),
                     format='pdf')
         plt.clf()
