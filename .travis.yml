@@ -24,5 +24,7 @@ install:
   # Process the deeplift dependency_links in setup.py
   - pip install . --process-dependency-links
 
-# run tests
-script: py.test
+# run dragonn binary and tests
+script:
+- dragonn --help
+- py.test
