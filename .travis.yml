@@ -18,13 +18,17 @@ before_install:
   - conda update --yes conda
 
 install:
-  # pip cannot easily install scipy, matplotlib or graphviz on the Travis CI server
-  - conda install --yes python=$TRAVIS_PYTHON_VERSION scipy matplotlib graphviz pytest
-  # Install the cloned dragonn package from source using Anaconda
+  # Create a conda environment for the desired Python version and install
+  # The dependencies that pip cannot easily install on the Travis CI server
+  - conda create --yes --name dragonn-$TRAVIS_PYTHON_VERSION python=$TRAVIS_PYTHON_VERSION scipy matplotlib graphviz pytest
+  # Use the new environment
+  - source activate dragonn-$TRAVIS_PYTHON_VERSION
+  - python --version
+  # Install the cloned dragonn package from source
   # Process the deeplift dependency_links in setup.py
   - pip install . --process-dependency-links
 
-# run dragonn binary and tests
+# Run dragonn binary and tests
 script:
 - dragonn --help
 - py.test
