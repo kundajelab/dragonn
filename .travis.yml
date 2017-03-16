@@ -10,17 +10,16 @@ notifications:
   
 # Setup Anaconda
 before_install:
-  - wget http://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh -O miniconda.sh
+  - wget https://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh -O miniconda.sh
   - chmod +x miniconda.sh
   # Install in batch mode
   - ./miniconda.sh -b  -p $HOME/miniconda
   - export PATH=$HOME/miniconda/bin:$PATH
-  - conda update --yes conda
 
 install:
   # Create a conda environment for the desired Python version and install
   # The dependencies that pip cannot easily install on the Travis CI server
-  - conda create --yes --name dragonn-$TRAVIS_PYTHON_VERSION python=$TRAVIS_PYTHON_VERSION scipy matplotlib graphviz pytest
+  - conda create --yes --name dragonn-$TRAVIS_PYTHON_VERSION python=$TRAVIS_PYTHON_VERSION scipy matplotlib=1.5.3 pytest
   # Use the new environment
   - source activate dragonn-$TRAVIS_PYTHON_VERSION
   - python --version
