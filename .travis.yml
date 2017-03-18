@@ -26,7 +26,7 @@ install:
   # Confirm the Python version
   - python --version
   # Install the cloned dragonn package from source
-  # Process the deeplift and dependency_links in setup.py
+  # Process the deeplift and simdna dependency_links in setup.py
   # Note that Dependency Links processing has been deprecated per
   # https://github.com/pypa/pip/issues/3939 so this will need to be updated in
   # the future
