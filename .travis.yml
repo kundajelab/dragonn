@@ -4,27 +4,35 @@ language: python
 
 python:
   - 2.7
+  - 3.5
 
 notifications:
   email: false
   
 # Setup Anaconda
 before_install:
-  - wget http://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh -O miniconda.sh
+  - wget https://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh -O miniconda.sh
   - chmod +x miniconda.sh
   # Install in batch mode
   - ./miniconda.sh -b  -p $HOME/miniconda
   - export PATH=$HOME/miniconda/bin:$PATH
-  - conda update --yes conda
 
 install:
-  # pip cannot easily install scipy, matplotlib or graphviz on the Travis CI server
-  - conda install --yes python=$TRAVIS_PYTHON_VERSION scipy matplotlib graphviz pytest
-  # Install the cloned dragonn package from source using Anaconda
-  # Process the deeplift dependency_links in setup.py
+  # Create a conda environment for the desired Python version and install
+  # the dependencies that pip cannot easily install on the Travis CI server
+  - conda create --yes --name dragonn-$TRAVIS_PYTHON_VERSION python=$TRAVIS_PYTHON_VERSION scipy matplotlib=1.5.3 pytest Shapely
+  # Use the new environment
+  - source activate dragonn-$TRAVIS_PYTHON_VERSION
+  # Confirm the Python version
+  - python --version
+  # Install the cloned dragonn package from source
+  # Process the deeplift and simdna dependency_links in setup.py
+  # Note that Dependency Links processing has been deprecated per
+  # https://github.com/pypa/pip/issues/3939 so this will need to be updated in
+  # the future
   - pip install . --process-dependency-links
 
-# run dragonn binary and tests
+# Run dragonn binary and tests
 script:
 - dragonn --help
 - py.test
