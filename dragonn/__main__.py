@@ -58,7 +58,7 @@ def parse_args():
                                help='output file for model predictions')
     interpret_parser = subparsers.add_parser('interpret',
                                              parents=[single_fasta_parser, model_files_parser, prefix_parser],
-                                             help='model training help')
+                                             help='model interpretation help')
     interpret_parser.add_argument('--pos-threshold', type=int, default=0.5,
                                help='Only examples with predicted positive class probability above this get interpreted. Default: 0.5')
     # return command and command arguments
