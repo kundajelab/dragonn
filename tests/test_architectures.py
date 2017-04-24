@@ -1,5 +1,5 @@
 from __future__ import absolute_import, division, print_function
-import numpy as np, os, pytest, random
+import numpy as np, os, pytest, random, sys
 os.environ["THEANO_FLAGS"] = "device=cpu"
 np.random.seed(1)
 random.seed(1)
@@ -10,6 +10,50 @@ try:
     from sklearn.model_selection import train_test_split  # sklearn >= 0.18
 except ImportError:
     from sklearn.cross_validation import train_test_split  # sklearn < 0.18
+
+# define expected results for python2 and 3
+if sys.version_info[0] == 2:
+    golden_results_shallow_CNN = OrderedDict(
+        [('Loss', 0.70371496533279465),
+         ('Balanced accuracy', 55.639097744360896),
+         ('auROC', 0.50877192982456143),
+         ('auPRC', 0.58026674651508325),
+         ('Recall at 5% FDR', 9.5238095238095237),
+         ('Recall at 10% FDR', 9.5238095238095237),
+         ('Recall at 20% FDR', 9.5238095238095237),
+         ('Num Positives', 21),
+         ('Num Negatives', 19)])
+    golden_results_deep_CNN = OrderedDict(
+        [('Loss', 0.68411321005526782),
+         ('Balanced accuracy', 45.833333333333329),
+         ('auROC', 0.51822916666666663),
+         ('auPRC', 0.41738642611750432),
+         ('Recall at 5% FDR', 0.0),
+         ('Recall at 10% FDR', 0.0),
+         ('Recall at 20% FDR', 0.0),
+         ('Num Positives', 16),
+         ('Num Negatives', 24)])
+else:
+    golden_results_shallow_CNN = OrderedDict(
+        [('Loss', 0.81189359341516687),
+         ('Balanced accuracy', 30.82706766917293),
+         ('auROC', 0.20802005012531333),
+         ('auPRC', 0.36561113802048162),
+         ('Recall at 5% FDR', 0.0),
+         ('Recall at 10% FDR', 0.0),
+         ('Recall at 20% FDR', 0.0),
+         ('Num Positives', 21),
+         ('Num Negatives', 19)])
+    golden_results_deep_CNN = OrderedDict(
+        [('Loss', 0.7036767919621677),
+         ('Balanced accuracy', 43.75),
+         ('auROC', 0.43489583333333337),
+         ('auPRC', 0.34594783625646253),
+         ('Recall at 5% FDR', 0.0),
+         ('Recall at 10% FDR', 0.0),
+         ('Recall at 20% FDR', 0.0),
+         ('Num Positives', 16),
+         ('Num Negatives', 24)])
 
 
 def run(use_deep_CNN, use_RNN, label, golden_results):
@@ -44,28 +88,12 @@ def run(use_deep_CNN, use_RNN, label, golden_results):
 
 def test_shallow_CNN():
     run(use_deep_CNN=False, use_RNN=False, label='Shallow CNN',
-        golden_results=OrderedDict([('Loss', 0.70371496533279465),
-                                    ('Balanced accuracy', 55.639097744360896),
-                                    ('auROC', 0.50877192982456143),
-                                    ('auPRC', 0.58026674651508325),
-                                    ('Recall at 5% FDR', 9.5238095238095237),
-                                    ('Recall at 10% FDR', 9.5238095238095237),
-                                    ('Recall at 20% FDR', 9.5238095238095237),
-                                    ('Num Positives', 21),
-                                    ('Num Negatives', 19)]))
+        golden_results=golden_results_shallow_CNN)
 
 
 def test_deep_CNN():
     run(use_deep_CNN=True, use_RNN=False, label='Deep CNN',
-        golden_results=OrderedDict([('Loss', 0.68411321005526782),
-                                    ('Balanced accuracy', 45.833333333333329),
-                                    ('auROC', 0.51822916666666663),
-                                    ('auPRC', 0.41738642611750432),
-                                    ('Recall at 5% FDR', 0.0),
-                                    ('Recall at 10% FDR', 0.0),
-                                    ('Recall at 20% FDR', 0.0),
-                                    ('Num Positives', 16),
-                                    ('Num Negatives', 24)]))
+        golden_results=golden_results_deep_CNN)
 
 
 if __name__ == '__main__':
