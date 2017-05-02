@@ -176,25 +176,26 @@ class SequenceDNN(Model):
         """
         Returns (num_task, num_samples, 1, num_bases, sequence_length) deeplift score array.
         """
-        if sys.version_info[0] != 2:
-            raise RuntimeError("DeepLIFT requires Python2!")
         assert len(np.shape(X)) == 4 and np.shape(X)[1] == 1
         from deeplift.conversion import keras_conversion as kc
-        from deeplift.blobs import NonlinearMxtsMode
 
-        # normalize sequence convolution weights
-        kc.mean_normalise_first_conv_layer_weights(self.model, True,None)
-        # run deeplift
+        # convert to deeplift model and get scoring function
         deeplift_model = kc.convert_sequential_model(
-           self.model, nonlinear_mxts_mode=NonlinearMxtsMode.DeepLIFT)
-        target_contribs_func = deeplift_model.get_target_contribs_func(
+            self.model, verbose=False)
+        score_func = deeplift_model.get_target_contribs_func(
             find_scores_layer_idx=0)
-        input_reference_shape = tuple([1] + list(X.shape[1:]))
-        return np.asarray([
-            target_contribs_func(task_idx=i, input_data_list=[X],
-                                 batch_size=batch_size, progress_update=None,
-                                 input_references_list=[np.zeros(input_reference_shape)])
-            for i in range(self.num_tasks)])
+        # use a 40% GC reference
+        input_references = [np.array([0.3, 0.2, 0.2, 0.3])[None, None, :, None]]
+        # get deeplift scores
+        deeplift_scores = np.zeros((self.num_tasks,) + X.shape)
+        for i in range(self.num_tasks):
+            deeplift_scores[i] = score_func(
+                task_idx=i,
+                input_data_list=[X],
+                batch_size=batch_size,
+                progress_update=None,
+                input_references_list=input_references)
+        return deeplift_scores
 
     def in_silico_mutagenesis(self, X):
         """
