@@ -34,8 +34,7 @@ RUN conda install numpy=1.12.1 && \
     conda install mkl nose pyyaml six h5py && \
     pip install keras==0.3.3 && \
     conda install shapely==1.5.13 && \ 
-    conda install pytest && \
-    conda install -c kundajelab dragonn --no-channel-priority
+    conda install pytest
 
 ADD theanorc /home/keras/.theanorc
 WORKDIR /src 
