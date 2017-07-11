@@ -1,0 +1,9 @@
+[global]
+floatX = float32
+device = gpu0
+
+[nvcc]
+fastmath = False
+
+[dnn]
+enabled = False
