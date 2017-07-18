@@ -8,7 +8,7 @@ import tempfile
 matplotlib.use('pdf')
 import matplotlib.pyplot as plt
 from abc import abstractmethod, ABCMeta
-from dragonn.metrics import ClassificationResult
+from dragonn.metrics import ClassificationResult,RegressionResult
 from sklearn.svm import SVC as scikit_SVC
 from sklearn.tree import DecisionTreeClassifier as scikit_DecisionTree
 from sklearn.ensemble import RandomForestClassifier
@@ -16,7 +16,7 @@ from sklearn.ensemble import RandomForestClassifier
 
 class Model(object):
     __metaclass__ = ABCMeta
-
+    
     @abstractmethod
     def __init__(self, **hyperparameters):
         pass
@@ -30,7 +30,10 @@ class Model(object):
         pass
 
     def test(self, X, y):
-        return ClassificationResult(y, self.predict(X))
+        if y.dtype != bool:
+            return RegressionResult(y,self.predict(X))
+        else:
+            return ClassificationResult(y, self.predict(X))
 
     def score(self, X, y, metric):
         return self.test(X, y)[metric]
@@ -60,7 +63,9 @@ class SequenceDNN(Model):
         dropout probability in every convolutional layer. Default: 0.
     verbose: int
         Verbosity level during training. Valida values: 0, 1, 2.
-
+    regression: bool
+        True for regression and false for classification (default)
+    
     Returns
     -------
     Compiled DNN model.
@@ -70,7 +75,7 @@ class SequenceDNN(Model):
                  use_RNN=False, num_tasks=1,
                  num_filters=(15, 15, 15), conv_width=(15, 15, 15),
                  pool_width=35, GRU_size=35, TDD_size=15,
-                 L1=0, dropout=0.0, num_epochs=100, verbose=1):
+                 L1=0, dropout=0.0, num_epochs=100, verbose=1,regression=False):
         from keras.models import Sequential
         from keras.layers.core import (
             Activation, Dense, Dropout, Flatten,
@@ -84,6 +89,7 @@ class SequenceDNN(Model):
         self.verbose = verbose
         self.train_metrics = []
         self.valid_metrics = []
+        self.regression = regression
         if keras_model is not None and seq_length is None:
             self.model = keras_model
             self.num_tasks = keras_model.layers[-1].output_shape[-1]
@@ -108,28 +114,35 @@ class SequenceDNN(Model):
                 self.model.add(TimeDistributedDense(TDD_size, activation='relu'))
             self.model.add(Flatten())
             self.model.add(Dense(output_dim=self.num_tasks))
-            self.model.add(Activation('sigmoid'))
-            self.model.compile(optimizer='adam', loss='binary_crossentropy')
+            if regression == False:
+                self.model.add(Activation('sigmoid'))
+                self.model.compile(optimizer='adam', loss='binary_crossentropy')
+            else:
+                self.model.compile(optimizer='adam', loss='mse') # instead of mse mean_squared_error
         else:
             raise ValueError("Exactly one of seq_length or keras_model must be specified!")
 
     def train(self, X, y, validation_data, early_stopping_metric='Loss',
-              early_stopping_patience=5, save_best_model_to_prefix=None):
-        if y.dtype != bool:
-            assert set(np.unique(y)) == {0, 1}
-            y = y.astype(bool)
-        multitask = y.shape[1] > 1
-        if not multitask:
-            num_positives = y.sum()
-            num_sequences = len(y)
-            num_negatives = num_sequences - num_positives
+              early_stopping_patience=2, save_best_model_to_prefix=None):
+        if self.regression == False:
+            if y.dtype != bool:
+                assert set(np.unique(y)) == {0, 1}
+                y = y.astype(bool)
+            multitask = y.shape[1] > 1
+            if not multitask:
+                num_positives = y.sum()
+                num_sequences = len(y)
+                num_negatives = num_sequences - num_positives
         if self.verbose >= 1:
             print('Training model (* indicates new best result)...')
         X_valid, y_valid = validation_data
         early_stopping_wait = 0
         best_metric = np.inf if early_stopping_metric == 'Loss' else -np.inf
         for epoch in range(1, self.num_epochs + 1):
-            self.model.fit(X, y, batch_size=128, nb_epoch=1,
+            if self.regression:
+                self.model.fit(X, y, batch_size=128, nb_epoch=1)
+            else:
+                self.model.fit(X, y, batch_size=128, nb_epoch=1,
                            class_weight={True: num_sequences / num_positives,
                                          False: num_sequences / num_negatives}
                            if not multitask else None, verbose=self.verbose >= 2)
@@ -138,9 +151,7 @@ class SequenceDNN(Model):
             self.train_metrics.append(epoch_train_metrics)
             self.valid_metrics.append(epoch_valid_metrics)
             if self.verbose >= 1:
-                print('Epoch {}:'.format(epoch))
-                print('Train {}'.format(epoch_train_metrics))
-                print('Valid {}'.format(epoch_valid_metrics), end='')
+                print('Epoch {}:'.format(epoch) + ' Train {}'.format(epoch_train_metrics) + ' Valid {}'.format(epoch_valid_metrics), end='')
             current_metric = epoch_valid_metrics[early_stopping_metric].mean()
             if (early_stopping_metric == 'Loss') == (current_metric <= best_metric):
                 if self.verbose >= 1:
