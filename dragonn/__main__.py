@@ -13,10 +13,10 @@ def parse_args():
         description='main script for DragoNN modeling of sequence data.')
     # define parsers with common arguments
     fasta_pair_parser = argparse.ArgumentParser(add_help=False)
-    fasta_pair_parser.add_argument('--pos-sequences', type=str, required=True,
-                                   help='fasta with positive sequences')
-    fasta_pair_parser.add_argument('--neg-sequences', type=str, required=True,
-                                   help='fasta with negative sequences')
+    fasta_pair_parser.add_argument('--input1', type=str, required=True,
+                                   help='positive sequences (classification) or all sequences (regression), fasta')
+    fasta_pair_parser.add_argument('--input2', type=str, required=True,
+                                   help='negative sequences (fasta, classification) or scores (txt, regression)')
     single_fasta_parser = argparse.ArgumentParser(add_help=False)
     single_fasta_parser.add_argument('--sequences', type=str, required=True,
                                     help='fasta with sequences')
@@ -70,28 +70,44 @@ def parse_args():
     return command, args
 
 
-def main_train(pos_sequences=None,
-               neg_sequences=None,
+def main_train(input1=None,
+               input2=None,
                prefix=None,
                arch_file=None,
                weights_file=None,
                **kwargs):
     kwargs = {key: value for key, value in kwargs.items() if value is not None}
-    # encode fastas
-    print("loading sequence data...")
-    X_pos = encode_fasta_sequences(pos_sequences)
-    y_pos = np.array([[True]]*len(X_pos))
-    X_neg = encode_fasta_sequences(neg_sequences)
-    y_neg = np.array([[False]]*len(X_neg))
-    X = np.concatenate((X_pos, X_neg))
-    y = np.concatenate((y_pos, y_neg))
+    
+    # check if input file 2 starts with >
+    f=open(input2)
+    if f.readline()[0] == '>':
+        regression = False
+    else:
+        regression = True
+    f.close()
+    
+    if regression == False:
+        # encode fastas
+        print("loading sequence data...")
+        X_pos = encode_fasta_sequences(input1)
+        y_pos = np.array([[True]]*len(X_pos))
+        X_neg = encode_fasta_sequences(input2)
+        y_neg = np.array([[False]]*len(X_neg))
+        X = np.concatenate((X_pos, X_neg))
+        y = np.concatenate((y_pos, y_neg))
+    else:
+        print("loading sequence data...")
+        X = encode_fasta_sequences(input1)
+        y = np.loadtxt(input2)
+        y = y.reshape(y.shape[0],1)
+        
     X_train, X_valid, y_train, y_valid = train_test_split(X, y, test_size=0.2)
     if arch_file is not None: # load  model
         print("loading model...")
         model = SequenceDNN.load(arch_file, weights_file)
     else: # initialize model
         print("initializing model...")
-        model = SequenceDNN(seq_length=X_train.shape[-1], **kwargs)
+        model = SequenceDNN(seq_length=X_train.shape[-1],regression=regression, **kwargs)
     # train
     print("starting model training...")
     model.train(X_train, y_train, validation_data=(X_valid, y_valid))
@@ -104,18 +120,34 @@ def main_train(pos_sequences=None,
     print("Done!")
 
 
-def main_test(pos_sequences=None,
-              neg_sequences=None,
+def main_test(input1=None,
+              input2=None,
               arch_file=None,
               weights_file=None):
-    # encode fastas
-    print("loading sequence data...")
-    X_test_pos = encode_fasta_sequences(pos_sequences)
-    y_test_pos = np.array([[True]]*len(X_test_pos))
-    X_test_neg = encode_fasta_sequences(neg_sequences)
-    y_test_neg = np.array([[False]]*len(X_test_neg))
-    X_test = np.concatenate((X_test_pos, X_test_neg))
-    y_test = np.concatenate((y_test_pos, y_test_neg))
+              
+    # check if input file 2 starts with >
+    f=open(input2)
+    if f.readline()[0] == '>':
+        regression = False
+    else:
+        regression = True
+    f.close()
+    
+    if regression==False:
+        # encode fastas
+        print("loading sequence data...")
+        X_test_pos = encode_fasta_sequences(input1)
+        y_test_pos = np.array([[True]]*len(X_test_pos))
+        X_test_neg = encode_fasta_sequences(input2)
+        y_test_neg = np.array([[False]]*len(X_test_neg))
+        X_test = np.concatenate((X_test_pos, X_test_neg))
+        y_test = np.concatenate((y_test_pos, y_test_neg))
+    else:
+        print("loading sequence data...")
+        X_test = encode_fasta_sequences(input1)
+        y_test = np.loadtxt(input2)
+        y_test = y_test.reshape(y_test.shape[0],1)
+    
     # load model
     print("loading model...")
     model = SequenceDNN.load(arch_file, weights_file)

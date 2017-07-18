@@ -2,7 +2,7 @@ from __future__ import absolute_import, division, print_function
 import numpy as np
 from collections import OrderedDict
 from sklearn.metrics import auc, log_loss, precision_recall_curve, roc_auc_score
-
+from sklearn.metrics import mean_squared_error,r2_score
 
 def loss(labels, predictions):
     return log_loss(labels, predictions)
@@ -35,6 +35,28 @@ def recall_at_precision_threshold(labels, predictions, precision_threshold):
     return 100 * recall[np.searchsorted(precision - precision_threshold, 0)]
 
 
+class RegressionResult(object):
+
+    def __init__(self, labels, predictions, task_names=None):
+        assert labels.dtype != bool
+        self.results = [OrderedDict((
+            ('Loss', mean_squared_error(task_labels, task_predictions)),
+            ('R2', r2_score(task_labels, task_predictions)) )) for task_labels, task_predictions in zip(labels.T, predictions.T)]
+        self.task_names = task_names
+        self.multitask = labels.shape[1] > 1
+
+    def __str__(self):
+        return '\n'.join(
+            '{}MSE: {:.4f}\tR2: {:.2f}\t '.format(
+                '{}: '.format('Task {}'.format(
+                    self.task_names[task_index]
+                    if self.task_names is not None else task_index))
+                if self.multitask else '', *results.values())
+            for task_index, results in enumerate(self.results))
+
+    def __getitem__(self, item):
+        return np.array([task_results[item] for task_results in self.results])
+        
 class ClassificationResult(object):
 
     def __init__(self, labels, predictions, task_names=None):
