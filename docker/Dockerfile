@@ -1,4 +1,4 @@
-FROM nvidia/cuda:8.0-cudnn5-runtime 
+FROM nvidia/cuda:8.0-cudnn5-devel
 MAINTAINER Kundaje Lab <annashch@stanford.edu>
 # 
 # Install Miniconda in /opt/conda 
@@ -34,7 +34,8 @@ RUN conda install numpy=1.12.1 && \
     conda install notebook=4.1.0 && \
     conda install matplotlib=1.5.1 && \
     conda install mkl nose pyyaml six h5py && \
-    pip install keras==0.3.3 && \
+    conda install theano pygpu && \
+    pip install keras==1.2.2 && \
     conda install shapely==1.5.13 && \ 
     conda install pytest
 
