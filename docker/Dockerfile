@@ -1,4 +1,4 @@
-FROM nvidia/cuda:8.0-cudnn5-devel 
+FROM nvidia/cuda:8.0-cudnn5-runtime 
 MAINTAINER Kundaje Lab <annashch@stanford.edu>
 # 
 # Install Miniconda in /opt/conda 
@@ -23,6 +23,8 @@ RUN useradd -m -s /bin/bash -N -u $NB_UID $NB_USER && \
     mkdir -p /src && \
     chown keras /src
 
+RUN usermod -aG sudo keras
+
 USER keras
 RUN echo "export PATH=$CONDA_DIR/bin:${PATH}" >> /home/keras/.bashrc
 
@@ -40,8 +42,6 @@ ADD theanorc /home/keras/.theanorc
 WORKDIR /src 
 RUN git clone https://github.com/kundajelab/dragonn.git
 WORKDIR /src/dragonn 
-RUN git fetch --all 
-RUN git checkout GTC  
 RUN python setup.py install 
 RUN dragonn --help 
 RUN py.test
