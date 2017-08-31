@@ -42,7 +42,11 @@ RUN conda install numpy=1.12.1 && \
 ADD theanorc /home/keras/.theanorc
 WORKDIR /src 
 RUN git clone https://github.com/kundajelab/dragonn.git
-WORKDIR /src/dragonn 
+WORKDIR /src/dragonn
+### switch to docker branch for changes in setup.py [to be removed before merging to master]
+RUN git fetch --all
+RUN git checkout docker
+###
 RUN python setup.py install 
 RUN dragonn --help 
 RUN py.test
