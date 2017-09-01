@@ -34,8 +34,7 @@ RUN conda install numpy=1.12.1 && \
     conda install notebook=4.1.0 && \
     conda install matplotlib=1.5.1 && \
     conda install mkl nose pyyaml six h5py && \
-    conda install theano pygpu && \
-    pip install keras==1.2.2 && \
+    conda install pygpu && \
     conda install shapely==1.5.13 && \ 
     conda install pytest
 
@@ -46,16 +45,19 @@ WORKDIR /src/dragonn
 ### switch to docker branch for changes in setup.py [to be removed before merging to master]
 RUN git checkout -b docker origin/docker
 ###
-RUN python setup.py install 
+RUN python setup.py install
+ADD keras.json ~/.keras/keras.json
 RUN dragonn --help 
 RUN py.test
 # Add Tini. Tini operates as a process subreaper for jupyter. This prevents
 # kernel crashes.
 ENV TINI_VERSION v0.14.0
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /usr/bin/tini
+
 USER root 
 RUN chmod +x /usr/bin/tini
 RUN apt-get install -y emacs vim
+
 USER keras 
 RUN jupyter notebook --generate-config
 ADD jupyter_config.py /home/keras/.jupyter/jupyter_notebook_config.py
