@@ -32,6 +32,10 @@ install:
   # the future
   - pip install . --process-dependency-links
 
+# Modify keras.json
+before_script:
+- cp docker/keras.json ~/.keras/keras.json
+
 # Run dragonn binary and tests
 script:
 - dragonn --help
