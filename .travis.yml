@@ -34,6 +34,7 @@ install:
 
 # Modify keras.json
 before_script:
+- mkdir ~/.keras
 - cp docker/keras.json ~/.keras/keras.json
 
 # Run dragonn binary and tests
