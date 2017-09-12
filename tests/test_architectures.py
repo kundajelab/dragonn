@@ -14,20 +14,20 @@ except ImportError:
 # define expected results for python2 and 3
 if sys.version_info[0] == 2:
     golden_results_shallow_CNN = OrderedDict(
-        [('Loss', 0.70371496533279465),
-         ('Balanced accuracy', 55.639097744360896),
-         ('auROC', 0.50877192982456143),
-         ('auPRC', 0.58026674651508325),
-         ('Recall at 5% FDR', 9.5238095238095237),
-         ('Recall at 10% FDR', 9.5238095238095237),
-         ('Recall at 20% FDR', 9.5238095238095237),
+        [('Loss', 0.87176452651619907),
+         ('Balanced accuracy', 50.0),
+         ('auROC', 0.47117794486215542),
+         ('auPRC', 0.48485191246258719),
+         ('Recall at 5% FDR', 0.0),
+         ('Recall at 10% FDR', 0.0),
+         ('Recall at 20% FDR', 0.0),
          ('Num Positives', 21),
          ('Num Negatives', 19)])
     golden_results_deep_CNN = OrderedDict(
-        [('Loss', 0.68411321005526782),
-         ('Balanced accuracy', 45.833333333333329),
-         ('auROC', 0.51822916666666663),
-         ('auPRC', 0.41738642611750432),
+        [('Loss', 0.71835511848330502),
+         ('Balanced accuracy', 43.75),
+         ('auROC', 0.35416666666666669),
+         ('auPRC', 0.30990169067864193),
          ('Recall at 5% FDR', 0.0),
          ('Recall at 10% FDR', 0.0),
          ('Recall at 20% FDR', 0.0),
@@ -35,20 +35,20 @@ if sys.version_info[0] == 2:
          ('Num Negatives', 24)])
 else:
     golden_results_shallow_CNN = OrderedDict(
-        [('Loss', 0.81189359341516687),
-         ('Balanced accuracy', 30.82706766917293),
-         ('auROC', 0.20802005012531333),
-         ('auPRC', 0.36561113802048162),
-         ('Recall at 5% FDR', 0.0),
-         ('Recall at 10% FDR', 0.0),
-         ('Recall at 20% FDR', 0.0),
+        [('Loss', 0.82721062824130054),
+         ('Balanced accuracy', 52.38095238095238),
+         ('auROC', 0.48872180451127822),
+         ('auPRC', 0.54709940314745642),
+         ('Recall at 5% FDR', 4.7619047619047619),
+         ('Recall at 10% FDR', 4.7619047619047619),
+         ('Recall at 20% FDR', 4.7619047619047619),
          ('Num Positives', 21),
          ('Num Negatives', 19)])
     golden_results_deep_CNN = OrderedDict(
-        [('Loss', 0.7036767919621677),
-         ('Balanced accuracy', 43.75),
-         ('auROC', 0.43489583333333337),
-         ('auPRC', 0.34594783625646253),
+        [('Loss', 0.6890675768256187),
+         ('Balanced accuracy', 39.583333333333329),
+         ('auROC', 0.51041666666666663),
+         ('auPRC', 0.36935376988219337),
          ('Recall at 5% FDR', 0.0),
          ('Recall at 10% FDR', 0.0),
          ('Recall at 20% FDR', 0.0),
