@@ -34,7 +34,7 @@ RUN conda install numpy=1.12.1 && \
     conda install notebook=4.1.0 && \
     conda install matplotlib=1.5.1 && \
     conda install mkl nose pyyaml six h5py && \
-    conda install pygpu && \
+    conda install pygpu -c conda-forge && \
     conda install shapely==1.5.13 && \ 
     conda install pytest
 
