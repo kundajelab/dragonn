@@ -46,8 +46,9 @@ WORKDIR /src/dragonn
 RUN git checkout -b docker origin/docker
 ###
 RUN python setup.py install
-RUN mkdir /home/keras/.keras
-COPY keras.json /home/.keras/keras.json
+RUN mkdir ~/.keras
+WORKDIR ~/.keras
+COPY keras.json ~/.keras/keras.json
 RUN dragonn --help 
 RUN py.test
 # Add Tini. Tini operates as a process subreaper for jupyter. This prevents
