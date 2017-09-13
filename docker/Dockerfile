@@ -38,7 +38,7 @@ RUN conda install numpy=1.12.1 && \
     conda install shapely==1.5.13 && \ 
     conda install pytest
 
-ADD theanorc /home/keras/.theanorc
+COPY theanorc /home/keras/.theanorc
 WORKDIR /src 
 RUN git clone https://github.com/kundajelab/dragonn.git
 WORKDIR /src/dragonn
@@ -47,7 +47,7 @@ RUN git checkout -b docker origin/docker
 ###
 RUN python setup.py install
 RUN mkdir /home/keras/.keras
-ADD keras.json /home/.keras/keras.json
+COPY keras.json /home/.keras/keras.json
 RUN dragonn --help 
 RUN py.test
 # Add Tini. Tini operates as a process subreaper for jupyter. This prevents
@@ -61,7 +61,7 @@ RUN apt-get install -y emacs vim
 
 USER keras 
 RUN jupyter notebook --generate-config
-ADD jupyter_config.py /home/keras/.jupyter/jupyter_notebook_config.py
+COPY jupyter_config.py /home/keras/.jupyter/jupyter_notebook_config.py
 ENTRYPOINT ["/usr/bin/tini", "--"]
 
 EXPOSE 8888
