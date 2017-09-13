@@ -53,6 +53,7 @@ RUN dragonn --help
 RUN py.test
 # Add Tini. Tini operates as a process subreaper for jupyter. This prevents
 # kernel crashes.
+RUN apt-get install -y emacs vim
 ENV TINI_VERSION v0.14.0
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /usr/bin/tini
 
