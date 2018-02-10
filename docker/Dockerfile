@@ -17,7 +17,7 @@ ENV LD_LIBRARY_PATH /usr/local/cuda-8.0/lib64:/usr/local/cuda-8.0/extras/CUPTI/l
 
 ENV NB_USER keras
 ENV NB_UID 1000
-RUN useradd -m -s /bin/bash -N -u $NB_UID $NB_USER && \
+RUN useradd -m -s /bin/bash -N -u $NB_UID $NB_USER 
 #    mkdir -p $CONDA_DIR && \
 #    chown keras $CONDA_DIR -R && \
 RUN mkdir -p /src && \
