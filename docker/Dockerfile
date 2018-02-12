@@ -3,7 +3,7 @@ MAINTAINER Kundaje Lab <annashch@stanford.edu>
 ENV LD_LIBRARY_PATH /usr/local/cuda-8.0/lib64:/usr/local/cuda-8.0/extras/CUPTI/lib64:$LD_LIBRARY_PATH
 
 RUN apt-get update --fix-missing 
-RUN apt-get install -y wget git libhdf5-dev g++ graphviz python3-pip freetype6-dev
+RUN apt-get install -y wget git libhdf5-dev g++ graphviz python3-pip libfreetype6-dev
 RUN apt-get install pkg-config
 
 
