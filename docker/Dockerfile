@@ -1,8 +1,11 @@
 FROM nvidia/cuda:8.0-cudnn5-devel
 MAINTAINER Kundaje Lab <annashch@stanford.edu>
-RUN apt-get update --fix-missing 
-RUN apt-get install -y wget git libhdf5-dev g++ graphviz python3-pip
 ENV LD_LIBRARY_PATH /usr/local/cuda-8.0/lib64:/usr/local/cuda-8.0/extras/CUPTI/lib64:$LD_LIBRARY_PATH
+
+RUN apt-get update --fix-missing 
+RUN apt-get install -y wget git libhdf5-dev g++ graphviz python3-pip freetype6-dev
+RUN apt-get install pkg-config
+
 
 ENV NB_USER keras
 ENV NB_UID 1000
@@ -13,7 +16,6 @@ RUN mkdir -p /src && \
 RUN usermod -aG sudo keras
 
 USER keras
-
 
 RUN pip3 install numpy==1.12.1 && \
     pip3 install scikit-learn==0.18 && \
