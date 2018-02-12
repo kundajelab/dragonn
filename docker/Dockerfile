@@ -15,14 +15,14 @@ RUN usermod -aG sudo keras
 USER keras
 
 
-RUN pip install numpy==1.12.1 && \
-    pip install scikit-learn==0.18 && \
-    pip install pandas==0.18.0 && \
-    pip install notebook==4.1.0 && \
-    pip install matplotlib==1.5.1 && \
-    pip install mkl nose pyyaml six h5py && \
-    pip install shapely==1.5.13 && \ 
-    pip install pytest
+RUN pip3 install numpy==1.12.1 && \
+    pip3 install scikit-learn==0.18 && \
+    pip3 install pandas==0.18.0 && \
+    pip3 install notebook==4.1.0 && \
+    pip3 install matplotlib==1.5.1 && \
+    pip3 install mkl nose pyyaml six h5py && \
+    pip3 install shapely==1.5.13 && \ 
+    pip3 install pytest
 
 
 WORKDIR /src 
