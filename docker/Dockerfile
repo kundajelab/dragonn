@@ -1,7 +1,7 @@
 FROM nvidia/cuda:8.0-cudnn5-devel
 MAINTAINER Kundaje Lab <annashch@stanford.edu>
 RUN apt-get update --fix-missing 
-RUN apt-get install -y wget git libhdf5-dev g++ graphviz python-pip
+RUN apt-get install -y wget git libhdf5-dev g++ graphviz python3-pip
 ENV LD_LIBRARY_PATH /usr/local/cuda-8.0/lib64:/usr/local/cuda-8.0/extras/CUPTI/lib64:$LD_LIBRARY_PATH
 
 ENV NB_USER keras
