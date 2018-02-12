@@ -33,7 +33,7 @@ WORKDIR /src/dragonn
 ### switch to docker branch for changes in setup.py [to be removed before merging to master]
 RUN git checkout -b docker origin/docker
 ###
-RUN python3 setup.py install
+RUN sudo python3 setup.py install
 RUN mkdir ~/.keras
 WORKDIR ~/.keras
 COPY keras.json ~/.keras/keras.json
