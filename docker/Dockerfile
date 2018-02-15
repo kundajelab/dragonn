@@ -13,7 +13,8 @@ RUN pip3 install numpy==1.12.1 && \
     pip3 install matplotlib==1.5.1 && \
     pip3 install mkl nose pyyaml six h5py && \
     pip3 install shapely==1.5.13 && \ 
-    pip3 install pytest
+    pip3 install pytest && \
+    pip3 install tensorflow-gpu==1.0.0 & \
 
 
 WORKDIR /src 
