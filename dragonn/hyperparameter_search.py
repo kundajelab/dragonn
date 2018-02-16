@@ -70,7 +70,7 @@ class MOESearch(HyperparameterBackend):
 
 class HyperparameterSearcher(object):
     def __init__(self, model_class, fixed_hyperparameters, grid, X_train, y_train, validation_data,
-                 metric='auPRG', maximize=True, backend=RandomSearch):
+                 metric='auPRC', maximize=True, backend=RandomSearch):
         self.model_class = model_class
         self.fixed_hyperparameters = fixed_hyperparameters
         self.grid = grid
