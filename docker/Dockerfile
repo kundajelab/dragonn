@@ -3,7 +3,7 @@ MAINTAINER Kundaje Lab <annashch@stanford.edu>
 ENV LD_LIBRARY_PATH /usr/local/cuda-8.0/lib64:/usr/local/cuda-8.0/extras/CUPTI/lib64:$LD_LIBRARY_PATH
 
 RUN apt-get update --fix-missing 
-RUN apt-get install -y wget git libhdf5-dev g++ graphviz python3-pip libfreetype6-dev libgeos-dev sudo
+RUN apt-get install -y build-essential gfortran libatlas-base-dev python3-dev wget git libhdf5-dev g++ graphviz python3-pip libfreetype6-dev libgeos-dev sudo
 RUN apt-get install pkg-config
 
 RUN pip3 install numpy==1.12.1 && \
