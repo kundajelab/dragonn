@@ -3,8 +3,7 @@ MAINTAINER Kundaje Lab <annashch@stanford.edu>
 ENV LD_LIBRARY_PATH /usr/local/cuda-8.0/lib64:/usr/local/cuda-8.0/extras/CUPTI/lib64:$LD_LIBRARY_PATH
 
 RUN apt-get update --fix-missing 
-RUN apt-get install -y build-essential gfortran libatlas-base-dev python3-dev wget git libhdf5-dev g++ graphviz python3-pip libfreetype6-dev libgeos-dev sudo pkg-config emacs vim mkl
-
+RUN apt-get install -y build-essential gfortran libatlas-base-dev python3-dev wget git libhdf5-dev g++ graphviz python3-pip libfreetype6-dev libgeos-dev sudo pkg-config emacs vim cmake
 RUN ln -s /usr/bin/python3 /usr/bin/python
 RUN ln -s /usr/bin/pip3 /usr/bin/pip
 
