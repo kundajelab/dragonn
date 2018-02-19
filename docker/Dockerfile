@@ -3,8 +3,10 @@ MAINTAINER Kundaje Lab <annashch@stanford.edu>
 ENV LD_LIBRARY_PATH /usr/local/cuda-8.0/lib64:/usr/local/cuda-8.0/extras/CUPTI/lib64:$LD_LIBRARY_PATH
 
 RUN apt-get update --fix-missing 
-RUN apt-get install -y build-essential gfortran libatlas-base-dev python3-dev wget git libhdf5-dev g++ graphviz python3-pip libfreetype6-dev libgeos-dev sudo
-RUN apt-get install pkg-config
+RUN apt-get install -y build-essential gfortran libatlas-base-dev python3-dev wget git libhdf5-dev g++ graphviz python3-pip libfreetype6-dev libgeos-dev sudo pkg-config emacs vim
+
+RUN ln -s /usr/bin/python3 /usr/bin/python
+RUN ln -s /usr/bin/pip3 /usr/bin/pip
 
 RUN pip3 install numpy==1.12.1 && \
     pip3 install scikit-learn==0.18 && \
@@ -17,27 +19,28 @@ RUN pip3 install numpy==1.12.1 && \
     pip3 install tensorflow-gpu==1.0.1 && \
     pip3 install tensorflow==1.0.1
 
+RUN mkdir /src
+RUN mkdir /src/dragonn
 
 WORKDIR /src 
 RUN git clone https://github.com/kundajelab/dragonn.git
 WORKDIR /src/dragonn
 RUN git checkout -b docker origin/docker
 
-RUN sudo python3 setup.py install
+RUN python setup.py install
 RUN mkdir ~/.keras
 WORKDIR ~/.keras
 COPY keras.json ~/.keras/keras.json
+WORKDIR /src/dragonn
 RUN dragonn --help 
 RUN py.test
 
 # Add Tini. Tini operates as a process subreaper for jupyter. This prevents
 # kernel crashes.
-RUN apt-get install -y emacs vim
 ENV TINI_VERSION v0.14.0
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /usr/bin/tini
-
 RUN chmod +x /usr/bin/tini
-RUN apt-get install -y emacs vim
+
 
 RUN jupyter notebook --generate-config
 COPY jupyter_config.py /home/keras/.jupyter/jupyter_notebook_config.py
