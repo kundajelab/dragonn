@@ -3,7 +3,7 @@ MAINTAINER Kundaje Lab <annashch@stanford.edu>
 ENV LD_LIBRARY_PATH /usr/local/cuda-8.0/lib64:/usr/local/cuda-8.0/extras/CUPTI/lib64:$LD_LIBRARY_PATH
 
 RUN apt-get update --fix-missing 
-RUN apt-get install -y build-essential gfortran libatlas-base-dev python3-dev wget git libhdf5-dev g++ graphviz python3-pip libfreetype6-dev libgeos-dev sudo pkg-config emacs vim
+RUN apt-get install -y build-essential gfortran libatlas-base-dev python3-dev wget git libhdf5-dev g++ graphviz python3-pip libfreetype6-dev libgeos-dev sudo pkg-config emacs vim mkl
 
 RUN ln -s /usr/bin/python3 /usr/bin/python
 RUN ln -s /usr/bin/pip3 /usr/bin/pip
@@ -17,8 +17,11 @@ RUN pip3 install numpy==1.12.1 && \
     pip3 install shapely==1.5.13 && \ 
     pip3 install pytest && \
     pip3 install tensorflow-gpu==1.0.1 && \
-    pip3 install tensorflow==1.0.1
+    pip3 install tensorflow==1.0.1 && \
+    pip3 install dlib
 
+ENV LD_LIBRARY_PATH /usr/local/lib:$LD_LIBRARY_PATH
+RUN ldconfig
 RUN mkdir /src
 RUN mkdir /src/dragonn
 
