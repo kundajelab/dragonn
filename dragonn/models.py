@@ -69,12 +69,12 @@ class SequenceDNN(Model):
     def __init__(self, seq_length=None, keras_model=None,
                  use_RNN=False, num_tasks=1,
                  num_filters=(15, 15, 15), conv_width=(15, 15, 15),
-                 pool_width=35, GRU_size=35, TDD_size=15,
+                 pool_width=35, GRU_size=35,
                  L1=0, dropout=0.0, num_epochs=100, verbose=1):
         from keras.models import Sequential
         from keras.layers.core import (
             Activation, Dense, Dropout, Flatten,
-            Permute, Reshape, TimeDistributedDense
+            Permute, Reshape
         )
         from keras.layers.convolutional import Convolution2D, MaxPooling2D
         from keras.layers.recurrent import GRU
@@ -105,7 +105,6 @@ class SequenceDNN(Model):
                 self.model.add(Reshape((num_filters[-1], num_max_pool_outputs)))
                 self.model.add(Permute((2, 1)))
                 self.model.add(GRU(GRU_size, return_sequences=True))
-                self.model.add(TimeDistributedDense(TDD_size, activation='relu'))
             self.model.add(Flatten())
             self.model.add(Dense(output_dim=self.num_tasks))
             self.model.add(Activation('sigmoid'))
