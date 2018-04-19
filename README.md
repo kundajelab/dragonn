@@ -44,17 +44,6 @@ Note: by default, only examples with predicted positive class probability >0.5 a
 
 We encourage DragoNN users to share models in the [Model Zoo](https://github.com/kundajelab/dragonn/wiki/Model-Zoo). Enjoy!
 
-## How to reproduce results in the DragoNN manuscript
+## DragoNN paper supplement
 
-We provide trained models, data, and code in `paper_supplement` to reproduce results in the DragoNN manuscript.
-
-To reproduce the plots with model performance on simulations for varying data size and model architectures, run:
-```
-python paper_supplement/simulation_performance_results.py --model-files-dir paper_supplement/simulation_models/ --data-files-dir paper_supplement/simulation_data/ --results-dir paper_supplement/simulation_results
-```
-This script will save pdf files with the performance plots in `paper_supplement/simulation_results`.
-
-## Upcoming Features
-
-See our [roadmap](https://github.com/kundajelab/dragonn/issues/5) for an outline of upcoming features. Additional feature suggestions are always welcome!
-
+We provide trained models, data, and code in the [paper supplement](paper_supplement) to reproduce results in the DragoNN manuscript.
