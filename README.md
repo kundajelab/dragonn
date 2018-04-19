@@ -42,19 +42,8 @@ dragonn interpret --sequences examples/example_pos_sequences.fa --arch-file trai
 This will write the most important subsequence in each input sequence along with its location in the input sequence in the file example_interpretation.task_0.important_sequences.txt.
 Note: by default, only examples with predicted positive class probability >0.5 are interpreted. Examples below this threshold yield important subsequence of Ns with location -1. This default can be changed with the flag --pos-threshold.
 
-We encourage DragoNN users to share models in the [Model Zoo](https://github.com/kundajelab/dragonn/wiki/Model-Zoo). Enjoy!
+We encourage DragoNN users to share models in the [Kipoi Genomics Model Zoo](http://kipoi.org/). Enjoy!
 
-## How to reproduce results in the DragoNN manuscript
+## DragoNN paper supplement
 
-We provide trained models, data, and code in `paper_supplement` to reproduce results in the DragoNN manuscript.
-
-To reproduce the plots with model performance on simulations for varying data size and model architectures, run:
-```
-python paper_supplement/simulation_performance_results.py --model-files-dir paper_supplement/simulation_models/ --data-files-dir paper_supplement/simulation_data/ --results-dir paper_supplement/simulation_results
-```
-This script will save pdf files with the performance plots in `paper_supplement/simulation_results`.
-
-## Upcoming Features
-
-See our [roadmap](https://github.com/kundajelab/dragonn/issues/5) for an outline of upcoming features. Additional feature suggestions are always welcome!
-
+We provide trained models, data, and code in the [paper supplement](paper_supplement) to reproduce results in the DragoNN manuscript.
