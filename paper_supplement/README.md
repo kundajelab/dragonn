@@ -5,17 +5,17 @@ We provide trained models, data, and code to reproduce results in the DragoNN ma
 
 - [Simulation data files](simulation_data) and accompanying [simulation models](simulation_models) are provided to reproduce results in the "understanding how neural networks model different properties of regulatory DNA sequences with simulations" section of the DragoNN manuscript
 
-## How to reproduce results in the DragoNN manuscript
-### Understanding architectures with simulations
+## How to reproduce results in the DragoNN paper
+### Paper section: understanding architectures with simulations
 Start a jupyter notebook server:
 
 ```
 jupyter notebook
 ```
 
-Navigate to the **primer_tutorial.ipynb** notebook in your browser. Run the notebook to reproduce the architecture exploration in manuscript.
+Navigate to the [primer_tutorial.ipynb](primer_tutorial.ipynb) notebook in your browser. Run the notebook to reproduce the architecture exploration in manuscript.
 
-### Understanding how neural networks model different properties of regulatory DNA sequences with simulations
+### Paper section: understanding how neural networks model different properties of regulatory DNA sequences with simulations
 
 To obtain plots in this section with model performance on simulations, run:
 

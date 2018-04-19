@@ -42,7 +42,7 @@ dragonn interpret --sequences examples/example_pos_sequences.fa --arch-file trai
 This will write the most important subsequence in each input sequence along with its location in the input sequence in the file example_interpretation.task_0.important_sequences.txt.
 Note: by default, only examples with predicted positive class probability >0.5 are interpreted. Examples below this threshold yield important subsequence of Ns with location -1. This default can be changed with the flag --pos-threshold.
 
-We encourage DragoNN users to share models in the [Model Zoo](https://github.com/kundajelab/dragonn/wiki/Model-Zoo). Enjoy!
+We encourage DragoNN users to share models in the [Kipoi Genomics Model Zoo](http://kipoi.org/). Enjoy!
 
 ## DragoNN paper supplement
 
