@@ -20,7 +20,8 @@ before_install:
 install:
   # Create a conda environment for the desired Python version and install
   # the dependencies that pip cannot easily install on the Travis CI server
-  - conda create --yes --name dragonn-$TRAVIS_PYTHON_VERSION python=$TRAVIS_PYTHON_VERSION scipy matplotlib=1.5.3 pytest Shapely
+  - conda create --yes --name dragonn-$TRAVIS_PYTHON_VERSION python=$TRAVIS_PYTHON_VERSION
+      scipy matplotlib=1.5.3 pytest Shapely mkl-service
   # Use the new environment
   - source activate dragonn-$TRAVIS_PYTHON_VERSION
   # Confirm the Python version
