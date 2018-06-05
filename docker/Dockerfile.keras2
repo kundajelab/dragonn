@@ -27,7 +27,7 @@ RUN mkdir /src/dragonn
 WORKDIR /src 
 RUN git clone https://github.com/kundajelab/dragonn.git
 WORKDIR /src/dragonn
-#RUN git checkout -b docker origin/docker
+RUN git checkout -b docker origin/docker
 
 RUN python setup.py install
 RUN mkdir ~/.keras
