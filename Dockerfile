@@ -4,12 +4,12 @@ MAINTAINER Kundaje Lab <annashch@stanford.edu>
 #copy all dragonn files from the current branch to the /src directory
 
 WORKDIR /src/dragonn
-COPY ../ /src/dragonn/
+COPY . /src/dragonn/
 RUN python setup.py install
 
 RUN mkdir ~/.keras
 WORKDIR ~/.keras
-COPY keras.json ~/.keras/keras.json
+COPY docker/keras.json ~/.keras/keras.json
 
 
 WORKDIR /src/dragonn
