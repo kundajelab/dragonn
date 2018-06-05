@@ -1,1 +1,1 @@
-{"epsilon": 1e-07, "floatx": "float32", "backend": "tensorflow", "image_data_format": "channels_first"}
+{"epsilon": 1e-07, "floatx": "float32", "backend": "tensorflow", "image_data_format": "channels_last"}
