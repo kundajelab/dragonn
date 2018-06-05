@@ -25,18 +25,6 @@ RUN mkdir /src
 RUN mkdir /src/dragonn
 
 WORKDIR /src 
-RUN git clone https://github.com/kundajelab/dragonn.git
-WORKDIR /src/dragonn
-#RUN git checkout -b docker origin/docker
-
-RUN python setup.py install
-RUN mkdir ~/.keras
-WORKDIR ~/.keras
-COPY keras.json ~/.keras/keras.json
-WORKDIR /src/dragonn
-RUN dragonn --help 
-RUN py.test
-
 # Add Tini. Tini operates as a process subreaper for jupyter. This prevents
 # kernel crashes.
 ENV TINI_VERSION v0.14.0
@@ -45,7 +33,7 @@ RUN chmod +x /usr/bin/tini
 
 
 RUN jupyter notebook --generate-config
-COPY jupyter_config.py /home/keras/.jupyter/jupyter_notebook_config.py
+COPY jupyter_config.py ~/.jupyter/jupyter_notebook_config.py
 ENTRYPOINT ["/usr/bin/tini", "--"]
 
 EXPOSE 8888
