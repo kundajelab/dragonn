@@ -1,4 +1,4 @@
-FROM kundajelab/dragonn_base
+FROM kundajelab/dragonn_base:docker_base
 MAINTAINER Kundaje Lab <annashch@stanford.edu>
 
 #copy all dragonn files from the current branch to the /src directory
