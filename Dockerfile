@@ -17,4 +17,4 @@ RUN dragonn --help
 RUN py.test
 
 RUN echo "root:dragonn" | chpasswd
-ENTRYPOINT ["jupyter","notebook", "-f", "~/.jupyter/jupyterhub_notebook_config.py", "--no-ssl", "--port", "80"]
+ENTRYPOINT ["jupyter","notebook","--allow-root","--config", "~/.jupyter/jupyterhub_notebook_config.py", "--no-ssl", "--port", "80"]
