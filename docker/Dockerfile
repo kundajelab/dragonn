@@ -34,7 +34,7 @@ RUN chmod +x /usr/bin/tini
 
 RUN jupyter notebook --generate-config
 COPY jupyter_config.py ~/.jupyter/jupyter_notebook_config.py
-ENTRYPOINT ["/usr/bin/tini", "--"]
+
 
 EXPOSE 8888
 EXPOSE 80
