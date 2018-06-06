@@ -7,14 +7,13 @@ WORKDIR /src/dragonn
 COPY . /src/dragonn/
 RUN python setup.py install
 
-RUN mkdir ~/.keras
-WORKDIR ~/.keras
-COPY docker/keras.json ~/.keras/keras.json
+RUN mkdir /root/.keras
+WORKDIR /root/.keras
+COPY docker/keras.json /root/.keras/keras.json
 
 
 WORKDIR /src/dragonn
 RUN dragonn --help
 RUN py.test
 
-RUN echo "root:dragonn" | chpasswd
-
+ENTRYPOINT=["/usr/local/bin/jupyter", "notebook", "--config", "/root/.jupyter/jupyterhub_notebook_config.py",  "--port 80", "--ip=0.0.0.0", "--no-browser", "--allow-root"]
