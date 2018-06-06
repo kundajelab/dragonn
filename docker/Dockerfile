@@ -15,8 +15,6 @@ RUN pip3 install numpy==1.12.1 && \
     pip3 install mkl nose pyyaml six h5py sphinx pydot-ng && \
     pip3 install shapely==1.5.13 && \ 
     pip3 install pytest && \
-    pip3 install tensorflow-gpu==1.0.1 && \
-    pip3 install tensorflow==1.0.1 && \
     pip3 install dlib && \
     pip3 install tornado==5 && \
     pip3 install --upgrade jupyter
