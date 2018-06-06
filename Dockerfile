@@ -16,4 +16,4 @@ WORKDIR /src/dragonn
 RUN dragonn --help
 RUN py.test
 
-ENTRYPOINT=["/usr/local/bin/jupyter", "notebook", "--config", "/root/.jupyter/jupyterhub_notebook_config.py",  "--port 80", "--ip=0.0.0.0", "--no-browser", "--allow-root"]
+ENTRYPOINT ["/usr/local/bin/jupyter", "notebook", "--config", "/root/.jupyter/jupyterhub_notebook_config.py",  "--port", "80", "--ip=0.0.0.0", "--no-browser", "--allow-root"]
