@@ -33,7 +33,9 @@ ENV TINI_VERSION v0.14.0
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /usr/bin/tini
 RUN chmod +x /usr/bin/tini
 
-ADD jupyter_config.py /root/.jupyter/jupyter_notebook_config.py
+RUN mkdir /root/.jupyter
+WORKDIR /root/.jupyter
+ADD jupyter_config.py jupyter_notebook_config.py
 
 
 EXPOSE 8888
