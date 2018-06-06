@@ -9,7 +9,7 @@ RUN python setup.py install
 
 RUN mkdir /root/.keras
 WORKDIR /root/.keras
-COPY docker/keras.json /root/.keras/keras.json
+COPY docker/keras.json keras.json
 
 
 WORKDIR /src/dragonn
