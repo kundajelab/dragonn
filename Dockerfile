@@ -17,4 +17,4 @@ RUN dragonn --help
 RUN py.test
 
 
-ENTRYPOINT ["jupyter","notebook","--allow-root","--config", "/root/.jupyter/jupyterhub_notebook_config.py", "--no-browser, "--port", "80","--ip","0.0.0.0"]
+ENTRYPOINT ["jupyter","notebook","--allow-root","--config", "/root/.jupyter/jupyterhub_notebook_config.py", "--no-browser", "--port", "80","--ip","0.0.0.0"]
