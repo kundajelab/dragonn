@@ -17,7 +17,9 @@ RUN pip3 install numpy==1.12.1 && \
     pip3 install pytest && \
     pip3 install tensorflow-gpu==1.0.1 && \
     pip3 install tensorflow==1.0.1 && \
-    pip3 install dlib
+    pip3 install dlib && \
+    pip3 install tornado==5 && \
+    pip3 install --upgrade jupyter
 
 ENV LD_LIBRARY_PATH /usr/local/lib:$LD_LIBRARY_PATH
 RUN ldconfig
@@ -31,9 +33,7 @@ ENV TINI_VERSION v0.14.0
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /usr/bin/tini
 RUN chmod +x /usr/bin/tini
 
-
-RUN jupyter notebook --generate-config
-COPY jupyter_config.py ~/.jupyter/jupyter_notebook_config.py
+ADD jupyter_config.py /root/.jupyter/jupyter_notebook_config.py
 
 
 EXPOSE 8888
