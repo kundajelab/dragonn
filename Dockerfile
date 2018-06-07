@@ -1,8 +1,6 @@
 FROM kundajelab/dragonn_base:docker_base
 MAINTAINER Kundaje Lab <annashch@stanford.edu>
 
-#install tensorflow-gpu
-RUN pip3 install tensorflow-gpu==1.0.1
 
 #copy all dragonn files from the current branch to the /src directory
 
