@@ -314,6 +314,6 @@ def add_letters_to_axis(ax, letter_heights):
                 y_neg_pos += height
 
     ax.set_xlim(x_range[0] - 1, x_range[1] + 1)
-    ax.set_xticks(range(*x_range) + [x_range[-1]])
+    ax.set_xticks(list(range(*x_range)) + [x_range[-1]])
     ax.set_aspect(aspect='auto', adjustable='box')
     ax.autoscale_view()
