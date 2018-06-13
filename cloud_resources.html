@@ -53,33 +53,25 @@ Dragonn locally on their system through Anaconda.</p>
 
 <p><img src="/dragonn/images/aws_login.png" alt="AWS login window" title="AWS Login Window" /></p>
 
-<ol>
   <li>Login to your AWS account, and set your region to <strong>US West (Oregon)</strong> or to <strong>US West (Northern California)</strong></li>
-</ol>
+
 
 <p><img src="/dragonn/images/aws_region.png" alt="AWS Region" title="AWS Select Region" /></p>
-
-<ol>
   <li>Go to the <strong>services</strong> tab and select <strong>EC2</strong></li>
-</ol>
 
 <p><img src="/dragonn/images/aws_services.png" alt="AWS Services" title="AWS Services" /></p>
 
-<ol>
   <li>On the left pane of the Web site, select <strong>AMIs</strong>, and type “dragonn” into the search bar. You should see AMI Name: <strong>Kundaje Lab Dragonn</strong> (if you are in the North California region) 
 or <strong>Kundaje Lab Dragonn Oregon</strong> if you are in the Oregon region. You will not see the AMI if your region is set to anything other than these two options (see step 2).</li>
-</ol>
 
 <p><img src="/dragonn/images/aws_ami.png" alt="AWS AMI" title="AWS AMI" /></p>
 
-<ol>
   <li>
     <p>Select the AMI and click <strong>Launch</strong>.</p>
   </li>
   <li>
     <p>Go through the setup tutorial  to configure your Dragonn instance, making sure to select the following options:</p>
   </li>
-</ol>
 
 <p>a. In <strong>Step 2: Choose an Instance Type</strong> select <strong>g2.2xlarge</strong>.</p>
 
@@ -118,14 +110,11 @@ or <strong>Kundaje Lab Dragonn Oregon</strong> if you are in the Oregon region. 
 
 <p><img src="/dragonn/images/aws_keypair.png" alt="Create key pair" title="Create key pair" /></p>
 
-<ol>
-  <li>When you launch the instance, you will arrive back at the EC2 dashboard, and you will see your new instance in the <strong>running</strong> state. Please note that the cost of running your g2.2xlarge instance 
+<li>When you launch the instance, you will arrive back at the EC2 dashboard, and you will see your new instance in the <strong>running</strong> state. Please note that the cost of running your g2.2xlarge instance 
 is $0.65 per hour.</li>
-</ol>
 
 <p><img src="/dragonn/images/aws_running.png" alt="Instance running" title="Instance running" /></p>
 
-<ol>
   <li>
     <p>Select your instance, and click the <strong>Connect</strong> button. You will see instructions on how to connect to your instance through ssh (If you are running Windows, you will need an SSH client such as <a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/">putty</a>. Follow the instructions in the popup window to chmod your key file (see step 6g) and ssh into your instance. It is likely that you will need to ssh in as the “ubuntu” user rather than the “root” user. Modify the example command to indicate:
  <code class="highlighter-rouge">
@@ -140,50 +129,33 @@ is $0.65 per hour.</li>
 	</code>
       </p>
   </li>
-</ol>
-
-<ol>
   <li>
-    You will see commands similar to the following as the code pulls the latest container with the Dragonn software from Dockerhub: ![Docker Pull]({{ site.baseurl }}/images/docker_pull.png "Docker Pull")
+    You will see commands similar to the following as the code pulls the latest container with the Dragonn software from Dockerhub: <img src="/dragonn/images/docker_pull.png" alt="Docker Pull",title="Docker Pull"/>
   </li>
-</ol>
-<ol>
       <li>
 	The last message to show up on the screen should contain a series of characters preceded by "token=". For example:
-
-	![Jupyter Authentication Token]({{ site.baseurl }}/images/token.png "Jupyter Authentication Token")
+	<img src="/dragonn/images/token.png" alt="Jupyter Authentication Token",title="Jupyter Authentication Token"/>
 
 	In this case, the token you will need to access the software is: 9a497a929ab4ea87c0b00bedb976457d4bc7e407b20abf6c (your actual token will be different from this one).	
       </li>
-</ol>
-<ol>
   <li>
     After you have launched the juypter server, in your browser, navigate to the public ip address of your GPU instance on port 80. You can find the public ip address from the EC2 dashboard:
-    ![Obtaining public ip]({{ site.baseurl }}/images/aws_publicip.png "Obtaining public ip")
 
-    ![Logging in]({{ site.baseurl }}/images/aws_login_browser.png "Logging in")
-    
+    <img src="/dragonn/images/aws_publicip.png" alt="Obtaining pubic IP",title="Obtaining Public IP"/>
+    <img src="/dragonn/images/aws_login_browser.png" alt="Logging in",title="Logging in"/>    
   </li>  
-</ol>
-<ol>
   <li>
     Paste in the token you obtained above.
   </li>
-</ol>
-
-<ol>
   <li>
     Once you have logged in, you will see files associated with the dragonn software.
-
-    ![Dragonn files]({{ site.baseurl }}/images/aws_notebook.png "Dragonn files")
+    <img src="/dragonn/images/aws_notebook.png" alt="Dragonn files",title="Dragonn files"/>    
   </li>
-</ol>
-<ol>
   <li>
     There are three tutorials available:
-
-    a. click on paper_supplement -> primer_tutorial.ipynb to complete the tutorial referenced in the Dragonn manuscript: ![Primer tutorial]({{ site.baseurl }}/images/primer_tutorial.png "Primer tutorial")
-
+    
+    a. click on paper_supplement -> primer_tutorial.ipynb to complete the tutorial referenced in the Dragonn manuscript:
+    <img src="/dragonn/images/primer_tutorial.png" alt="Primer tutorial",title="Primer tutorial"/>    
     b. click on examples -> tutorial1.ipynb or examples -> tutorial2.ipynb to complete additional tutorials.    
   </li>
 </ol>
