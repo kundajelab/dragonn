@@ -21,7 +21,7 @@ RUN python setup.py install
 WORKDIR /src/dragonn
 COPY . /src/dragonn/
 RUN python setup.py install
-
+RUN pip install theano=0.9
 RUN mkdir /root/.keras
 WORKDIR /root/.keras
 COPY docker/keras.json keras.json
