@@ -66,8 +66,8 @@ Dragonn locally on their system through Anaconda.</p>
 <p><img src="/dragonn/images/aws_services.png" alt="AWS Services" title="AWS Services" /></p>
 
 <ol>
-  <li>On the left pane of the Web site, select <strong>AMIs</strong>, and type “dragonn” into the search bar. You should see AMI Name: <strong>DragonnTutorial_KundajeLab</strong> (if you are in the North California region) 
-or <strong>DragonnTutorial_KundajeLab_OREGON</strong> if you are in the Oregon region. You will not see the AMI if your region is set to anything other than these two options (see step 2).</li>
+  <li>On the left pane of the Web site, select <strong>AMIs</strong>, and type “dragonn” into the search bar. You should see AMI Name: <strong>Kundaje Lab Dragonn</strong> (if you are in the North California region) 
+or <strong>Kundaje Lab Dragonn Oregon</strong> if you are in the Oregon region. You will not see the AMI if your region is set to anything other than these two options (see step 2).</li>
 </ol>
 
 <p><img src="/dragonn/images/aws_ami.png" alt="AWS AMI" title="AWS AMI" /></p>
@@ -103,7 +103,7 @@ or <strong>DragonnTutorial_KundajeLab_OREGON</strong> if you are in the Oregon r
 
  ii. Add Rule --&gt; HTTP; Port Range --&gt; 80; Source --&gt; Anywhere 
 
- iii. Add Rule --&gt; HTTPS; Port Range --&gt; 8443; Source --&gt; Anywhere
+ iii. Add Rule --&gt; HTTPS; Port Range --&gt; 443; Source --&gt; Anywhere
 </code></pre>
 </div>
 
@@ -134,57 +134,60 @@ is $0.65 per hour.</li>
  <img src="/dragonn/images/aws_connect.png" alt="Connecting to Amazon Instance" title="Connecting to Amazon Instance" /></p>
   </li>
   <li>
-    <p>Once you have connected to the instance, type ‘ls’ in the ubuntu home directory to learn the directory contents. You should see the following set of files (green) and directories (blue):</p>
+    <p>Once you have connected to the instance, type
+      <code>
+	sudo run.sh
+	</code>
+      </p>
   </li>
 </ol>
-
-<p><img src="/dragonn/images/aws_ls.png" alt="instance directory contents" title="Connecting to Amazon Instance" /></p>
 
 <ol>
   <li>
-    <p>refer to the file “README.txt” for instructions on how to run Dragonn from the command line.</p>
-  </li>
-  <li>
-    <p>Alternatively, you can run the Dragonn jupyter notebook by executing the following commands: 
- <code class="highlighter-rouge">
- sudo su 
- passwd ubuntu 
-</code>
- enter your desired password when prompted.</p>
+    You will see commands similar to the following as the code pulls the latest container with the Dragonn software from Dockerhub: ![Docker Pull]({{ site.baseurl }}/images/docker_pull.png "Docker Pull")
   </li>
 </ol>
-
-<p><code class="highlighter-rouge">
- ./launch_notebook.sh 
-</code>
- <img src="/dragonn/images/aws_launch.png" alt="Jupyter server launching" title="Jupyter server launching" /></p>
-
 <ol>
-  <li>After you have launched the juypter server, in your browser, navigate to the public ip address of your GPU instance on port 80. You can find the public ip address from the EC2 dashboard:</li>
+      <li>
+	The last message to show up on the screen should contain a series of characters preceded by "token=". For example:
+
+	![Jupyter Authentication Token]({{ site.baseurl }}/images/token.png "Jupyter Authentication Token")
+
+	In this case, the token you will need to access the software is: 9a497a929ab4ea87c0b00bedb976457d4bc7e407b20abf6c (your actual token will be different from this one).	
+      </li>
 </ol>
-
-<p><img src="/dragonn/images/aws_publicip.png" alt="Obtaining public ip" title="Obtaining public ip" /></p>
-
-<p><img src="/dragonn/images/aws_login_browser.png" alt="Logging in" title="Logging in" /></p>
-
 <ol>
   <li>
-    <p>The username is “ubuntu”, and the password is the same one that you created in step 11.</p>
-  </li>
+    After you have launched the juypter server, in your browser, navigate to the public ip address of your GPU instance on port 80. You can find the public ip address from the EC2 dashboard:
+    ![Obtaining public ip]({{ site.baseurl }}/images/aws_publicip.png "Obtaining public ip")
+
+    ![Logging in]({{ site.baseurl }}/images/aws_login_browser.png "Logging in")
+    
+  </li>  
+</ol>
+<ol>
   <li>
-    <p>Once you have logged in, you will see files associated with the dragonn softwre. Click on the <strong>examples</strong> folder.</p>
+    Paste in the token you obtained above.
   </li>
 </ol>
-
-<p><img src="/dragonn/images/aws_notebook.png" alt="Navigate to examples folder" title="Navigate to examples folder" /></p>
-
-<p><img src="/dragonn/images/aws_notebook2.png" alt="Select workshop tutorial" title="Select workshop tutorial" /></p>
 
 <ol>
-  <li>Click on <strong>workshop_tutorial.ipynb</strong> to launch the Jupyter notebook for the tutorial.</li>
+  <li>
+    Once you have logged in, you will see files associated with the dragonn software.
+
+    ![Dragonn files]({{ site.baseurl }}/images/aws_notebook.png "Dragonn files")
+  </li>
+</ol>
+<ol>
+  <li>
+    There are three tutorials available:
+
+    a. click on paper_supplement -> primer_tutorial.ipynb to complete the tutorial referenced in the Dragonn manuscript: ![Primer tutorial]({{ site.baseurl }}/images/primer_tutorial.png "Primer tutorial")
+
+    b. click on examples -> tutorial1.ipynb or examples -> tutorial2.ipynb to complete additional tutorials.    
+  </li>
 </ol>
 
-<p><img src="/dragonn/images/aws_notebook_3.png" alt="Dragonn tutorial" title="Dragonn tutorial" /></p>
 
 <p>When you are finished with the Amazon instance, follow these steps to shutdown the instance (and avoid incurring extra usage fees):</p>
 
