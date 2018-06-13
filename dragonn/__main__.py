@@ -200,6 +200,8 @@ def main():
     command, args = parse_args()
     global SequenceDNN
     from dragonn.models import SequenceDNN
+    import warnings
+    warnings.filterwarnings('ignore')
     command_functions[command](**args)
 
 
