@@ -1,7 +1,6 @@
 FROM kundajelab/dragonn_base:docker_base
 MAINTAINER Kundaje Lab <annashch@stanford.edu>
 #install theano
-RUN pip3 install theano
 RUN pip3 install --upgrade numpy
 RUN pip3 install cython
 
