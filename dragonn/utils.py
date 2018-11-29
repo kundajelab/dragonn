@@ -95,9 +95,9 @@ def one_hot_encode(sequences):
         sequences.view(integer_type)).reshape(len(sequences), sequence_length)
     one_hot_encoding = OneHotEncoder(
         sparse=False, n_values=5, dtype=integer_type).fit_transform(integer_array)
-
     return one_hot_encoding.reshape(
-        len(sequences), 1, sequence_length, 5).swapaxes(2, 3)[:, :, [0, 1, 2, 4], :]
+        len(sequences), 1, sequence_length, 5)[:, :,:, [0, 1, 2, 4]] #channels last
+        #len(sequences), 1, sequence_length, 5).swapaxes(2, 3)[:, :, [0, 1, 2, 4], :]
 
 
 def reverse_complement(encoded_seqs):
@@ -108,11 +108,11 @@ def get_sequence_strings(encoded_sequences):
     """
     Converts encoded sequences into an array with sequence strings
     """
-    num_samples, _, _, seq_length = np.shape(encoded_sequences)
+    num_samples, _, seq_length,_ = np.shape(encoded_sequences)
     sequence_characters = np.chararray((num_samples, seq_length))
     sequence_characters[:] = 'N'
     for i, letter in enumerate(['A', 'C', 'G', 'T']):
-        letter_indxs = (encoded_sequences[:, :, i, :] == 1).squeeze()
+        letter_indxs = (encoded_sequences[:, :, :,i] == 1).squeeze()
         sequence_characters[letter_indxs] = letter
     # return 1D view of sequence characters
     return sequence_characters.view('S%s' % (seq_length)).ravel()
