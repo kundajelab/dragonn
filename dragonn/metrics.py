@@ -30,7 +30,7 @@ def auPRC(labels, predictions):
     return auc(recall, precision)
 
 
-def recall_at_precision_threshold(labels, predictions, precision_threshold):
+def recall_at_precision_threshold(labels, predictions,precision_threshold):
     precision, recall = precision_recall_curve(labels, predictions)[:2]
     return 100 * recall[np.searchsorted(precision - precision_threshold, 0)]
 
