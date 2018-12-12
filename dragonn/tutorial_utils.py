@@ -34,6 +34,20 @@ def plot_learning_curve(history):
     ax.set_xlabel("Epoch")
     plt.show()
 
+def plot_ism(ism_mat,title):
+    # create discrete colormap of ISM scores
+    extent = [0, ism_mat.shape[0], 0, 100*ism_mat.shape[1]]
+    plt.figure(figsize=(20,3))
+    plt.imshow(ism_mat.T,extent=extent)
+    plt.xlabel("Sequence base")
+    plt.ylabel("ISM Score")
+    plt.title(title)
+    plt.yticks(np.arange(50,100*ism_mat.shape[1],100),("A","C","G","T"))
+    plt.set_cmap('RdBu')
+    plt.colorbar()
+    plt.show()
+
+    
 def plot_sequence_filters(model):
     fig = plt.figure(figsize=(15, 8))
     fig.subplots_adjust(hspace=0.1, wspace=0.1)
@@ -47,17 +61,15 @@ def plot_sequence_filters(model):
         ax.axis("off")
         ax.set_title("Filter %s" % (str(i+1)))
 
-def plot_seq_importance(model, x, xlim=None, layer_idx=-2, figsize=(25, 3)):
-    """Plot input x gradient sequence importance score
+def plot_seq_importance(grads, x, xlim=None, layer_idx=-2, figsize=(25, 3)):
+    """Plot  sequence importance score
     
     Args:
-      model: DNA-sequence based Sequential keras model
+      grads: either deeplift or gradientxinput score matrix 
       x: one-hot encoded DNA sequence
       xlim: restrict the plotted xrange
       figsize: matplotlib figure size
     """
-    
-    grads = input_grad(model, x, layer_idx=layer_idx)
     grads=grads.squeeze()
     x=x.squeeze()
     
@@ -67,7 +79,8 @@ def plot_seq_importance(model, x, xlim=None, layer_idx=-2, figsize=(25, 3)):
     seqlogo_fig(grads*x, figsize=figsize)
     plt.xticks(list(range(xlim[0], xlim[1], 5)))
     plt.xlim(xlim)
-        
+
+    
 Data = namedtuple('Data', ('X_train', 'X_valid', 'X_test',
                            'train_embeddings', 'valid_embeddings', 'test_embeddings',
                            'y_train', 'y_valid', 'y_test',
@@ -411,14 +424,12 @@ def deeplift(model, X, batch_size=200):
         target_layer_idx=-2)
     
     # use a 40% GC reference
-    input_references = [np.array([0.3, 0.2, 0.2, 0.3])[None, None, :, None]]
+    input_references = [np.array([0.3, 0.2, 0.2, 0.3])[None, None, None, :]]
     # get deeplift scores
-    deeplift_scores = np.zeros((model.output_shape[1]) + X.shape)
-    for i in range(model.output_shape[1]):
-        deeplift_scores[i] = score_func(
-            task_idx=i,
-            input_data_list=[X],
-            batch_size=batch_size,
-            progress_update=None,
-            input_references_list=input_references)
-    return deeplift_scores
+    deeplift_scores = score_func(
+        task_idx=0,
+        input_data_list=[X],
+        batch_size=batch_size,
+        progress_update=None,
+        input_references_list=input_references)
+    return deeplift_scores[0].squeeze() 
