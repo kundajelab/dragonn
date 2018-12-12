@@ -26,6 +26,7 @@ def get_motif_scores(encoded_sequences, motif_names,
     If max_scores and return_positions, (num_samples, 2*num_motifs*max_scores)
     array with max scores and their positions.
     """
+    encoded_sequences=np.transpose(encoded_sequences,(0,1,3,2))
     num_samples, _, _, seq_length = encoded_sequences.shape
     scores = np.ones((num_samples, len(motif_names), seq_length))
     for j, motif_name in enumerate(motif_names):

@@ -1,0 +1,10 @@
+numpy>=1.9
+keras>=2.2.0
+tensorflow>=1.6
+deeplift
+shapely
+simdna==0.3
+matplotlib
+scikit-learn
+pydot_ng==1.0.0
+h5py

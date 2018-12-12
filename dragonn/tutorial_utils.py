@@ -35,8 +35,9 @@ def plot_learning_curve(history):
 def plot_sequence_filters(model):
     fig = plt.figure(figsize=(15, 8))
     fig.subplots_adjust(hspace=0.1, wspace=0.1)
-    conv_filters=model.layers[0].get_weights()[0].squeeze(axis=-1)
-    #conv_filters=model.layers[0].get_weights()[0].squeeze(axis=1)
+    conv_filters=model.layers[0].get_weights()[0]
+    #transpose for plotting
+    conv_filters=np.transpose(conv_filters,(3,1,2,0)).squeeze(axis=-1)
     num_plots_per_axis = int(len(conv_filters)**0.5) + 1
     for i, conv_filter in enumerate(conv_filters):
         ax = fig.add_subplot(num_plots_per_axis, num_plots_per_axis, i+1)
@@ -328,3 +329,58 @@ def interpret_data_with_SequenceDNN(dnn, simulation_data):
             for motif_site in motif_sites[key]:
                 ax.axvspan(motif_site - highlight_width, motif_site + highlight_width,
                            color='grey', alpha=0.1)
+
+def in_silico_mutagenesis(model, X):
+    """
+    Returns (num_task, num_samples, 1, num_bases, sequence_length) ISM score array.
+    """
+    mutagenesis_scores = np.empty(
+        X.shape + (model.output_shape[1],), dtype=np.float32)
+    wild_type_predictions = model.predict(X)
+    wild_type_predictions = wild_type_predictions[
+        :, np.newaxis, np.newaxis, np.newaxis]
+    for sequence_index, (sequence, wild_type_prediction) in enumerate(
+            zip(X, wild_type_predictions)):
+        mutated_sequences = np.repeat(
+            sequence[np.newaxis], np.prod(sequence.shape), axis=0)
+        # remove wild-type
+        arange = np.arange(len(mutated_sequences))
+        horizontal_cycle = np.tile(
+            np.arange(sequence.shape[-1]), sequence.shape[-2])
+        mutated_sequences[arange, :, :, horizontal_cycle] = 0
+        # add mutant
+        vertical_repeat = np.repeat(
+            np.arange(sequence.shape[-2]), sequence.shape[-1])
+        mutated_sequences[arange, :, vertical_repeat, horizontal_cycle] = 1
+        # make mutant predictions
+        mutated_predictions = model.predict(mutated_sequences)
+        mutated_predictions = mutated_predictions.reshape(
+            sequence.shape + (model.output_shape[1],))
+        mutagenesis_scores[
+            sequence_index] = wild_type_prediction - mutated_predictions
+    return np.rollaxis(mutagenesis_scores, -1)
+
+def deeplift(model, X, batch_size=200):
+    """
+    Returns (num_task, num_samples, 1, num_bases, sequence_length) deeplift score array.
+    """
+    assert len(np.shape(X)) == 4 and np.shape(X)[1] == 1
+    from deeplift.conversion import keras_conversion as kc
+
+    # convert to deeplift model and get scoring function
+    deeplift_model = kc.convert_sequential_model(
+        model, verbose=False)
+    score_func = deeplift_model.get_target_contribs_func(
+        find_scores_layer_idx=0)
+    # use a 40% GC reference
+    input_references = [np.array([0.3, 0.2, 0.2, 0.3])[None, None, :, None]]
+    # get deeplift scores
+    deeplift_scores = np.zeros((model.output_shape[1]) + X.shape)
+    for i in range(model.output_shape[1]):
+        deeplift_scores[i] = score_func(
+            task_idx=i,
+            input_data_list=[X],
+            batch_size=batch_size,
+            progress_update=None,
+            input_references_list=input_references)
+    return deeplift_scores
