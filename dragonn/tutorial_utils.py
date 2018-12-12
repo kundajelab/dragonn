@@ -17,6 +17,34 @@ from dragonn.plot import add_letters_to_axis, plot_motif
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 
+def plot_learning_curve(history):
+    train_losses=history.history['loss']
+    valid_losses=history.history['val_loss']
+    min_loss_indx = min(enumerate(valid_losses), key=lambda x: x[1])[0]
+    f = plt.figure(figsize=(10, 4))
+    ax = f.add_subplot(1, 1, 1)
+    ax.plot(range(len(train_losses)), train_losses, 'b', label='Training',lw=4)
+    ax.plot(range(len(train_losses)), valid_losses, 'r', label='Validation', lw=4)
+    ax.plot([min_loss_indx, min_loss_indx], [0, 1.0], 'k--', label='Early Stop')
+    ax.legend(loc="upper right")
+    ax.set_ylabel("Loss")
+    ax.set_ylim((0.0,1.0))
+    ax.set_xlabel("Epoch")
+    plt.show()
+
+def plot_sequence_filters(model):
+    fig = plt.figure(figsize=(15, 8))
+    fig.subplots_adjust(hspace=0.1, wspace=0.1)
+    conv_filters=model.layers[0].get_weights()[0].squeeze(axis=-1)
+    #conv_filters=model.layers[0].get_weights()[0].squeeze(axis=1)
+    num_plots_per_axis = int(len(conv_filters)**0.5) + 1
+    for i, conv_filter in enumerate(conv_filters):
+        ax = fig.add_subplot(num_plots_per_axis, num_plots_per_axis, i+1)
+        add_letters_to_axis(ax, conv_filter)
+        ax.axis("off")
+        ax.set_title("Filter %s" % (str(i+1)))
+
+
 Data = namedtuple('Data', ('X_train', 'X_valid', 'X_test',
                            'train_embeddings', 'valid_embeddings', 'test_embeddings',
                            'y_train', 'y_valid', 'y_test',
@@ -89,7 +117,8 @@ def train_SequenceDNN(dnn, simulation_data):
     dnn.train(simulation_data.X_train, simulation_data.y_train,
               (simulation_data.X_valid, simulation_data.y_valid))
 
-
+      
+    
 def SequenceDNN_learning_curve(dnn):
     if dnn.valid_metrics is not None:
         train_losses, valid_losses = [np.array([epoch_metrics['Loss'] for epoch_metrics in metrics])
@@ -119,16 +148,6 @@ def plot_motifs(simulation_data):
         plot_motif(motif_name, figsize=(10, 4), ylab=motif_name)
 
 
-def plot_sequence_filters(dnn):
-    fig = plt.figure(figsize=(15, 8))
-    fig.subplots_adjust(hspace=0.1, wspace=0.1)
-    conv_filters = dnn.get_sequence_filters()
-    num_plots_per_axis = int(len(conv_filters)**0.5) + 1
-    for i, conv_filter in enumerate(conv_filters):
-        ax = fig.add_subplot(num_plots_per_axis, num_plots_per_axis, i+1)
-        add_letters_to_axis(ax, conv_filter.T)
-        ax.axis("off")
-        ax.set_title("Filter %s" % (str(i+1)))
 
 
 def plot_SequenceDNN_layer_outputs(dnn, simulation_data):
@@ -187,7 +206,14 @@ def plot_SequenceDNN_layer_outputs(dnn, simulation_data):
         ax1.axvspan(conv_output_start, conv_output_stop, color='grey', alpha=0.5)
         ax2.axvspan(conv_output_start, conv_output_stop, color='grey', alpha=0.5)
 
-
+def interpret_filters(model,simulation_data):    
+    print("Plotting simulation motifs...")
+    plot_motifs(simulation_data)
+    plt.show()
+    print("Visualizing convolutional sequence filters in SequenceDNN...")
+    plot_sequence_filters(model)
+    plt.show()
+        
 def interpret_SequenceDNN_filters(dnn, simulation_data):
     print("Plotting simulation motifs...")
     plot_motifs(simulation_data)

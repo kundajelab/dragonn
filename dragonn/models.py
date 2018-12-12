@@ -74,7 +74,7 @@ class SequenceDNN(Model):
         from keras.models import Sequential
         from keras.layers.core import (
             Activation, Dense, Dropout, Flatten,
-            Permute, Reshape, TimeDistributedDense
+            Permute, Reshape
         )
         from keras.layers.convolutional import Convolution2D, MaxPooling2D
         from keras.layers.recurrent import GRU

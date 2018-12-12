@@ -221,7 +221,8 @@ def plot_bases_on_ax(letter_heights, ax):
     ax: axis to plot on
     """
 
-    assert letter_heights.shape[1] == 4, letter_heights.shape
+    assert letter_heights.shape[-1] == 4, letter_heights.shape
+    letter_heights=np.squeeze(letter_heights) 
     for x_pos, heights in enumerate(letter_heights):
         letters_and_heights = sorted(zip(heights, 'ACGT'))
         y_pos_pos = 0.0
