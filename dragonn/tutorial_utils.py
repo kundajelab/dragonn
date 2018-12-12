@@ -5,6 +5,8 @@ import inspect
 from collections import namedtuple, defaultdict, OrderedDict
 import numpy as np
 np.random.seed(1)
+from concise.utils.plot import seqlogo, seqlogo_fig    
+
 try:
     from sklearn.model_selection import train_test_split  # sklearn >= 0.18
 except ImportError:
@@ -45,7 +47,27 @@ def plot_sequence_filters(model):
         ax.axis("off")
         ax.set_title("Filter %s" % (str(i+1)))
 
-
+def plot_seq_importance(model, x, xlim=None, layer_idx=-2, figsize=(25, 3)):
+    """Plot input x gradient sequence importance score
+    
+    Args:
+      model: DNA-sequence based Sequential keras model
+      x: one-hot encoded DNA sequence
+      xlim: restrict the plotted xrange
+      figsize: matplotlib figure size
+    """
+    
+    grads = input_grad(model, x, layer_idx=layer_idx)
+    grads=grads.squeeze()
+    x=x.squeeze()
+    
+    seq_len = x.shape[0]
+    if xlim is None:
+        xlim = (0, seq_len)
+    seqlogo_fig(grads*x, figsize=figsize)
+    plt.xticks(list(range(xlim[0], xlim[1], 5)))
+    plt.xlim(xlim)
+        
 Data = namedtuple('Data', ('X_train', 'X_valid', 'X_test',
                            'train_embeddings', 'valid_embeddings', 'test_embeddings',
                            'y_train', 'y_valid', 'y_test',
@@ -358,20 +380,36 @@ def in_silico_mutagenesis(model, X):
             sequence.shape + (model.output_shape[1],))
         mutagenesis_scores[
             sequence_index] = wild_type_prediction - mutated_predictions
-    return np.rollaxis(mutagenesis_scores, -1)
+    mutagenesis_scores=np.rollaxis(mutagenesis_scores,-1)
+    mutagenesis_scores=np.squeeze(mutagenesis_scores)
+    #column-normalize the mutagenesis scores
+    col_sum = mutagenesis_scores.sum(axis=0)
+    normalized_mutagenesis_scores = (mutagenesis_scores)/col_sum
+    return normalized_mutagenesis_scores
+    
+
+def input_grad(model,X,layer_idx=-2):
+    from keras import backend as K 
+    fn = K.function([model.input], K.gradients(model.layers[layer_idx].output, [model.input]))
+    return fn([X])[0]
 
 def deeplift(model, X, batch_size=200):
     """
     Returns (num_task, num_samples, 1, num_bases, sequence_length) deeplift score array.
     """
     assert len(np.shape(X)) == 4 and np.shape(X)[1] == 1
-    from deeplift.conversion import keras_conversion as kc
+    from deeplift.conversion import kerasapi_conversion as kc
+    #dump the model to hdf5, as current dl wants a saved model input
+    model.save('tmp.hdf5')
 
     # convert to deeplift model and get scoring function
-    deeplift_model = kc.convert_sequential_model(
-        model, verbose=False)
+    deeplift_model = kc.convert_model_from_saved_files('tmp.hdf5',verbose=False)
+
+    #get the deeplift score with respect to the logit 
     score_func = deeplift_model.get_target_contribs_func(
-        find_scores_layer_idx=0)
+        find_scores_layer_idx=0,
+        target_layer_idx=-2)
+    
     # use a 40% GC reference
     input_references = [np.array([0.3, 0.2, 0.2, 0.3])[None, None, :, None]]
     # get deeplift scores
