@@ -1,1 +1,0 @@
-https://github.com/kundajelab/simdna/tarball/0.3#egg=simdna-0.3

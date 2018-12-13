@@ -1,3 +1,0 @@
-[console_scripts]
-dragonn = dragonn.__main__:main
-
