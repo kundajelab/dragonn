@@ -3,6 +3,33 @@ import numpy as np, sys
 from abc import abstractmethod, ABCMeta
 
 
+def get_model(input_shape,
+              num_tasks=1,
+              num_layers=1,
+              num_filters=10,
+              kernel_size=15,
+              pool_size=35):
+    '''
+    input_shape: tuple with dimensions of input 
+    num_tasks: number of prediction tasks, default=1 
+    num_layers: number of 2D convolution layers, default=1 
+    num_filters: number of filters to use in each 2D convolution layer, default=10 
+    kernel_size: filter dimension for each 2D convolution layer 
+    '''
+    model=Sequential()
+    for i in range(num_layers):
+        model.add(Conv2D(filters=num_filters,
+                         kernel_size=(1,kernel_size),
+                         input_shape=input_shape))
+        model.add(Activation("relu"))
+    model.add(MaxPooling2D(pool_size=(1,pool_size)))
+    model.add(Flatten())
+    model.add(Dense(num_tasks))
+    model.add(Activation("sigmoid"))
+    model.compile(optimizer="adam",loss="binary_crossentropy")
+    return model
+
+
 class HyperparameterBackend(object):
     __metaclass__ = ABCMeta
 
