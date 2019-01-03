@@ -10,6 +10,11 @@ from keras.regularizers import l1, l2
 from keras.callbacks import EarlyStopping, History
 from keras import backend as K
 K.set_image_data_format('channels_last')
+from dragonn.callbacks import *
+
+#Import matplotlib utilities for plotting grid search results: 
+import matplotlib.pyplot as plt
+
 
 def hyperparam_get_model(input_shape,
               num_tasks=1,
@@ -42,18 +47,62 @@ def hyperparam_get_model(input_shape,
     model.compile(optimizer="adam",loss="binary_crossentropy")
     return model
 
-def hyperparam_train_model(data,num_training_examples,model):
-    #train the model 
-    history=model.fit(x=data.X_train[0:num_training_examples],
-                      y=data.y_train[0:num_training_examples],
+def hyperparam_train_model(data,model,num_training_examples=None,epochs=150,patience=7):
+    #train the model
+    if num_training_examples==None:
+        #use all training examples
+        x=data.X_train
+        y=data.y_train
+    else:
+        #use the specified number of training examples 
+        x=data.X_train[0:num_training_examples]
+        y=data.y_train[0:num_training_examples]
+        
+    history=model.fit(x=x,
+                      y=y,
                       batch_size=128,
-                      epochs=150,
+                      epochs=epochs,
                       verbose=0,
-                      callbacks=[EarlyStopping(patience=7),
+                      callbacks=[EarlyStopping(patience=patience),
                                  History()],
                       validation_data=(data.X_valid,data.y_valid))
+    
     #get auPRC on test set
     test_predictions=model.predict(data.X_test)
     test_performance=ClassificationResult(data.y_test,test_predictions)
-    return test_performance.results['auROC']
+    return [i['auROC'] for i in test_performance.results]
+
+def hyperparam_plot_test_auPRC(param_grid,auPRC_dict,xlabel="",ylabel=""):
+    #define a list of colors for multi-tasked models 
+    colors=["#000000","#1f78b4","#e31a1c","#33a02c","#ff7f00","#a6cee3","#cab2d6","#fdbf6f","#fb9a99","#b2df8a"]
+    plt.figure(1)
+    datasets=list(auPRC_dict.keys())
+    num_datasets=len(datasets)
+    
+    for i in range(num_datasets):
+        cur_dataset=datasets[i]
+        cur_auPRC=auPRC_dict[cur_dataset]
+        
+        #create subplot for current dataset
+        plt.subplot(num_datasets,1,i+1)
+
+        #make sure that the input is not an empty list (i.e. some performrance values recorded) 
+        assert len(cur_auPRC)>0
+
+        num_tasks=len(cur_auPRC[0])        
+        #for purposes of the tutorial, we want to limit analysis to 10 tasks. 
+        assert num_tasks < 11
+
+        #add line for param value vs test auPRC for each task 
+        for task_index in range(num_tasks):
+            x=param_grid
+            y=[entry[task_index] for entry in cur_auPRC]
+            plt.plot(x,y,colors[task_index])
+            plt.title(cur_dataset)
+            plt.xlabel(xlabel)
+            plt.ylabel(ylabel)
+    plt.subplots_adjust(hspace=0.6) 
+    plt.show() 
+
+
 
