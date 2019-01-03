@@ -75,7 +75,7 @@ def hyperparam_train_model(data,model,num_training_examples=None,epochs=150,pati
 def hyperparam_plot_test_auPRC(param_grid,auPRC_dict,xlabel="",ylabel=""):
     #define a list of colors for multi-tasked models 
     colors=["#000000","#1f78b4","#e31a1c","#33a02c","#ff7f00","#a6cee3","#cab2d6","#fdbf6f","#fb9a99","#b2df8a"]
-    plt.figure(1)
+    plt.figure(1,figsize=(20,5))
     datasets=list(auPRC_dict.keys())
     num_datasets=len(datasets)
     
@@ -84,7 +84,7 @@ def hyperparam_plot_test_auPRC(param_grid,auPRC_dict,xlabel="",ylabel=""):
         cur_auPRC=auPRC_dict[cur_dataset]
         
         #create subplot for current dataset
-        plt.subplot(num_datasets,1,i+1)
+        plt.subplot(1,num_datasets,i+1)
 
         #make sure that the input is not an empty list (i.e. some performrance values recorded) 
         assert len(cur_auPRC)>0
@@ -101,7 +101,8 @@ def hyperparam_plot_test_auPRC(param_grid,auPRC_dict,xlabel="",ylabel=""):
             plt.title(cur_dataset)
             plt.xlabel(xlabel)
             plt.ylabel(ylabel)
-    plt.subplots_adjust(hspace=0.6) 
+            plt.ylim(0.4,1)
+    plt.subplots_adjust(hspace=0) 
     plt.show() 
 
 
