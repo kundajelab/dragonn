@@ -61,7 +61,7 @@ def plot_sequence_filters(model):
         ax.axis("off")
         ax.set_title("Filter %s" % (str(i+1)))
 
-def plot_seq_importance(grads, x, xlim=None, layer_idx=-2, figsize=(25, 3)):
+def plot_seq_importance(grads, x, xlim=None, layer_idx=-2, figsize=(25, 3),title=""):
     """Plot  sequence importance score
     
     Args:
@@ -79,6 +79,8 @@ def plot_seq_importance(grads, x, xlim=None, layer_idx=-2, figsize=(25, 3)):
     seqlogo_fig(grads*x, figsize=figsize)
     plt.xticks(list(range(xlim[0], xlim[1], 5)))
     plt.xlim(xlim)
+    plt.ylim((-10,10))
+    plt.title(title)
 
     
 Data = namedtuple('Data', ('X_train', 'X_valid', 'X_test',
