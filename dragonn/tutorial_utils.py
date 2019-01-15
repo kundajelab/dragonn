@@ -34,11 +34,15 @@ def plot_learning_curve(history):
     ax.set_xlabel("Epoch")
     plt.show()
 
-def plot_ism(ism_mat,title):
+def plot_ism(ism_mat,title,min_val=vmin,max_val=vmax):
     # create discrete colormap of ISM scores
     extent = [0, ism_mat.shape[0], 0, 100*ism_mat.shape[1]]
     plt.figure(figsize=(20,3))
-    plt.imshow(ism_mat.T,extent=extent)
+    if vmin==None:
+        vmin=min(ism_mat)
+    if vmax==None:
+        vmax=max(ism_mat)
+    plt.imshow(ism_mat.T,extent=extent,vmin=vmin, vmax=vmax)
     plt.xlabel("Sequence base")
     plt.ylabel("ISM Score")
     plt.title(title)
@@ -61,7 +65,7 @@ def plot_sequence_filters(model):
         ax.axis("off")
         ax.set_title("Filter %s" % (str(i+1)))
 
-def plot_seq_importance(grads, x, xlim=None, layer_idx=-2, figsize=(25, 3),title=""):
+def plot_seq_importance(grads, x, xlim=None, ylim=None, layer_idx=-2, figsize=(25, 3),title=""):
     """Plot  sequence importance score
     
     Args:
@@ -74,12 +78,15 @@ def plot_seq_importance(grads, x, xlim=None, layer_idx=-2, figsize=(25, 3),title
     x=x.squeeze()
     
     seq_len = x.shape[0]
+    vals_to_plot=grads*x
     if xlim is None:
         xlim = (0, seq_len)
-    seqlogo_fig(grads*x, figsize=figsize)
+    if ylim is None:
+        ylim= (min(vals_to_plot),max(vals_to_plot))
+    seqlogo_fig(vals_to_plot, figsize=figsize)
     plt.xticks(list(range(xlim[0], xlim[1], 5)))
     plt.xlim(xlim)
-    plt.ylim((-10,10))
+    plt.ylim(ylim)
     plt.title(title)
 
     
