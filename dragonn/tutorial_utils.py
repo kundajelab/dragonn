@@ -34,14 +34,14 @@ def plot_learning_curve(history):
     ax.set_xlabel("Epoch")
     plt.show()
 
-def plot_ism(ism_mat,title,min_val=vmin,max_val=vmax):
+def plot_ism(ism_mat,title,vmin=None,vmax=None):
     # create discrete colormap of ISM scores
     extent = [0, ism_mat.shape[0], 0, 100*ism_mat.shape[1]]
     plt.figure(figsize=(20,3))
     if vmin==None:
-        vmin=min(ism_mat)
+        vmin=np.amin(ism_mat)
     if vmax==None:
-        vmax=max(ism_mat)
+        vmax=np.amax(ism_mat)
     plt.imshow(ism_mat.T,extent=extent,vmin=vmin, vmax=vmax)
     plt.xlabel("Sequence base")
     plt.ylabel("ISM Score")
@@ -82,7 +82,7 @@ def plot_seq_importance(grads, x, xlim=None, ylim=None, layer_idx=-2, figsize=(2
     if xlim is None:
         xlim = (0, seq_len)
     if ylim is None:
-        ylim= (min(vals_to_plot),max(vals_to_plot))
+        ylim= (np.amin(vals_to_plot),np.amax(vals_to_plot))
     seqlogo_fig(vals_to_plot, figsize=figsize)
     plt.xticks(list(range(xlim[0], xlim[1], 5)))
     plt.xlim(xlim)

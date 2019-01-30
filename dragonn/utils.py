@@ -6,6 +6,12 @@ from scipy.signal import correlate2d
 from simdna.simulations import loaded_motifs
 
 
+def rolling_window(a, window):
+    shape = a.shape[:-1] + (a.shape[-1] - window + 1, window)
+    strides = a.strides + (a.strides[-1],)
+    return np.lib.stride_tricks.as_strided(a, shape=shape, strides=strides)
+
+
 def get_motif_scores(encoded_sequences, motif_names,
                      max_scores=None, return_positions=False, GC_fraction=0.4):
     """
