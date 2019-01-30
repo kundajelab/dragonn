@@ -441,4 +441,4 @@ def deeplift(model, X, batch_size=200):
         batch_size=batch_size,
         progress_update=None,
         input_references_list=input_references)
-    return deeplift_scores[0].squeeze() 
+    return np.asarray(deeplift_scores)

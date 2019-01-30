@@ -3,7 +3,7 @@ import numpy as np
 from sklearn.metrics import auc, precision_recall_curve
 import matplotlib.pyplot as plt
 import pdb
-def positionalPRC(embeddings, scores,window_stride=1, coverage_thresh_for_positive=0.8):
+def positionalPRC(embeddings, scores,window_stride=1, coverage_thresh_for_positive=0.8,verbose=False):
     '''
     window_stride: number of bases to shift adjacent sequence windows by; default=1
     coverage_thresh_for_positive: sequence window must overlap the motif by this fraction (0 - 1) for the window to be labeled positive. 
@@ -62,6 +62,10 @@ def positionalPRC(embeddings, scores,window_stride=1, coverage_thresh_for_positi
             #drop any ambiguous indices
             non_ambiguous_indices=np.where(seq_prc_inputs[motif_name]['labels']!=0.5)
             #print(max(seq_prc_inputs[motif_name]['labels']))
+            if(verbose==True):
+                print(motif_name)
+                print("labels:"+str(seq_prc_inputs[motif_name]['labels']))
+                print("scores:"+str(seq_prc_inputs[motif_name]['scores']))
             all_prc_inputs[motif_name]['labels']+=list(seq_prc_inputs[motif_name]['labels'][non_ambiguous_indices])
             all_prc_inputs[motif_name]['scores']+=list(seq_prc_inputs[motif_name]['scores'][non_ambiguous_indices])
 
@@ -93,11 +97,11 @@ def plot_positionalPRC(positionalPRC_output):
         recall=values[0]
         precision=values[1]
         auPRC=str(round(values[2],3))
-        # In matplotlib < 1.5, plt.fill_between does not have a 'step' argument
         step_kwargs = ({'step': 'post'}
                                       if 'step' in signature(plt.fill_between).parameters
                                       else {})
         plt.step(recall, precision, label=motif_name+":"+auPRC,where='post')
+        #uncomment to fill the area below the curve, generally not desirable if multiple curves plotted on same axes.
         #plt.fill_between(recall, precision, alpha=0.2, color='b', **step_kwargs)
 
     plt.xlabel('Recall')
