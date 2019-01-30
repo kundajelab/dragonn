@@ -1,4 +1,7 @@
 __pycache__/
-.pyc
-.ipynb_checkpoints
-.idea
+*.pyc
+*.ipynb_checkpoints
+*.idea
+*.hdf5
+*.fa
+*.log
