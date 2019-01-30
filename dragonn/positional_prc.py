@@ -1,6 +1,7 @@
 from dragonn.utils import rolling_window
 import numpy as np
 from sklearn.metrics import auc, precision_recall_curve
+import matplotlib.pyplot as plt
 import pdb
 def positionalPRC(embeddings, scores,window_stride=1, coverage_thresh_for_positive=0.8):
     '''
@@ -69,12 +70,15 @@ def positionalPRC(embeddings, scores,window_stride=1, coverage_thresh_for_positi
     for motif_name in all_prc_inputs:
         labels=all_prc_inputs[motif_name]['labels']
         scores=all_prc_inputs[motif_name]['scores']
-        #should we normalize the scores to a 0-1 range?
+        #we normalize the scores to a 0-1 range for sklean prc function
         normalized_scores = (scores-min(scores))/(max(scores)-min(scores))
         precision, recall = precision_recall_curve(labels, normalized_scores)[:2]
+        #sort
+        sorted_prc=sorted(zip(recall,precision))
+        recall=[prc_val[0] for prc_val in sorted_prc]
+        precision=[prc_val[1] for prc_val in sorted_prc]
         auPRC=auc(recall,precision)
-        print(auPRC)
-        prc_values[motif_name]=[precision,recall,auPRC]
+        prc_values[motif_name]=[recall,precision,auPRC]
     return prc_values
     
 
@@ -84,4 +88,22 @@ def plot_positionalPRC(positionalPRC_output):
     accepts output dictionary from the positionalPRC function of the form: motif_name --> [precision,recall,auPRC] 
     generates PRC curves for each motif on same coordinates 
     '''
-    pass
+    from sklearn.utils.fixes import signature
+    for motif_name,values in positionalPRC_output.items():
+        recall=values[0]
+        precision=values[1]
+        auPRC=str(round(values[2],3))
+        # In matplotlib < 1.5, plt.fill_between does not have a 'step' argument
+        step_kwargs = ({'step': 'post'}
+                                      if 'step' in signature(plt.fill_between).parameters
+                                      else {})
+        plt.step(recall, precision, label=motif_name+":"+auPRC,where='post')
+        #plt.fill_between(recall, precision, alpha=0.2, color='b', **step_kwargs)
+
+    plt.xlabel('Recall')
+    plt.ylabel('Precision')
+    plt.ylim([0.0, 1.05])
+    plt.xlim([0.0, 1.0])
+    plt.legend()
+    plt.show()
+        
