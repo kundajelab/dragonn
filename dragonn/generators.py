@@ -3,17 +3,7 @@ import numpy as np
 import pandas as pd
 import pysam
 import random
-
-ltrdict = {'a':[1,0,0,0],
-           'c':[0,1,0,0],
-           'g':[0,0,1,0],
-           't':[0,0,0,1],
-           'n':[0,0,0,0],
-           'A':[1,0,0,0],
-           'C':[0,1,0,0],
-           'G':[0,0,1,0],
-           'T':[0,0,0,1],
-           'N':[0,0,0,0]}
+from .utils import ltrdict
 
 def dinuc_shuffle(seq):
     #get list of dinucleotides
@@ -76,7 +66,6 @@ def shuffled_ref_generator(data_path,ref_fasta,batch_size=128,add_revcomp=True,t
         end_index=start_index+int(batch_size)
         #get seq positions
         bed_entries=data.index[start_index:end_index]
-        #bed_entries=[data.index[i] for i in range(start_index,end_index)]
         #get sequences
         seqs=[ref.fetch(i[0],i[1],i[2]) for i in bed_entries]
         if add_revcomp==True:
