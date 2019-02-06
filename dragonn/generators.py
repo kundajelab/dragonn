@@ -117,7 +117,7 @@ class DataGenerator(Sequence):
         y_batch=np.concatenate((y_batch,np.zeros(y_shape)))
         return (x_batch,y_batch)
 
-    def upsample_positives_batch(idx):
+    def upsample_positives_batch(self,idx):
         #get seq positions
         pos_inds=self.pos_indices[idx*self.pos_batch_size:(idx+1)*self.pos_batch_size]
         pos_bed_entries=self.ones.index[pos_inds]
@@ -145,7 +145,7 @@ class DataGenerator(Sequence):
             y_batch=np.concatenate((y_batch,y_batch),axis=0)
         return (x_batch,y_batch)            
     
-    def get_basic_batch(idx):
+    def get_basic_batch(self,idx):
         #get seq positions
         inds=self.indices[idx*self.batch_size:(idx+1)*self.batch_size]
         bed_entries=self.data.index[inds]
