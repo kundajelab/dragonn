@@ -36,7 +36,7 @@ def revcomp(seq):
 class DataGenerator(Sequence):
     def __init__(self,data_path,ref_fasta,batch_size=128,add_revcomp=True,tasks=None,shuffled_ref_negatives=False,upsample=True,upsample_ratio=0.1):
         #make our generator thread-safe to use the multiprocessing flag in keras fit_generator
-        self.lock=threading.lock() 
+        self.lock=threading.Lock() 
         
         self.batch_size=batch_size
         #decide if reverse complement should be used
@@ -60,7 +60,7 @@ class DataGenerator(Sequence):
             data=data[tasks]
         self.data=data
         
-        self.indices=np.arange(int(math.floor(self.data.shape[0]/self.batch_size)))
+        self.indices=np.arange(self.data.shape[0])
         num_indices=self.indices.shape[0]
         self.add_revcomp=add_revcomp
         
@@ -72,8 +72,8 @@ class DataGenerator(Sequence):
             self.zeros = self.data.loc[(self.data < 1).all(axis=1)]
             self.pos_batch_size = int(self.batch_size * self.upsample_ratio)
             self.neg_batch_size = self.batch_size - self.pos_batch_size
-            self.pos_indices=np.arange(int(math.floor(self.ones.shape[0]/self.pos_batch_size)))
-            self.neg_indices=np.arange(int(math.floor(self.zeros.shape[0]/self.neg_batch_size)))
+            self.pos_indices=np.arange(self.ones.shape[0])
+            self.neg_indices=np.arange(self.zeros.shape[0])
             
             #wrap the positive and negative indices to reach size of self.indices
             num_pos_wraps=math.ceil(num_indices/self.pos_indices.shape[0])
@@ -87,11 +87,11 @@ class DataGenerator(Sequence):
     def __getitem__(self,idx):
         with self.lock:
             if self.shuffled_ref_negatives==True:
-                self.get_shuffled_ref_negatives_batch(idx)
+                return self.get_shuffled_ref_negatives_batch(idx)
             elif self.upsample==True:
-                self.get_upsampled_positives_batch(idx)
+                return self.get_upsampled_positives_batch(idx)
             else:
-                self.get_basic_batch(idx) 
+                return self.get_basic_batch(idx) 
         
     def get_shuffled_ref_negatives_batch(self,idx): 
         #get seq positions
