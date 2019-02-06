@@ -35,9 +35,7 @@ def revcomp(seq):
 #use wrappers for keras Sequence generator class to allow batch shuffling upon epoch end
 class DataGenerator(Sequence):
     def __init__(self,data_path,ref_fasta,batch_size=128,add_revcomp=True,tasks=None,shuffled_ref_negatives=False,upsample=True,upsample_ratio=0.1):
-        #make our generator thread-safe to use the multiprocessing flag in keras fit_generator
-        self.lock=threading.Lock() 
-        
+        self.lock = threading.Lock()        
         self.batch_size=batch_size
         #decide if reverse complement should be used
         self.add_revcomp=add_revcomp
@@ -52,7 +50,7 @@ class DataGenerator(Sequence):
             self.batch_size=int(self.batch_size/2)
             
         #open the reference file
-        self.ref=pysam.FastaFile(ref_fasta)
+        self.ref_fasta=ref_fasta
         
         #read in the label bed file 
         data=pd.read_csv(data_path,header=0,sep='\t',index_col=[0,1,2])
@@ -86,6 +84,8 @@ class DataGenerator(Sequence):
 
     def __getitem__(self,idx):
         with self.lock:
+            ref=pysam.FastaFile(self.ref_fasta)
+            self.ref=ref
             if self.shuffled_ref_negatives==True:
                 return self.get_shuffled_ref_negatives_batch(idx)
             elif self.upsample==True:
@@ -172,4 +172,3 @@ class DataGenerator(Sequence):
             np.random.shuffle(self.neg_indices)
         else:
             np.random.shuffle(self.indices)
-            
