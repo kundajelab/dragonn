@@ -52,10 +52,15 @@ class DataGenerator(Sequence):
         #open the reference file
         self.ref_fasta=ref_fasta
         
-        #read in the label bed file 
-        data=pd.read_csv(data_path,header=0,sep='\t',index_col=[0,1,2])
-        if tasks!=None:
-            data=data[tasks]
+        #read in the label bed file
+        if tasks==None:
+            data=pd.read_csv(data_path,header=0,sep='\t',index_col=[0,1,2])
+        else:
+            data=pd.read_csv(data_path,header=0,sep='\t',nrows=1)
+            chrom_col=data.columns[0]
+            start_col=data.columns[1]
+            end_col=data.columns[2]
+            data=pd.read_csv(data_path,header=0,sep='\t',index_col=[0,1,2],usecols=[chrom_col,start_col,end_col]+tasks)
         self.data=data
         
         self.indices=np.arange(self.data.shape[0])
@@ -77,7 +82,9 @@ class DataGenerator(Sequence):
             num_pos_wraps=math.ceil(num_indices/self.pos_indices.shape[0])
             num_neg_wraps=math.ceil(num_indices/self.neg_indices.shape[0])
             self.pos_indices=np.repeat(self.pos_indices,num_pos_wraps)[0:num_indices]
+            np.random.shuffle(self.pos_indices)
             self.neg_indices=np.repeat(self.neg_indices,num_neg_wraps)[0:num_indices]
+            np.random.shuffle(self.neg_indices)
             
     def __len__(self):
         return math.floor(self.data.shape[0]/self.batch_size)
@@ -117,16 +124,20 @@ class DataGenerator(Sequence):
         y_batch=np.concatenate((y_batch,np.zeros(y_shape)))
         return (x_batch,y_batch)
 
-    def upsample_positives_batch(self,idx):
+    def get_upsampled_positives_batch(self,idx):
         #get seq positions
         pos_inds=self.pos_indices[idx*self.pos_batch_size:(idx+1)*self.pos_batch_size]
         pos_bed_entries=self.ones.index[pos_inds]
         neg_inds=self.neg_indices[idx*self.neg_batch_size:(idx+1)*self.neg_batch_size]
         neg_bed_entries=self.zeros.index[neg_inds]
-        bed_entries=pos_bed_entries+neg_bed_entries
+    
+        #print(neg_inds[0:10])
+        #bed_entries=pos_bed_entries+neg_bed_entries
 
         #get sequences
-        seqs=[self.ref.fetch(i[0],i[1],i[2]) for i in bed_entries]
+        pos_seqs=[self.ref.fetch(i[0],i[1],i[2]) for i in pos_bed_entries]
+        neg_seqs=[self.ref.fetch(i[0],i[1],i[2]) for i in neg_bed_entries]
+        seqs=pos_seqs+neg_seqs 
         if self.add_revcomp==True:
             #add in the reverse-complemented sequences for training.
             seqs_rc=[revcomp(s) for s in seqs]
