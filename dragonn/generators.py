@@ -38,12 +38,7 @@ def open_data_file(data_path,tasks):
         if tasks==None:
             data=pd.read_hdf(data_path)
         else:
-            data=pd.read_hdf(data_path,start=0,end=1)
-            chrom_col=data.columns[0]
-            start_col=data.columns[1]
-            end_col=data.columns[2]
-            data=pd.read_hdf(data_path,columns=[chrom_col,start_col,end_col]+tasks)
-        data=data.set_index(['CHR','START','END'])
+            data=pd.read_hdf(data_path,columns=tasks)
     else:
         #treat as bed file 
         if tasks==None:

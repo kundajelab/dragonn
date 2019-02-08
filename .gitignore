@@ -1,7 +1,11 @@
 __pycache__/
+build/
+dragonn.egg-info
+dist/
 *.pyc
 *.ipynb_checkpoints
 *.idea
 *.hdf5
 *.fa
 *.log
+*.gz
