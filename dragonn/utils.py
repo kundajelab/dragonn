@@ -4,6 +4,19 @@ import sys
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder
 from scipy.signal import correlate2d
 from simdna.simulations import loaded_motifs
+import pysam
+
+ltrdict = {'a':[1,0,0,0],
+           'c':[0,1,0,0],
+           'g':[0,0,1,0],
+           't':[0,0,0,1],
+           'n':[0,0,0,0],
+           'A':[1,0,0,0],
+           'C':[0,1,0,0],
+           'G':[0,0,1,0],
+           'T':[0,0,0,1],
+           'N':[0,0,0,0]}
+
 
 def unpack_params(params_dict):
     import argparse
@@ -99,6 +112,12 @@ def get_pssm_scores(encoded_sequences, pssm):
     scores = np.maximum(fwd_scores, rc_scores)
     return scores
 
+def one_hot_from_bed(bed_entries,ref_fasta):
+    ref=pysam.FastaFile(ref_fasta)
+    seqs=[ref.fetch(i[0],i[1],i[2]) for i in bed_entries]
+    seqs=np.array([[ltrdict.get(x,[0,0,0,0]) for x in seq] for seq in seqs])
+    x_batch=np.expand_dims(seqs,1)
+    return x_batch
 
 def one_hot_encode(sequences):
     sequence_length = len(sequences[0])
@@ -151,17 +170,6 @@ def encode_fasta_sequences(fname):
 
     return one_hot_encode(np.array(sequences))
 
-
-ltrdict = {'a':[1,0,0,0],
-           'c':[0,1,0,0],
-           'g':[0,0,1,0],
-           't':[0,0,0,1],
-           'n':[0,0,0,0],
-           'A':[1,0,0,0],
-           'C':[0,1,0,0],
-           'G':[0,0,1,0],
-           'T':[0,0,0,1],
-           'N':[0,0,0,0]}
 
 def predict(data_path,ref_fasta,model,batch_size=128,tasks=None):
     import pysam
