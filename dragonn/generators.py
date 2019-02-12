@@ -97,7 +97,7 @@ class DataGenerator(Sequence):
             np.random.shuffle(self.neg_indices)
             
     def __len__(self):
-        return math.floor(self.data.shape[0]/self.batch_size)
+        return math.ceil(self.data.shape[0]/self.batch_size)
 
     def __getitem__(self,idx):
         with self.lock:
