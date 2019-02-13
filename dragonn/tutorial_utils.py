@@ -415,7 +415,7 @@ def input_grad(model,X,layer_idx=-2):
     fn = K.function([model.input], K.gradients(model.layers[layer_idx].output, [model.input]))
     return fn([X])[0]
 
-def deeplift(model, X, batch_size=200):
+def deeplift(model, X, batch_size=200,target_layer_idx=-2):
     """
     Returns (num_task, num_samples, 1, num_bases, sequence_length) deeplift score array.
     """
@@ -430,7 +430,7 @@ def deeplift(model, X, batch_size=200):
     #get the deeplift score with respect to the logit 
     score_func = deeplift_model.get_target_contribs_func(
         find_scores_layer_idx=0,
-        target_layer_idx=-2)
+        target_layer_idx=target_layer_idx)
     
     # use a 40% GC reference
     input_references = [np.array([0.3, 0.2, 0.2, 0.3])[None, None, None, :]]
