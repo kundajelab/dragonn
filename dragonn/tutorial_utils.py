@@ -30,7 +30,7 @@ def plot_learning_curve(history):
     ax.plot([min_loss_indx, min_loss_indx], [0, 1.0], 'k--', label='Early Stop')
     ax.legend(loc="upper right")
     ax.set_ylabel("Loss")
-    ax.set_ylim((0.0,1.0))
+    ax.set_ylim((min(train_losses+valid_losses),max(train_losses+valid_losses)))
     ax.set_xlabel("Epoch")
     plt.show()
 
