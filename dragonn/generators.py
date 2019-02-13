@@ -53,7 +53,7 @@ def open_data_file(data_path,tasks):
 
 #use wrappers for keras Sequence generator class to allow batch shuffling upon epoch end
 class DataGenerator(Sequence):
-    def __init__(self,data_path,ref_fasta,batch_size=128,add_revcomp=True,tasks=None,shuffled_ref_negatives=False,upsample=True,upsample_ratio=0.1):
+    def __init__(self,data_path,ref_fasta,batch_size=128,add_revcomp=True,tasks=None,shuffled_ref_negatives=False,upsample=True,upsample_ratio=0.1,upsample_thresh=0.5):
         self.lock = threading.Lock()        
         self.batch_size=batch_size
         #decide if reverse complement should be used
@@ -81,8 +81,9 @@ class DataGenerator(Sequence):
         self.upsample=upsample
         if self.upsample==True:
             self.upsample_ratio=upsample_ratio
-            self.ones = self.data.loc[(self.data > 0).any(axis=1)]
-            self.zeros = self.data.loc[(self.data < 1).all(axis=1)]
+            self.upsample_thresh=upsample_thresh
+            self.ones = self.data.loc[(self.data >= self.upsample_thresh).any(axis=1)]
+            self.zeros = self.data.loc[(self.data < self.upsample_thresh).all(axis=1)]
             self.pos_batch_size = int(self.batch_size * self.upsample_ratio)
             self.neg_batch_size = self.batch_size - self.pos_batch_size
             self.pos_indices=np.arange(self.ones.shape[0])
