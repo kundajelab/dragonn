@@ -194,3 +194,37 @@ class DataGenerator(Sequence):
             np.random.shuffle(self.neg_indices)
         else:
             np.random.shuffle(self.indices)
+
+#generate batches of bQTL data with specified allele column name and flank size 
+class BQTLGenerator(DataGenerator):
+    def __init__(self,data_path,ref_fasta,allele_col,flank_size=500,batch_size=128):
+        DataGenerator.__init__(self,data_path,ref_fasta,batch_size,add_revcomp=False,upsample=False)
+        self.allele_col=allele_col
+        self.flank_size=flank_size 
+
+    #override the get_basic_batch definition to extract flanks around the bQTL
+    # and insert the specified allele 
+    def get_basic_batch(self,idx): 
+        #get seq positions
+        inds=self.indices[idx*self.batch_size:(idx+1)*self.batch_size]
+        
+        entries=self.data.iloc[inds]
+        seqs=[]
+        for index,row in entries.iterrows():
+            allele=row[self.allele_col]
+            chrom=index[0]
+            pos=index[1]
+            left_flank_start=pos-self.flank_size
+            left_flank_end=pos
+            right_flank_start=pos+1
+            right_flank_end=pos+self.flank_size
+            left_seq=self.ref.fetch(chrom,left_flank_start,left_flank_end)
+            right_seq=self.ref.fetch(chrom,right_flank_start,right_flank_end)
+            seq=left_seq+allele+right_seq
+            seqs.append(seq)
+            
+        #one-hot-encode the fasta sequences 
+        seqs=np.array([[ltrdict.get(x,[0,0,0,0]) for x in seq] for seq in seqs])
+        x_batch=np.expand_dims(seqs,1)
+        return x_batch
+    
