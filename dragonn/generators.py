@@ -4,7 +4,7 @@ import numpy as np
 import random
 import math 
 import pysam
-from .utils import ltrdict
+from dragonn.utils import ltrdict
 import threading 
 
 def dinuc_shuffle(seq):
