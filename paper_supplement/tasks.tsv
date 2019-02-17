@@ -1,4 +1,4 @@
-SPI1	ENCFF002CHQ.bed.gz	
-CTCF	ENCFF473RXY.bed.gz	
-ZNF143	ENCFF544NXC.bed.gz	
-SIX5	ENCFF606WUV.bed.gz	
+CTCF	CTCF.narrowPeak.gz	
+SPI1	SPI1.narrowPeak.gz	
+SIX5	SIX5.narrowPeak.gz	
+ZNF143	ZNF143.narrowPeak.gz	
