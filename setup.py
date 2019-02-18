@@ -7,11 +7,9 @@ config = {
     'packages': ['dragonn'],
     'setup_requires': [],
     'install_requires': ['numpy>=1.15', 'keras>=2.2.0','tensorflow>=1.6','deeplift>=0.6.8.1', 'shapely', 'matplotlib',
-                         'scikit-learn', 'pydot_ng==1.0.0', 'h5py','concise','seqdataloader'],
+                         'scikit-learn', 'pydot_ng==1.0.0', 'h5py','concise','seqdataloader>=0.117'],
     'extras_requires':{'tensorflow with gpu':['tensorflow-gpu>=1.7']},
-    'dependency_links': ["https://github.com/kundajelab/simdna/archive/0.3.zip",
-                         "https://github.com/kundajelab/deeplift.git",
-                         "https://github.com/kundajelab/seqdataloader"],
+    'dependency_links': ["https://github.com/kundajelab/simdna/archive/0.3.zip"],
     'scripts': [],
     'entry_points': {'console_scripts': ['dragonn = dragonn.__main__:main']},
     'name': 'dragonn'
