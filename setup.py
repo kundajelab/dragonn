@@ -9,7 +9,7 @@ config = {
     'install_requires': ['numpy==1.15', 'keras>=2.2.0','tensorflow>=1.6','deeplift>=0.6.8.1', 'shapely', 'simdna==0.3', 'matplotlib',
                          'scikit-learn', 'pydot_ng==1.0.0', 'h5py','concise','seqdataloader'],
     'extras_requires':{'tensorflow with gpu':['tensorflow-gpu>=1.7']},
-    'dependency_links': ["https://github.com/kundajelab/simdna/tarball/0.3#egg=simdna-0.3",
+    'dependency_links': ["https://github.com/kundajelab/simdna/archive/0.3.zip",
                          "https://github.com/kundajelab/deeplift.git",
                          "https://github.com/kundajelab/seqdataloader"],
     'scripts': [],

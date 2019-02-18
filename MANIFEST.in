@@ -1,0 +1,8 @@
+recursive-include paper_supplement *ipynb
+recursive-include paper_supplement/tutorial_images/ *
+recursive-include examples *
+recursive-include scripts *
+recursive-include tests *
+
+
+
