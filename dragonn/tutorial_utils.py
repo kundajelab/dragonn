@@ -5,6 +5,8 @@ import inspect
 from collections import namedtuple, defaultdict, OrderedDict
 import numpy as np
 np.random.seed(1)
+from concise.utils.plot import seqlogo, seqlogo_fig    
+
 try:
     from sklearn.model_selection import train_test_split  # sklearn >= 0.18
 except ImportError:
@@ -17,6 +19,77 @@ from dragonn.plot import add_letters_to_axis, plot_motif
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 
+def plot_learning_curve(history):
+    train_losses=history.history['loss']
+    valid_losses=history.history['val_loss']
+    min_loss_indx = min(enumerate(valid_losses), key=lambda x: x[1])[0]
+    f = plt.figure(figsize=(10, 4))
+    ax = f.add_subplot(1, 1, 1)
+    ax.plot(range(len(train_losses)), train_losses, 'b', label='Training',lw=4)
+    ax.plot(range(len(train_losses)), valid_losses, 'r', label='Validation', lw=4)
+    ax.plot([min_loss_indx, min_loss_indx], [0, 1.0], 'k--', label='Early Stop')
+    ax.legend(loc="upper right")
+    ax.set_ylabel("Loss")
+    ax.set_ylim((min(train_losses+valid_losses),max(train_losses+valid_losses)))
+    ax.set_xlabel("Epoch")
+    plt.show()
+
+def plot_ism(ism_mat,title,vmin=None,vmax=None):
+    # create discrete colormap of ISM scores
+    extent = [0, ism_mat.shape[0], 0, 100*ism_mat.shape[1]]
+    plt.figure(figsize=(20,3))
+    if vmin==None:
+        vmin=np.amin(ism_mat)
+    if vmax==None:
+        vmax=np.amax(ism_mat)
+    plt.imshow(ism_mat.T,extent=extent,vmin=vmin, vmax=vmax)
+    plt.xlabel("Sequence base")
+    plt.ylabel("ISM Score")
+    plt.title(title)
+    plt.yticks(np.arange(50,100*ism_mat.shape[1],100),("A","C","G","T"))
+    plt.set_cmap('RdBu')
+    plt.colorbar()
+    plt.show()
+
+    
+def plot_sequence_filters(model):
+    fig = plt.figure(figsize=(15, 8))
+    fig.subplots_adjust(hspace=0.1, wspace=0.1)
+    conv_filters=model.layers[0].get_weights()[0]
+    #transpose for plotting
+    conv_filters=np.transpose(conv_filters,(3,1,2,0)).squeeze(axis=-1)
+    num_plots_per_axis = int(len(conv_filters)**0.5) + 1
+    for i, conv_filter in enumerate(conv_filters):
+        ax = fig.add_subplot(num_plots_per_axis, num_plots_per_axis, i+1)
+        add_letters_to_axis(ax, conv_filter)
+        ax.axis("off")
+        ax.set_title("Filter %s" % (str(i+1)))
+
+def plot_seq_importance(grads, x, xlim=None, ylim=None, layer_idx=-2, figsize=(25, 3),title=""):
+    """Plot  sequence importance score
+    
+    Args:
+      grads: either deeplift or gradientxinput score matrix 
+      x: one-hot encoded DNA sequence
+      xlim: restrict the plotted xrange
+      figsize: matplotlib figure size
+    """
+    grads=grads.squeeze()
+    x=x.squeeze()
+    
+    seq_len = x.shape[0]
+    vals_to_plot=grads*x
+    if xlim is None:
+        xlim = (0, seq_len)
+    if ylim is None:
+        ylim= (np.amin(vals_to_plot),np.amax(vals_to_plot))
+    seqlogo_fig(vals_to_plot, figsize=figsize)
+    plt.xticks(list(range(xlim[0], xlim[1], 5)))
+    plt.xlim(xlim)
+    plt.ylim(ylim)
+    plt.title(title)
+
+    
 Data = namedtuple('Data', ('X_train', 'X_valid', 'X_test',
                            'train_embeddings', 'valid_embeddings', 'test_embeddings',
                            'y_train', 'y_valid', 'y_test',
@@ -89,7 +162,8 @@ def train_SequenceDNN(dnn, simulation_data):
     dnn.train(simulation_data.X_train, simulation_data.y_train,
               (simulation_data.X_valid, simulation_data.y_valid))
 
-
+      
+    
 def SequenceDNN_learning_curve(dnn):
     if dnn.valid_metrics is not None:
         train_losses, valid_losses = [np.array([epoch_metrics['Loss'] for epoch_metrics in metrics])
@@ -119,16 +193,6 @@ def plot_motifs(simulation_data):
         plot_motif(motif_name, figsize=(10, 4), ylab=motif_name)
 
 
-def plot_sequence_filters(dnn):
-    fig = plt.figure(figsize=(15, 8))
-    fig.subplots_adjust(hspace=0.1, wspace=0.1)
-    conv_filters = dnn.get_sequence_filters()
-    num_plots_per_axis = int(len(conv_filters)**0.5) + 1
-    for i, conv_filter in enumerate(conv_filters):
-        ax = fig.add_subplot(num_plots_per_axis, num_plots_per_axis, i+1)
-        add_letters_to_axis(ax, conv_filter.T)
-        ax.axis("off")
-        ax.set_title("Filter %s" % (str(i+1)))
 
 
 def plot_SequenceDNN_layer_outputs(dnn, simulation_data):
@@ -187,7 +251,14 @@ def plot_SequenceDNN_layer_outputs(dnn, simulation_data):
         ax1.axvspan(conv_output_start, conv_output_stop, color='grey', alpha=0.5)
         ax2.axvspan(conv_output_start, conv_output_stop, color='grey', alpha=0.5)
 
-
+def interpret_filters(model,simulation_data):    
+    print("Plotting simulation motifs...")
+    plot_motifs(simulation_data)
+    plt.show()
+    print("Visualizing convolutional sequence filters in SequenceDNN...")
+    plot_sequence_filters(model)
+    plt.show()
+        
 def interpret_SequenceDNN_filters(dnn, simulation_data):
     print("Plotting simulation motifs...")
     plot_motifs(simulation_data)
@@ -302,3 +373,72 @@ def interpret_data_with_SequenceDNN(dnn, simulation_data):
             for motif_site in motif_sites[key]:
                 ax.axvspan(motif_site - highlight_width, motif_site + highlight_width,
                            color='grey', alpha=0.1)
+
+def in_silico_mutagenesis(model, X):
+    """
+    Returns (num_task, num_samples, 1, num_bases, sequence_length) ISM score array.
+    """
+    mutagenesis_scores = np.empty(
+        X.shape + (model.output_shape[1],), dtype=np.float32)
+    wild_type_predictions = model.predict(X)
+    wild_type_predictions = wild_type_predictions[
+        :, np.newaxis, np.newaxis, np.newaxis]
+    for sequence_index, (sequence, wild_type_prediction) in enumerate(
+            zip(X, wild_type_predictions)):
+        mutated_sequences = np.repeat(
+            sequence[np.newaxis], np.prod(sequence.shape), axis=0)
+        # remove wild-type
+        arange = np.arange(len(mutated_sequences))
+        horizontal_cycle = np.tile(
+            np.arange(sequence.shape[-1]), sequence.shape[-2])
+        mutated_sequences[arange, :, :, horizontal_cycle] = 0
+        # add mutant
+        vertical_repeat = np.repeat(
+            np.arange(sequence.shape[-2]), sequence.shape[-1])
+        mutated_sequences[arange, :, vertical_repeat, horizontal_cycle] = 1
+        # make mutant predictions
+        mutated_predictions = model.predict(mutated_sequences)
+        mutated_predictions = mutated_predictions.reshape(
+            sequence.shape + (model.output_shape[1],))
+        mutagenesis_scores[
+            sequence_index] = wild_type_prediction - mutated_predictions
+    mutagenesis_scores=np.rollaxis(mutagenesis_scores,-1)
+    mutagenesis_scores=np.squeeze(mutagenesis_scores)
+    #column-normalize the mutagenesis scores
+    col_sum = mutagenesis_scores.sum(axis=0)
+    normalized_mutagenesis_scores = (mutagenesis_scores)/col_sum
+    return normalized_mutagenesis_scores
+    
+
+def input_grad(model,X,layer_idx=-2):
+    from keras import backend as K 
+    fn = K.function([model.input], K.gradients(model.layers[layer_idx].output, [model.input]))
+    return fn([X])[0]
+
+def deeplift(model, X, batch_size=200,target_layer_idx=-2):
+    """
+    Returns (num_task, num_samples, 1, num_bases, sequence_length) deeplift score array.
+    """
+    assert len(np.shape(X)) == 4 and np.shape(X)[1] == 1
+    from deeplift.conversion import kerasapi_conversion as kc
+    #dump the model to hdf5, as current dl wants a saved model input
+    model.save('tmp.hdf5')
+
+    # convert to deeplift model and get scoring function
+    deeplift_model = kc.convert_model_from_saved_files('tmp.hdf5',verbose=False)
+
+    #get the deeplift score with respect to the logit 
+    score_func = deeplift_model.get_target_contribs_func(
+        find_scores_layer_idx=0,
+        target_layer_idx=target_layer_idx)
+    
+    # use a 40% GC reference
+    input_references = [np.array([0.3, 0.2, 0.2, 0.3])[None, None, None, :]]
+    # get deeplift scores
+    deeplift_scores = score_func(
+        task_idx=0,
+        input_data_list=[X],
+        batch_size=batch_size,
+        progress_update=None,
+        input_references_list=input_references)
+    return np.asarray(deeplift_scores)

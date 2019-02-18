@@ -4,31 +4,6 @@ import sys
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder
 from scipy.signal import correlate2d
 from simdna.simulations import loaded_motifs
-import pysam
-
-ltrdict = {'a':[1,0,0,0],
-           'c':[0,1,0,0],
-           'g':[0,0,1,0],
-           't':[0,0,0,1],
-           'n':[0,0,0,0],
-           'A':[1,0,0,0],
-           'C':[0,1,0,0],
-           'G':[0,0,1,0],
-           'T':[0,0,0,1],
-           'N':[0,0,0,0]}
-
-
-def unpack_params(params_dict):
-    import argparse
-    params=argparse.Namespace()
-    for key in params_dict:
-        vars(params)[key]=params_dict[key]
-    return params
-                                                                                        
-def rolling_window(a, window):
-    shape = a.shape[:-1] + (a.shape[-1] - window + 1, window)
-    strides = a.strides + (a.strides[-1],)
-    return np.lib.stride_tricks.as_strided(a, shape=shape, strides=strides)
 
 
 def get_motif_scores(encoded_sequences, motif_names,
@@ -112,12 +87,6 @@ def get_pssm_scores(encoded_sequences, pssm):
     scores = np.maximum(fwd_scores, rc_scores)
     return scores
 
-def one_hot_from_bed(bed_entries,ref_fasta):
-    ref=pysam.FastaFile(ref_fasta)
-    seqs=[ref.fetch(i[0],i[1],i[2]) for i in bed_entries]
-    seqs=np.array([[ltrdict.get(x,[0,0,0,0]) for x in seq] for seq in seqs])
-    x_batch=np.expand_dims(seqs,1)
-    return x_batch
 
 def one_hot_encode(sequences):
     sequence_length = len(sequences[0])
@@ -169,32 +138,3 @@ def encode_fasta_sequences(fname):
         sequences.append(''.join(seq_chars).upper())
 
     return one_hot_encode(np.array(sequences))
-
-
-def predict(data_path,ref_fasta,model,batch_size=128,tasks=None):
-    import pysam
-    import pandas as pd
-    num_generated=0
-    ref=pysam.FastaFile(ref_fasta)
-    #read in the label bed file 
-    data=pd.read_csv(data_path,header=0,sep='\t',index_col=[0,1,2])
-    if tasks!=None:
-        data=data[tasks]    
-    num_entries=data.shape[0]
-    predictions=None
-    while num_generated < num_entries:
-        start_index=num_generated
-        end_index=min([num_entries,start_index+batch_size])
-        bed_entries=data.index[start_index:end_index]
-        seqs=[ref.fetch(i[0],i[1],i[2]) for i in bed_entries]
-        seqs=np.array([[ltrdict.get(x,[0,0,0,0]) for x in seq] for seq in seqs])
-        x=np.expand_dims(seqs,1)
-        predictions_batch=model.predict(x)
-        if type(predictions)==type(None):
-            predictions=predictions_batch
-        else:
-            predictions=np.concatenate((predictions,predictions_batch),axis=0)
-        num_generated+=(end_index-start_index)
-        print(str(num_generated))
-    return [predictions,data]
-
