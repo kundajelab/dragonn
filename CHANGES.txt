@@ -1,3 +1,5 @@
 v0.2,02/17/2019 -- Initial release.
 v0.2.1 versions of all dependencies specified
+v0.2.2 updated manner in which simdna version is specified
+x
 
