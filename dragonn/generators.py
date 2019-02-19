@@ -214,10 +214,10 @@ class BQTLGenerator(DataGenerator):
             allele=row[self.allele_col]
             chrom=index[0]
             pos=index[1]
-            left_flank_start=pos-self.flank_size
-            left_flank_end=pos
-            right_flank_start=pos+1
-            right_flank_end=pos+self.flank_size
+            left_flank_start=(pos-1)-self.flank_size
+            left_flank_end=(pos-1)
+            right_flank_start=pos
+            right_flank_end=(pos+self.flank_size-1)
             left_seq=self.ref.fetch(chrom,left_flank_start,left_flank_end)
             right_seq=self.ref.fetch(chrom,right_flank_start,right_flank_end)
             seq=left_seq+allele+right_seq
