@@ -415,6 +415,41 @@ def input_grad(model,X,layer_idx=-2):
     fn = K.function([model.input], K.gradients(model.layers[layer_idx].output, [model.input]))
     return fn([X])[0]
 
+'''
+def get_deeplift_shuffled_references(X):
+    from deeplift.util import get_shuffle_seq_ref_function
+    from deeplift.dinuc_shuffle import dinuc_shuffle
+    rescale_conv_revealcancel_fc_many_refs_func = get_shuffle_seq_ref_function(
+            #score_computation_function is the original function to compute scores
+            score_computation_function=method_to_scoring_func['rescale_conv_revealcancel_fc'],
+            #shuffle_func is the function that shuffles the sequence
+            #technically, given the background of this simulation, randomly_shuffle_seq
+            #makes more sense. However, on real data, a dinuc shuffle is advisable due to
+            #the strong bias against CG dinucleotides
+            shuffle_func=dinuc_shuffle,
+            one_hot_func=lambda x: np.array([one_hot_encode_along_channel_axis(seq) for seq in x]))
+
+    num_refs_per_seq=10 #number of references to generate per sequence
+    method_to_task_to_scores['rescale_conv_revealcancel_fc_multiref_'+str(num_refs_per_seq)] = OrderedDict()
+    for task_idx in [0,1,2]:
+            #The sum over the ACGT axis in the code below is important! Recall that DeepLIFT
+            # assigns contributions based on difference-from-reference; if
+            # a position is [1,0,0,0] (i.e. 'A') in the actual sequence and [0, 1, 0, 0]
+            # in the reference, importance will be assigned to the difference (1-0)
+            # in the 'A' channel, and (0-1) in the 'C' channel. You want to take the importance
+            # on all channels and sum them up, so that at visualization-time you can project the
+            # total importance over all four channels onto the base that is actually present (i.e. the 'A'). If you
+            # don't do this, your visualization will look very confusing as multiple bases will be highlighted at
+            # every position and you won't know which base is the one that is actually present in the sequence!
+            method_to_task_to_scores['rescale_conv_revealcancel_fc_multiref_'+str(num_refs_per_seq)][task_idx] =\
+                                                                                                                         np.sum(rescale_conv_revealcancel_fc_many_refs_func(
+                                                                                                                                         task_idx=task_idx,
+                                                                                                                                         input_data_sequences=data.sequences,
+                                                                                                                                         num_refs_per_seq=num_refs_per_seq,
+                                                                                                                                         batch_size=200,
+                                                                                                                                         progress_update=1000,
+                                                                                                                                     ),axis=2)
+'''
 def deeplift(model, X, batch_size=200,target_layer_idx=-2):
     """
     Returns (num_task, num_samples, 1, num_bases, sequence_length) deeplift score array.
