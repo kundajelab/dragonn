@@ -415,65 +415,52 @@ def input_grad(model,X,layer_idx=-2):
     fn = K.function([model.input], K.gradients(model.layers[layer_idx].output, [model.input]))
     return fn([X])[0]
 
-'''
-def get_deeplift_shuffled_references(X):
-    from deeplift.util import get_shuffle_seq_ref_function
-    from deeplift.dinuc_shuffle import dinuc_shuffle
-    rescale_conv_revealcancel_fc_many_refs_func = get_shuffle_seq_ref_function(
-            #score_computation_function is the original function to compute scores
-            score_computation_function=method_to_scoring_func['rescale_conv_revealcancel_fc'],
-            #shuffle_func is the function that shuffles the sequence
-            #technically, given the background of this simulation, randomly_shuffle_seq
-            #makes more sense. However, on real data, a dinuc shuffle is advisable due to
-            #the strong bias against CG dinucleotides
-            shuffle_func=dinuc_shuffle,
-            one_hot_func=lambda x: np.array([one_hot_encode_along_channel_axis(seq) for seq in x]))
+def deeplift_gc_ref(X,score_func,batch_size=200,task_idx=0):        
+    # use a 40% GC reference
+    input_references = [np.array([0.3, 0.2, 0.2, 0.3])[None, None, None, :]]
+    # get deeplift scores
+    
+    deeplift_scores = score_func(
+        task_idx=task_idx,
+        input_data_list=[X],
+        batch_size=batch_size,
+        progress_update=None,
+        input_references_list=input_references)
+    return deeplift_scores
 
-    num_refs_per_seq=10 #number of references to generate per sequence
-    method_to_task_to_scores['rescale_conv_revealcancel_fc_multiref_'+str(num_refs_per_seq)] = OrderedDict()
-    for task_idx in [0,1,2]:
-            #The sum over the ACGT axis in the code below is important! Recall that DeepLIFT
-            # assigns contributions based on difference-from-reference; if
-            # a position is [1,0,0,0] (i.e. 'A') in the actual sequence and [0, 1, 0, 0]
-            # in the reference, importance will be assigned to the difference (1-0)
-            # in the 'A' channel, and (0-1) in the 'C' channel. You want to take the importance
-            # on all channels and sum them up, so that at visualization-time you can project the
-            # total importance over all four channels onto the base that is actually present (i.e. the 'A'). If you
-            # don't do this, your visualization will look very confusing as multiple bases will be highlighted at
-            # every position and you won't know which base is the one that is actually present in the sequence!
-            method_to_task_to_scores['rescale_conv_revealcancel_fc_multiref_'+str(num_refs_per_seq)][task_idx] =\
-                                                                                                                         np.sum(rescale_conv_revealcancel_fc_many_refs_func(
-                                                                                                                                         task_idx=task_idx,
-                                                                                                                                         input_data_sequences=data.sequences,
-                                                                                                                                         num_refs_per_seq=num_refs_per_seq,
-                                                                                                                                         batch_size=200,
-                                                                                                                                         progress_update=1000,
-                                                                                                                                     ),axis=2)
-'''
-def deeplift(model, X, batch_size=200,target_layer_idx=-2):
+def deeplift_shuffled_ref(X,score_func,batch_size=200,task_idx=0,refs_per_seq=10):
+    from deeplift.util import get_shuffle_seq_ref_function
+    from deeplift.dinuc_shuffle import dinuc_shuffle        
+    score_func=get_shuffle_seq_ref_function(
+        score_computational_function=score_func,
+        shuffle_func=dinuc_shuffle,
+        one_hot_func=one_hot_encode)
+    
+    deeplift_scores=score_func(
+        task_idx=task_idx,
+        input_data_list=[X],
+        refs_per_seq=refs_per_seq,
+        batch_size=batch_size,
+        progress_update=None)
+    
+def deeplift(model, X, batch_size=200,target_layer_idx=-2,task_idx=0,refs_per_seq=10,reference="shuffled_ref"):
     """
     Returns (num_task, num_samples, 1, num_bases, sequence_length) deeplift score array.
     """
+    assert reference in ["shuffled_ref","gc_ref"]
     assert len(np.shape(X)) == 4 and np.shape(X)[1] == 1
     from deeplift.conversion import kerasapi_conversion as kc
-    #dump the model to hdf5, as current dl wants a saved model input
-    model.save('tmp.hdf5')
-
-    # convert to deeplift model and get scoring function
-    deeplift_model = kc.convert_model_from_saved_files('tmp.hdf5',verbose=False)
+    deeplift_model = kc.convert_model_from_saved_files(model,verbose=False)
 
     #get the deeplift score with respect to the logit 
     score_func = deeplift_model.get_target_contribs_func(
         find_scores_layer_idx=0,
         target_layer_idx=target_layer_idx)
-    
-    # use a 40% GC reference
-    input_references = [np.array([0.3, 0.2, 0.2, 0.3])[None, None, None, :]]
-    # get deeplift scores
-    deeplift_scores = score_func(
-        task_idx=0,
-        input_data_list=[X],
-        batch_size=batch_size,
-        progress_update=None,
-        input_references_list=input_references)
+
+    if reference=="shuffled_ref":
+        deeplift_scores=deeplift_shuffled_ref(X,score_func,batch_size,task_idx,refs_per_seq)
+    elif reference=="gc_ref":
+        deeplift_scores=deeplift_gc_ref(X,score_func,batch_size,task_idx)
+    else:
+        raise Exception("supported DeepLIFT references are 'shuffled_ref' and 'gc_ref'")
     return np.asarray(deeplift_scores)

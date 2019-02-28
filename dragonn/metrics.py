@@ -1,7 +1,7 @@
 from __future__ import absolute_import, division, print_function
 import numpy as np
 from collections import OrderedDict
-from sklearn.metrics import auc, log_loss, precision_recall_curve, roc_auc_score
+from sklearn.metrics import auc, log_loss, precision_recall_curve, roc_auc_score, average_precision_score
 
 
 def loss(labels, predictions):
@@ -25,9 +25,15 @@ def auROC(labels, predictions):
     return roc_auc_score(labels, predictions)
 
 
-def auPRC(labels, predictions):
-    precision, recall = precision_recall_curve(labels, predictions)[:2]
-    return auc(recall, precision)
+def auPRC_careful(labels, predictions):
+    auc_careful = average_precision_score(labels, predictions)
+    return auc_careful
+
+def auPRC_trapezoid(labels, predictions):
+    precision_trapezoid,recall_trapezoid=precision_recall_curve(labels,predictions)[:2]
+    auc_trapezoid=auc(recall_trapezoid,precision_trapezoid) 
+    return auc_trapezoid
+
 
 
 def recall_at_precision_threshold(labels, predictions,precision_threshold):
@@ -44,7 +50,8 @@ class ClassificationResult(object):
             ('Balanced accuracy', balanced_accuracy(
                 task_labels, task_predictions)),
             ('auROC', auROC(task_labels, task_predictions)),
-            ('auPRC', auPRC(task_labels, task_predictions)),
+            ('auPRC Careful', auPRC_careful(task_labels, task_predictions)),
+            ('auPRC Trapezoid', auPRC_trapezoid(task_labels,task_predictions)),
             ('Recall at 5% FDR', recall_at_precision_threshold(
                 task_labels, task_predictions, 0.95)),
             ('Recall at 10% FDR', recall_at_precision_threshold(
