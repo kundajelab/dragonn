@@ -1,7 +1,6 @@
 from __future__ import absolute_import, division, print_function
 import numpy as np
 import sys
-from sklearn.preprocessing import LabelEncoder, OneHotEncoder
 from scipy.signal import correlate2d
 from simdna.simulations import loaded_motifs
 import pysam
@@ -115,22 +114,13 @@ def get_pssm_scores(encoded_sequences, pssm):
 def one_hot_from_bed(bed_entries,ref_fasta):
     ref=pysam.FastaFile(ref_fasta)
     seqs=[ref.fetch(i[0],i[1],i[2]) for i in bed_entries]
-    seqs=np.array([[ltrdict.get(x,[0,0,0,0]) for x in seq] for seq in seqs])
-    x_batch=np.expand_dims(seqs,1)
-    return x_batch
+    seqs=one_hot_encode(seqs)
+    return seqs
 
-def one_hot_encode(sequences):
-    sequence_length = len(sequences[0])
-    integer_type = np.int8 if sys.version_info[
-        0] == 2 else np.int32  # depends on Python version
-    integer_array = LabelEncoder().fit(np.array(('ACGTN',)).view(integer_type)).transform(
-        sequences.view(integer_type)).reshape(len(sequences), sequence_length)
-    one_hot_encoding = OneHotEncoder(
-        sparse=False, n_values=5, dtype=integer_type).fit_transform(integer_array)
-    return one_hot_encoding.reshape(
-        len(sequences), 1, sequence_length, 5)[:, :,:, [0, 1, 2, 4]] #channels last
-        #len(sequences), 1, sequence_length, 5).swapaxes(2, 3)[:, :, [0, 1, 2, 4], :]
-
+def one_hot_encode(seqs):
+    encoded_seqs=np.array([[ltrdict.get(x,[0,0,0,0]) for x in seq] for seq in seqs])
+    encoded_seqs=np.expand_dims(encoded_seqs,1)
+    return encoded_seqs
 
 def reverse_complement(encoded_seqs):
     return encoded_seqs[..., ::-1, ::-1]
@@ -147,7 +137,7 @@ def get_sequence_strings(encoded_sequences):
         letter_indxs = (encoded_sequences[:, :, :,i] == 1).squeeze()
         sequence_characters[letter_indxs] = letter
     # return 1D view of sequence characters
-    return sequence_characters.view('S%s' % (seq_length)).ravel()
+    return [seq.decode('utf-8') for seq in sequence_characters.view('S%s' % (seq_length)).ravel()]
 
 
 def encode_fasta_sequences(fname):
@@ -167,7 +157,6 @@ def encode_fasta_sequences(fname):
                 seq_chars.append(line)
     if name is not None:
         sequences.append(''.join(seq_chars).upper())
-
     return one_hot_encode(np.array(sequences))
 
 
