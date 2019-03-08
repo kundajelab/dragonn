@@ -434,7 +434,7 @@ def deeplift_shuffled_ref(X,score_func,batch_size=200,task_idx=0,num_refs_per_se
     score_func=get_shuffle_seq_ref_function(
         score_computation_function=score_func,
         shuffle_func=dinuc_shuffle,
-        one_hot_func=one_hot_encode)
+        one_hot_func=one_hot_func)
     
     deeplift_scores=score_func(
         task_idx=task_idx,
