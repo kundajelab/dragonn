@@ -125,7 +125,6 @@ def one_hot_encode(seqs):
 def reverse_complement(encoded_seqs):
     return encoded_seqs[..., ::-1, ::-1]
 
-
 def get_sequence_strings(encoded_sequences):
     """
     Converts encoded sequences into an array with sequence strings
@@ -139,6 +138,13 @@ def get_sequence_strings(encoded_sequences):
     # return 1D view of sequence characters
     return [seq.decode('utf-8') for seq in sequence_characters.view('S%s' % (seq_length)).ravel()]
 
+def fasta_from_onehot(onehot_mat,outf):
+    strings=get_sequence_strings(onehot_mat)
+    outf=open(outf,'w')
+    for i in range(len(strings)):
+        outf.write(">"+str(i)+'\n')
+        outf.write(strings[i]+'\n')
+        
 
 def encode_fasta_sequences(fname):
     """
