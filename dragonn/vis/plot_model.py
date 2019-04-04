@@ -31,6 +31,18 @@ def get_layer_to_name(model):
         return {v: k for k, v in node_to_name}
 
 
+def to_graph(model, **kwargs):
+    """
+    `recursive` controls whether we recursively explore container layers
+    `show_shape` controls whether the shape is shown in the graph
+    """
+    return ModelToDot()(model, **kwargs)
+
+
+def plot(model, to_file='model.png', **kwargs):
+    graph = to_graph(model, **kwargs)
+    graph.write_png(to_file)
+
 class ModelToDot(object):
     """
     This is a helper class which visits a keras model (Sequential or Graph) and
@@ -143,15 +155,3 @@ class ModelToDot(object):
 
         return self.g
 
-
-def to_graph(model, **kwargs):
-    """
-    `recursive` controls whether we recursively explore container layers
-    `show_shape` controls whether the shape is shown in the graph
-    """
-    return ModelToDot()(model, **kwargs)
-
-
-def plot(model, to_file='model.png', **kwargs):
-    graph = to_graph(model, **kwargs)
-    graph.write_png(to_file)

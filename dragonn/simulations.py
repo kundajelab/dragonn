@@ -9,6 +9,12 @@ from simdna import simulations
 from simdna.synthetic import StringEmbeddable
 from dragonn.utils import get_motif_scores, one_hot_encode
 
+Data = namedtuple('Data', ('X_train', 'X_valid', 'X_test',
+                           'train_embeddings', 'valid_embeddings', 'test_embeddings',
+                           'y_train', 'y_valid', 'y_test',
+                           'motif_names'))
+
+
 def get_available_simulations():
     return [function_name for function_name in dir(simulations)
             if "simulate" in function_name]

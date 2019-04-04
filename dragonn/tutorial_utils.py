@@ -18,133 +18,7 @@ from dragonn.models import SequenceDNN
 from dragonn.plot import add_letters_to_axis, plot_motif
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
-
-def plot_learning_curve(history):
-    train_losses=history.history['loss']
-    valid_losses=history.history['val_loss']
-    min_loss_indx = min(enumerate(valid_losses), key=lambda x: x[1])[0]
-    f = plt.figure(figsize=(10, 4))
-    ax = f.add_subplot(1, 1, 1)
-    ax.plot(range(len(train_losses)), train_losses, 'b', label='Training',lw=4)
-    ax.plot(range(len(train_losses)), valid_losses, 'r', label='Validation', lw=4)
-    ax.plot([min_loss_indx, min_loss_indx], [0, 1.0], 'k--', label='Early Stop')
-    ax.legend(loc="upper right")
-    ax.set_ylabel("Loss")
-    ax.set_ylim((min(train_losses+valid_losses),max(train_losses+valid_losses)))
-    ax.set_xlabel("Epoch")
-    plt.show()
-
-def plot_ism(ism_mat,title,vmin=None,vmax=None):
-    # create discrete colormap of ISM scores
-    extent = [0, ism_mat.shape[0], 0, 100*ism_mat.shape[1]]
-    plt.figure(figsize=(20,3))
-    if vmin==None:
-        vmin=np.amin(ism_mat)
-    if vmax==None:
-        vmax=np.amax(ism_mat)
-    plt.imshow(ism_mat.T,extent=extent,vmin=vmin, vmax=vmax)
-    plt.xlabel("Sequence base")
-    plt.ylabel("ISM Score")
-    plt.title(title)
-    plt.yticks(np.arange(50,100*ism_mat.shape[1],100),("A","C","G","T"))
-    plt.set_cmap('RdBu')
-    plt.colorbar()
-    plt.show()
-
-    
-def plot_sequence_filters(model):
-    fig = plt.figure(figsize=(15, 8))
-    fig.subplots_adjust(hspace=0.1, wspace=0.1)
-    conv_filters=model.layers[0].get_weights()[0]
-    #transpose for plotting
-    conv_filters=np.transpose(conv_filters,(3,1,2,0)).squeeze(axis=-1)
-    num_plots_per_axis = int(len(conv_filters)**0.5) + 1
-    for i, conv_filter in enumerate(conv_filters):
-        ax = fig.add_subplot(num_plots_per_axis, num_plots_per_axis, i+1)
-        add_letters_to_axis(ax, conv_filter)
-        ax.axis("off")
-        ax.set_title("Filter %s" % (str(i+1)))
-
-def plot_seq_importance(grads, x, xlim=None, ylim=None, layer_idx=-2, figsize=(25, 3),title="",snp_pos=0):
-    """Plot  sequence importance score
-    
-    Args:
-      grads: either deeplift or gradientxinput score matrix 
-      x: one-hot encoded DNA sequence
-      xlim: restrict the plotted xrange
-      figsize: matplotlib figure size
-    """
-    grads=grads.squeeze()
-    x=x.squeeze()
-    
-    seq_len = x.shape[0]
-    vals_to_plot=grads*x
-    if xlim is None:
-        xlim = (0, seq_len)
-    if ylim is None:
-        ylim= (np.amin(vals_to_plot),np.amax(vals_to_plot))
-    seqlogo_fig(vals_to_plot, figsize=figsize)
-    plt.xticks(list(range(xlim[0], xlim[1], 5)))
-    plt.xlim(xlim)
-    plt.ylim(ylim)
-    plt.title(title)
-    plt.axvline(x=snp_pos, color='k', linestyle='--')
         
-
-    
-Data = namedtuple('Data', ('X_train', 'X_valid', 'X_test',
-                           'train_embeddings', 'valid_embeddings', 'test_embeddings',
-                           'y_train', 'y_valid', 'y_test',
-                           'motif_names'))
-
-def get_available_simulations():
-    return [function_name for function_name in dir(simulations)
-            if "simulate" in function_name]
-
-
-def print_available_simulations():
-    for function_name in get_available_simulations():
-        print(function_name)
-
-
-def get_simulation_function(simulation_name):
-    if simulation_name in get_available_simulations():
-        return getattr(simulations, simulation_name)
-    else:
-        print("%s is not available. Available simulations are:" % (simulation_name))
-        print_available_simulations()
-
-
-def print_simulation_info(simulation_name):
-    simulation_function = get_simulation_function(simulation_name)
-    if simulation_function is not None:
-        print(simulation_function.__doc__)
-
-
-def get_simulation_data(simulation_name, simulation_parameters,
-                        test_set_size=4000, validation_set_size=3200):
-    simulation_function = get_simulation_function(simulation_name)
-    sequences, y, embeddings = simulation_function(**simulation_parameters)
-    if simulation_name == "simulate_heterodimer_grammar":
-        motif_names = [simulation_parameters["motif1"],
-                       simulation_parameters["motif2"]]
-    elif simulation_name == "simulate_multi_motif_embedding":
-        motif_names = simulation_parameters["motif_names"]
-    else:
-        motif_names = [simulation_parameters["motif_name"]]
-
-    train_sequences, test_sequences, train_embeddings, test_embeddings, y_train, y_test = \
-        train_test_split(sequences, embeddings, y, test_size=test_set_size)
-    train_sequences, valid_sequences, train_embeddings, valid_embeddings, y_train, y_valid = \
-        train_test_split(train_sequences, train_embeddings, y_train, test_size=validation_set_size)
-    X_train = one_hot_encode(train_sequences)
-    X_valid = one_hot_encode(valid_sequences)
-    X_test = one_hot_encode(test_sequences)
-
-    return Data(X_train, X_valid, X_test, train_embeddings, valid_embeddings, test_embeddings,
-                y_train, y_valid, y_test, motif_names)
-
-
 def inspect_SequenceDNN():
     print(inspect.getdoc(SequenceDNN))
     print("\nAvailable methods:\n")
@@ -184,12 +58,6 @@ def SequenceDNN_learning_curve(dnn):
     else:
         print("learning curve can only be obtained after training!")
 
-
-
-
-def plot_motifs(simulation_data):
-    for motif_name in simulation_data.motif_names:
-        plot_motif(motif_name, figsize=(10, 4), ylab=motif_name)
 
 
 
