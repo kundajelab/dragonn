@@ -264,25 +264,6 @@ def plot_bases(letter_heights, figsize=(12, 6), ylab='bits'):
     return fig
 
 
-def plot_pwm(letter_heights,
-             figsize=(12, 6), ylab='bits', information_content=True):
-    """
-    Plots pwm. Displays information content by default.
-    """
-    if information_content:
-        letter_heights = letter_heights * (
-            2 + (letter_heights *
-                 np.log2(letter_heights)).sum(axis=1))[:, np.newaxis]
-    return plot_bases(letter_heights, figsize, ylab=ylab)
-
-
-def plot_motif(motif_name, figsize, ylab='bits', information_content=True):
-    """
-    Plot motifs from encode motifs file
-    """
-    motif_letter_heights = loaded_motifs.getPwm(motif_name).getRows()
-    return plot_pwm(motif_letter_heights, figsize,
-                    ylab=ylab, information_content=information_content)
 
 
 def add_letters_to_axis(ax, letter_heights):

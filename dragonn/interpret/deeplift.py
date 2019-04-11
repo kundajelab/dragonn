@@ -1,3 +1,4 @@
+import deeplift
 
 def deeplift_zero_ref(X,score_func,batch_size=200,task_idx=0):        
     # use a 40% GC reference
@@ -67,4 +68,6 @@ def deeplift(model, X, batch_size=200,target_layer_idx=-2,task_idx=0, num_refs_p
     else:
         raise Exception("supported DeepLIFT references are 'shuffled_ref' and 'gc_ref'")
     return np.asarray(deeplift_scores)
+
+
 

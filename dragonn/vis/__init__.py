@@ -1,3 +1,14 @@
+import matplotlib
+from matplotlib import pyplot as plt
+
+
+def plot_model_weights(model,layer_idx=-2):
+    W_dense, b_dense = model.layers[layer_idx].get_weights()
+    plt.plot(W_dense,'-o')
+    plt.xlabel('Filter index')
+    plt.ylabel('Weight value')
+    plt.show()
+    
 def plot_ism(ism_mat,title,vmin=None,vmax=None):
     # create discrete colormap of ISM scores
     extent = [0, ism_mat.shape[0], 0, 100*ism_mat.shape[1]]

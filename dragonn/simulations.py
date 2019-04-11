@@ -1,13 +1,15 @@
 from __future__ import division
+
 import random
 random.seed(1)
-import inspect
-from collections import namedtuple, defaultdict, OrderedDict
 import numpy as np
 np.random.seed(1)
+
+from collections import namedtuple, defaultdict, OrderedDict
 from simdna import simulations
 from simdna.synthetic import StringEmbeddable
 from dragonn.utils import get_motif_scores, one_hot_encode
+from sklearn.model_selection import train_test_split 
 
 Data = namedtuple('Data', ('X_train', 'X_valid', 'X_test',
                            'train_embeddings', 'valid_embeddings', 'test_embeddings',
