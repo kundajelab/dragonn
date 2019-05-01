@@ -245,7 +245,7 @@ def plot_bases_on_ax(letter_heights, ax, show_ticks=True):
                 top=False,         # ticks along the top edge are off
                 labelbottom=False)
     ax.set_aspect(aspect='auto', adjustable='box')
-    #ax.autoscale_view()
+    ax.autoscale_view()
     return ax
 
 def plot_bases(letter_heights, figsize=(12, 6), ylab='bits'):
@@ -265,11 +265,11 @@ def plot_bases(letter_heights, figsize=(12, 6), ylab='bits'):
 
     fig = pyplot.figure(figsize=figsize)
     ax = fig.add_subplot(111)
-    ax.set_xlabel('pos')
+    ax.set_xlabel('base pair position')
     ax.set_ylabel(ylab)
     plot_bases_on_ax(letter_heights, ax)
 
-    return fig
+    return fig,ax
 
 
 

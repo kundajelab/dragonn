@@ -1,4 +1,5 @@
 import deeplift
+import numpy as np
 
 def deeplift_zero_ref(X,score_func,batch_size=200,task_idx=0):        
     # use a 40% GC reference
@@ -45,7 +46,17 @@ def deeplift_shuffled_ref(X,score_func,batch_size=200,task_idx=0,num_refs_per_se
 
 def deeplift(model, X, batch_size=200,target_layer_idx=-2,task_idx=0, num_refs_per_seq=10,reference="shuffled_ref",one_hot_func=None):
     """
-    Returns (num_task, num_samples, 1, num_bases, sequence_length) deeplift score array.
+    Arguments: 
+        model -- a string containing the path to the hdf5 exported model 
+        X -- numpy array with shape (n_samples, 1, n_bases_in_sample,4) or list of FASTA sequences 
+        batch_size -- number of samples to interpret at once 
+        target_layer_idx -- should be -2 for classification; -1 for regression 
+        task_idx -- index indicating which task to perform interpretation on 
+        reference -- one of 'shuffled_ref','gc_ref','zero_ref'
+        num_refs_per_seq -- integer indicating number of references to use for each input sequence if the reference is set to 'shuffled_ref';if 'zero_ref' or 'gc_ref' is used, this argument is ignored.
+        one_hot_func -- one hot function to use for encoding FASTA string inputs; if the inputs are already one-hot-encoded, use the default of None 
+    Returns:
+        (num_task, num_samples, 1, num_bases, sequence_length) deeplift score array.
     """
     assert reference in ["shuffled_ref","gc_ref","zero_ref"]
     if one_hot_func==None:
@@ -66,7 +77,7 @@ def deeplift(model, X, batch_size=200,target_layer_idx=-2,task_idx=0, num_refs_p
     elif reference=="zero_ref":
         deeplift_scores=deeplift_zero_ref(X,score_func,batch_size,task_idx)
     else:
-        raise Exception("supported DeepLIFT references are 'shuffled_ref' and 'gc_ref'")
+        raise Exception("supported DeepLIFT references are 'shuffled_ref','gc_ref', 'zero_ref'")
     return np.asarray(deeplift_scores)
 
 

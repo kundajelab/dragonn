@@ -1,4 +1,5 @@
 #utilities for running in-silico mutagenesis within dragonn.
+import numpy as np
 
 def get_logit_function(model):
     from keras import backend as K
@@ -33,7 +34,7 @@ def in_silico_mutagenesis(model, X):
     #3. Iterate through all tasks, positions                                                                                                                                                                 
     for task_index in range(output_dim[0]):
         for sample_index in range(output_dim[1]):
-            print(str(task_index)+":"+str(sample_index))
+            print("task:"+str(task_index)+" sample:"+str(sample_index))
             #fill in wild type logit values into an array of dim (task,sequence_length,num_bases)                                                                                                                    
             wt_logit_for_task_sample=wild_type_logits[task_index][sample_index]
             wt_expanded[task_index][sample_index]=np.tile(wt_logit_for_task_sample,(output_dim[2],output_dim[3]))
@@ -41,14 +42,14 @@ def in_silico_mutagenesis(model, X):
             for base_pos in range(output_dim[2]):
                 #for each position, iterate through the 4 bases                                                                                                                                                  
                 for base_letter in range(output_dim[3]):
-                    cur_base=empty_onehot
+                    cur_base=np.copy(empty_onehot)
                     cur_base[base_letter]=1
-                    Xtmp=np.expand_dims(X[sample_index],axis=0)
+                    Xtmp=np.copy(np.expand_dims(X[sample_index],axis=0))
                     Xtmp[0][0][base_pos]=cur_base
                     #get the logit of Xtmp                                                                                                                                                                              
                     mutants_expanded[task_index][sample_index][base_pos][base_letter]=np.squeeze(get_logit(functor,Xtmp)[task_index])
-    #subtract mutants_expanded from wt_expanded 
-    ism_vals=wt_expanded-mutants_expanded
+    #subtract wt_expanded from mutants_expanded
+    ism_vals=mutants_expanded-wt_expanded
     #For each position subtract the mean ISM score for that position from each of the 4 values
     ism_vals_mean=np.expand_dims(np.mean(ism_vals,axis=3),axis=3)
     ism_vals_normed=ism_vals-ism_vals_mean
