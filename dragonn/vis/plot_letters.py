@@ -211,7 +211,7 @@ def add_letter_to_axis(ax, let, x, y, height):
     return
 
 
-def plot_bases_on_ax(letter_heights, ax):
+def plot_bases_on_ax(letter_heights, ax, show_ticks=True):
     """
     Plot the N letters with heights taken from the Nx4 matrix letter_heights.
 
@@ -235,10 +235,18 @@ def plot_bases_on_ax(letter_heights, ax):
                 add_letter_to_axis(ax, letter, 0.5 + x_pos, y_neg_pos, height)
                 y_neg_pos += height
     ax.set_xlim(0, letter_heights.shape[0] + 1)
-    ax.set_xticks(np.arange(1, letter_heights.shape[0] + 1))
+    if show_ticks==True:
+        ax.set_xticks(np.arange(1, letter_heights.shape[0] + 1))
+    else:
+        ax.tick_params(
+                axis='x',          # changes apply to the x-axis
+                which='both',      # both major and minor ticks are affected
+                bottom=False,      # ticks along the bottom edge are off
+                top=False,         # ticks along the top edge are off
+                labelbottom=False)
     ax.set_aspect(aspect='auto', adjustable='box')
-    ax.autoscale_view()
-
+    #ax.autoscale_view()
+    return ax
 
 def plot_bases(letter_heights, figsize=(12, 6), ylab='bits'):
     """
