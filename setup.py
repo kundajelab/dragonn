@@ -11,7 +11,7 @@ config = {
     'extras_requires':{'tensorflow with gpu':['tensorflow-gpu>=1.7']},
     'dependency_links': [],
     'scripts': [],
-    'entry_points': {'console_scripts': ['dragonn = dragonn.__main__:main']},
+    'entry_points': {'console_scripts': ['dragonn = dragonn.__init__:main']},
     'name': 'dragonn'
 }
 
