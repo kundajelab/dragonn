@@ -4,7 +4,19 @@ import  numpy as np
 from dragonn.vis.plot_letters import * 
 from dragonn.vis.plot_kmers import * 
 
-def plot_sequence_filters(model):
+def plot_all_interpretations(interp_dict,X,xlim=None,figsize=(20,3)):
+    if xlim==None:
+        xlim=(0,X.squeeze().shape[0]) 
+    f_scan,axes_scan=plot_motif_scores(interp_dict['motif_scan'],title="Motif Scan Scores",figsize=figsize,xlim=xlim,show=False)
+    f_ism,axes_sim=plot_ism(interp_dict['ism'],'ISM',xlim=xlim,figsize=figsize,show=False)
+    f_input_grad,axes_input_grad=plot_seq_importance(interp_dict['input_grad'],X,title="GradXInput",xlim=xlim,figsize=figsize,show=False)
+    f_deeplift,axes_deeplift=plot_seq_importance(interp_dict['deeplift'],X,title="DeepLIFT",xlim=xlim,figsize=figsize,show=False)
+
+def plot_sequence_filters(model,show=True):
+    if show==False:
+        plt.ioff()
+    else:
+        plt.ion() 
     fig = plt.figure(figsize=(15, 8))
     fig.subplots_adjust(hspace=0.1, wspace=0.1)
     conv_filters=model.layers[0].get_weights()[0]
@@ -16,39 +28,59 @@ def plot_sequence_filters(model):
         add_letters_to_axis(ax, conv_filter)
         ax.axis("off")
         ax.set_title("Filter %s" % (str(i+1)))
+    if show==True:
+        plt.show() 
 
-
-def plot_filters(model,simulation_data):    
+def plot_filters(model,simulation_datam,show=True):
+    if show==False:
+        plt.ioff()
+    else:
+        plt.ion() 
     print("Plotting simulation motifs...")
     plot_motifs(simulation_data)
     plt.show()
     print("Visualizing convolutional sequence filters in SequenceDNN...")
     plot_sequence_filters(model)
-    plt.show()
+    if show==True:
+        plt.show()
+    return f,f.get_axes()
 
-
-
-def plot_motif_scores(motif_scores,title="",figsize=(20,3),ymin=0,ymax=20):
+def plot_motif_scores(motif_scores,title="",figsize=(20,3),ylim=(0,20),xlim=None,show=True):
+    if show==False:
+        plt.ioff()
+    else:
+        plt.ion() 
+    #remove any redundant axes
+    motif_scores=motif_scores.squeeze()
     f=plt.figure(figsize=figsize)
     plt.plot(motif_scores, "-o")
     plt.xlabel("Sequence base")
-    plt.ylabel("Motif scan score")
     #threshold motif scores at 0; any negative scores are noise that we do not need to visualize
-    plt.ylim(ymin, ymax)
+    if plt.ylim!=None:
+        plt.ylim(ylim)
+    if xlim!=None:
+        plt.xlim(xlim)
     plt.title(title)
-    plt.show()
+    if show==True:
+        plt.show()
     return f,f.axes
 
-def plot_model_weights(model,layer_idx=-2):
+def plot_model_weights(model,layer_idx=-2,show=True):
+    if show==False:
+        plt.ioff()
+    else:
+        plt.ion() 
+
     W_dense, b_dense = model.layers[layer_idx].get_weights()
     f=plt.figure()
     plt.plot(W_dense,'-o')
     plt.xlabel('Filter index')
     plt.ylabel('Weight value')
-    plt.show()
+    if show==True:
+        plt.show()
     return f,f.get_axes() 
 
-def plot_ism(ism_mat,title="", xlim=None, ylim=None, figsize=(20,5)):
+def plot_ism(ism_mat,title="", xlim=None, ylim=None, figsize=(20,5),show=True):
     """ Plot the 4xL heatmap and also the identity and score of the highest scoring (mean subtracted) allele at each position 
     
     Args:
@@ -58,8 +90,11 @@ def plot_ism(ism_mat,title="", xlim=None, ylim=None, figsize=(20,5)):
     Returns: 
       generates a heatmap and letter plot of the ISM matrix 
     """
+    if show==False:
+        plt.ioff()
+    else:
+        plt.ion() 
     if ism_mat.shape!=2:
-        print("Warning! The input matrix should represent a single input sequence for ISM, and as such should have dimensions : n_positions x 4. Running np.squeeze to remove extra dimensions.")
         ism_mat=np.squeeze(ism_mat)
     assert len(ism_mat.shape)==2
     assert ism_mat.shape[1]==4
@@ -69,7 +104,7 @@ def plot_ism(ism_mat,title="", xlim=None, ylim=None, figsize=(20,5)):
     for i in range(zero_map.shape[0]):
         zero_map[i][highest_scoring_pos[i]]=1
     product=zero_map*ism_mat    
-    f,axes=plt.subplots(2, 1,sharex='row',figsize=figsize)
+    f,axes=plt.subplots(2, 1,sharex='row',figsize=(figsize[0],2*figsize[1]))
     axes[0]=plot_bases_on_ax(product,axes[0],show_ticks=False)
     axes[0].set_title(title)
     extent = [0, ism_mat.shape[0], 0, 100*ism_mat.shape[1]]
@@ -78,7 +113,6 @@ def plot_ism(ism_mat,title="", xlim=None, ylim=None, figsize=(20,5)):
     hmap=axes[1].imshow(ism_mat.T,extent=extent,vmin=ymin, vmax=ymax, interpolation='nearest',aspect='auto')
     axes[1].set_yticks(np.arange(50,100*ism_mat.shape[1],100),("A","C","G","T"))
     axes[1].set_xlabel("Sequence base")
-    axes[1].set_ylabel("ISM Score")
     if xlim!=None:
         axes[0].set_xlim(xlim)
         axes[1].set_xlim(xlim) 
@@ -89,10 +123,11 @@ def plot_ism(ism_mat,title="", xlim=None, ylim=None, figsize=(20,5)):
     plt.set_cmap('RdBu')
     plt.tight_layout()
     plt.colorbar(hmap,ax=axes[1],orientation='horizontal')
-    plt.show()
+    if show==True:
+        plt.show()
     return f,axes
 
-def plot_seq_importance(grads, x, xlim=None, ylim=None, figsize=(25, 3),title="",snp_pos=0):
+def plot_seq_importance(grads, x, xlim=None, ylim=None, figsize=(25, 3),title="",snp_pos=0,show=True):
     """Plot  sequence importance score
     
     Args:
@@ -101,6 +136,10 @@ def plot_seq_importance(grads, x, xlim=None, ylim=None, figsize=(25, 3),title=""
       xlim: restrict the plotted xrange
       figsize: matplotlib figure size
     """
+    if show==False:
+        plt.ioff()
+    else:
+        plt.ion() 
     grads=grads.squeeze()
     x=x.squeeze()
     
@@ -116,6 +155,8 @@ def plot_seq_importance(grads, x, xlim=None, ylim=None, figsize=(25, 3),title=""
     plt.ylim(ylim)
     plt.title(title)
     plt.axvline(x=snp_pos, color='k', linestyle='--')
+    if show==True:
+        plt.show() 
     return f,ax
 
 def plot_learning_curve(history):

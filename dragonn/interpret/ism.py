@@ -1,10 +1,10 @@
 #utilities for running in-silico mutagenesis within dragonn.
 import numpy as np
 
-def get_logit_function(model):
+def get_logit_function(model,target_layer_idx):
     from keras import backend as K
     inp=model.input
-    outputs=model.layers[-2].output
+    outputs=model.layers[target_layer_idx].output
     functor=K.function([inp], [outputs])
     return functor 
 
@@ -12,16 +12,15 @@ def get_logit(functor,X):
     logit=functor([X])
     return logit
 
-def in_silico_mutagenesis(model, X):
-    """                                                                                                                                                                                                     
-    Parameters                                                                                                                                                                                              
+def in_silico_mutagenesis(model, X,target_layer_idx=-2):
+    """                                                                                                                                                                                                       Parameters                                                                                                                                                                                              
     ----------                                                                                                                                                                                              
     model: keras model object                                                                                                                                                                               
     X: input matrix: (num_samples, 1, sequence_length,num_bases)                                                                                                                                            
     Returns                                                                                                                                                                                                      ---------                                                                                                                                                                                              
     (num_task, num_samples, sequence_length,num_bases) ISM score array.                                                                                                                                  
     """
-    functor=get_logit_function(model)
+    functor=get_logit_function(model,target_layer_idx)
     #1. get the wildtype predictions (n,1)                                                                                                                                                         
     wild_type_logits=np.asarray(get_logit(functor,X))
     wild_type_logits=np.squeeze(wild_type_logits,axis=2)
