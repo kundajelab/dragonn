@@ -12,7 +12,23 @@ from dragonn.metrics import ClassificationResult
 from sklearn.svm import SVC as scikit_SVC
 from sklearn.tree import DecisionTreeClassifier as scikit_DecisionTree
 from sklearn.ensemble import RandomForestClassifier
+from keras.models import load_model
+from dragonn.runtime_metrics import *
+from dragonn.custom_losses import * 
 
+def load_dragonn_model(model_string):
+    custom_objects={"recall":recall,
+                    "sensitivity":recall,
+                    "specificity":specificity,
+                    "fpr":fpr,
+                    "fnr":fnr,
+                    "precision":precision,
+                    "f1":f1,
+                    "spearman_corr":spearman_corr,
+                    "ambig_binary_crossentropy":get_ambig_binary_crossentropy(),
+                    "ambig_mean_squared_error":get_ambig_mean_squared_error()}    
+    model=load_model(model_string,custom_objects=custom_objects)
+    return model
 
 class Model(object):
     __metaclass__ = ABCMeta
@@ -232,12 +248,16 @@ class SequenceDNN(Model):
         self.model.save_weights(weights_fname, overwrite=True)
 
     @staticmethod
-    def load(arch_fname, weights_fname=None):
-        from keras.models import model_from_json
-        model_json_string = open(arch_fname).read()
-        sequence_dnn = SequenceDNN(keras_model=model_from_json(model_json_string))
-        if weights_fname is not None:
-            sequence_dnn.model.load_weights(weights_fname)
+    def load(model_hdf5_fname=None, arch_fname=None, weights_fname=None):
+        if model_hdf5_fname!=None:
+            from keras.models import load_model
+            sequence_dnn=SequenceDNN(keras_model=load_model(model_hdf5_fname))
+        else:
+            from keras.models import model_from_json
+            model_json_string = open(arch_fname).read()
+            sequence_dnn = SequenceDNN(keras_model=model_from_json(model_json_string))
+            if weights_fname is not None:
+                sequence_dnn.model.load_weights(weights_fname)
         return sequence_dnn
 
 class MotifScoreRNN(Model):

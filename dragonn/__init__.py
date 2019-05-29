@@ -17,6 +17,9 @@ def parse_args():
                                    help='fasta with positive sequences')
     fasta_pair_parser.add_argument('--neg-sequences', type=str, required=True,
                                    help='fasta with negative sequences')
+    fasta_pair_parser.add_argument('--pos-validation-sequences',type=str,required=False,
+                                   help='validation set fasta with positive sequences')
+    fasta_pair_parser.add_argument('--neg-validation-sequences',type=str,required=False)
     single_fasta_parser = argparse.ArgumentParser(add_help=False)
     single_fasta_parser.add_argument('--sequences', type=str, required=True,
                                     help='fasta with sequences')
@@ -47,6 +50,8 @@ def parse_args():
                               help='model json file')
     train_parser.add_argument('--weights-file', type=str, required=False, default=None,
                               help='weights hd5 file')
+    train_parser.add_argument('--model-hdf5-file',type=str,required=False, default=None,
+                              help='hdf5 file containing keras model')
 
     test_parser = subparsers.add_parser('test',
                                         parents=[fasta_pair_parser, model_files_parser],
@@ -72,6 +77,8 @@ def parse_args():
 
 def main_train(pos_sequences=None,
                neg_sequences=None,
+               pos_validation_sequences=None,
+               neg_validation_sequences=None,
                prefix=None,
                arch_file=None,
                weights_file=None,
@@ -85,10 +92,22 @@ def main_train(pos_sequences=None,
     y_neg = np.array([[False]]*len(X_neg))
     X = np.concatenate((X_pos, X_neg))
     y = np.concatenate((y_pos, y_neg))
-    X_train, X_valid, y_train, y_valid = train_test_split(X, y, test_size=0.2)
+    #if a validation set is provided by the user, encode that as well
+    if (pos_validation_sequences!=None or neg_validation_sequences!=None):
+        #both positive and negative validation sequences must be provided. 
+        assert neg_validation_sequences!=None
+        assert pos_validation_sequences!=None
+        X_valid_pos=encode_fasta_sequences(pos_validation_sequences)
+        X_valid_neg=encode_fasta_sequences(neg_validation_sequences)
+        y_valid_pos=np.array([[True]])*len(X_valid_pos)
+        y_valid_neg=np.array([[False]])*len(X_valid_neg)
+        X_valid=np.concatenate((X_valid_pos, X_valid_neg))
+        y_valid=np.concatenate((y_valid_pos, y_valid_neg))
+    else:
+        X_train, X_valid, y_train, y_valid = train_test_split(X, y, test_size=0.2)
     if arch_file is not None: # load  model
         print("loading model...")
-        model = SequenceDNN.load(arch_file, weights_file)
+        model = SequenceDNN.load(model_hdf5_file, arch_file, weights_file)
     else: # initialize model
         print("initializing model...")
         model = SequenceDNN(seq_length=X_train.shape[-1], **kwargs)

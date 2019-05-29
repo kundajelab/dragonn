@@ -4,13 +4,138 @@ import  numpy as np
 from dragonn.vis.plot_letters import * 
 from dragonn.vis.plot_kmers import * 
 
-def plot_all_interpretations(interp_dict,X,xlim=None,figsize=(20,3)):
+def plot_all_interpretations(interp_dict,X,xlim=None,figsize=(20,3),title=None,snp_pos=0,out_fname_svg=None):
+    '''
+    interp_dict -- list of interpretation metrics for inputs 
+    X -- input
+    title -- list of titles, or None 
+    out_fname_svg -- filename to save svg figure (or None if it shouldn't be saved to an output file)
+    '''
+    num_samples=len(interp_dict)
+    if title==None:
+        title=["" for i in range(num_samples)]
     if xlim==None:
-        xlim=(0,X.squeeze().shape[0]) 
-    f_scan,axes_scan=plot_motif_scores(interp_dict['motif_scan'],title="Motif Scan Scores",figsize=figsize,xlim=xlim,show=False)
-    f_ism,axes_sim=plot_ism(interp_dict['ism'],'ISM',xlim=xlim,figsize=figsize,show=False)
-    f_input_grad,axes_input_grad=plot_seq_importance(interp_dict['input_grad'],X,title="GradXInput",xlim=xlim,figsize=figsize,show=False)
-    f_deeplift,axes_deeplift=plot_seq_importance(interp_dict['deeplift'],X,title="DeepLIFT",xlim=xlim,figsize=figsize,show=False)
+        xlim=(0,X.squeeze().shape[0])
+    if interp_dict[0]['motif_scan'] is not None:
+        f,axes=plt.subplots(nrows=5,ncols=num_samples, dpi=80,figsize=(figsize[0],figsize[1]*5))
+        axes = np.array(axes)
+        if num_samples==1:
+            axes=np.expand_dims(axes,axis=1)
+        scan_axes=axes[0,:]
+        ism_axes=axes[1:3,:]
+        input_grad_axes=axes[3,:]
+        deeplift_axes=axes[4,:]
+    else:
+        f,axes=plt.subplots(4,num_samples, dpi=80,figsize=(figsize[0],figsize[1]*4))
+        if num_samples==1:
+            axes=np.expand_dims(axes,axis=1)
+        axes = np.array(axes)
+        ism_axes=axes[0:2,:]
+        input_grad_axes=axes[2,:]
+        deeplift_axes=axes[3,:]
+
+    for sample_index in range(num_samples):
+        if interp_dict[sample_index]['motif_scan'] is not None:
+            scan_axes[sample_index]=plot_motif_scores(interp_dict[sample_index]['motif_scan'],
+                                                      title=":".join(["Motif Scan Scores",title[sample_index]]),
+                                                      figsize=figsize,
+                                                      xlim=xlim,
+                                                      axes=scan_axes[sample_index])
+        ism_axes[:,sample_index]=plot_ism(interp_dict[sample_index]['ism'],
+                                          title=':'.join(["ISM",title[sample_index]]),
+                                          figsize=figsize,
+                                          xlim=xlim,
+                                          axes=ism_axes[:,sample_index])
+        input_grad_axes[sample_index]=plot_seq_importance(interp_dict[sample_index]['input_grad'],
+                                                          X,
+                                                          title=":".join(["GradXInput",title[sample_index]]),
+                                                          figsize=figsize,
+                                                          xlim=xlim,
+                                                          snp_pos=snp_pos,
+                                                          axes=input_grad_axes[sample_index])
+        deeplift_axes[sample_index]=plot_seq_importance(interp_dict[sample_index]['deeplift'],
+                                                        X,
+                                                        title=":".join(["DeepLIFT",title[sample_index]]),
+                                                        figsize=figsize,
+                                                        xlim=xlim,
+                                                        snp_pos=snp_pos,
+                                                        axes=deeplift_axes[sample_index])
+    if out_fname_svg is not None:
+        plt.savefig(out_fname_svg,dpi=80,format="svg")
+    f.show()
+
+def plot_snp_interpretation(ref_interp_dict,
+                    alt_interp_dict,
+                    ref_X,
+                    alt_X,
+                    xlim=None,
+                    figsize=(20,3),
+                    title=None,
+                    out_fname_svg=None,
+                    snp_pos=0):
+    '''
+    ref_interp_dict -- list of interpretation metrics for reference allele tasks
+    alt_interp_dict -- list of interpretation mterics for alternate allele tasks
+    ref_X -- reference sequence 
+    alt_X -- alternate sequence 
+    title -- list of titles, or None 
+    out_fname_svg -- filename to save svg figure (or None if it shouldn't be saved to an output file)
+    '''
+    num_samples=len(ref_interp_dict)
+    if title==None:
+        title=["" for i in range(num_samples)]
+    if xlim==None:
+        xlim=(0,ref_X.squeeze().shape[0])
+    f,axes=plt.subplots(6,num_samples, dpi=80,figsize=(figsize[0],figsize[1]*6))
+    if num_samples==1:
+        axes=np.expand_dims(axes,axis=1)
+    axes = np.array(axes)
+    ism_axes=axes[0:2,:]
+    input_grad_axes=axes[2,:]
+    deeplift_ref_axes=axes[3,:]
+    deeplift_alt_axes=axes[4,:]
+    deeplift_delta_axes=axes[5,:]
+    
+    for sample_index in range(num_samples):
+        ism_axes[:,sample_index]=plot_ism(ref_interp_dict[sample_index]['ism'],
+                                          title=':'.join(["ISM",title[sample_index]]),
+                                          figsize=figsize,
+                                          xlim=xlim,
+                                          axes=ism_axes[:,sample_index])
+        input_grad_axes[sample_index]=plot_seq_importance(ref_interp_dict[sample_index]['input_grad'],
+                                                          ref_X,
+                                                          title=":".join(["GradXInput",title[sample_index]]),
+                                                          figsize=figsize,
+                                                          xlim=xlim,
+                                                          axes=input_grad_axes[sample_index])
+        deeplift_ref_axes[sample_index]=plot_seq_importance(ref_interp_dict[sample_index]['deeplift'],
+                                                            ref_X,
+                                                            title=":".join(["Ref DeepLIFT",title[sample_index]]),
+                                                            figsize=figsize,
+                                                            xlim=xlim,
+                                                            snp_pos=snp_pos,
+                                                            axes=deeplift_ref_axes[sample_index])
+        deeplift_alt_axes[sample_index]=plot_seq_importance(alt_interp_dict[sample_index]['deeplift'],
+                                                            alt_X,
+                                                            title=":".join(["Alt DeepLIFT",title[sample_index]]),
+                                                            figsize=figsize,
+                                                            xlim=xlim,
+                                                            snp_pos=snp_pos,
+                                                            axes=deeplift_alt_axes[sample_index])
+        deeplift_delta_axes[sample_index]=plot_seq_importance(alt_interp_dict[sample_index]['deeplift'] - ref_interp_dict[sample_index]['deeplift'],
+                                                              alt_X,
+                                                              title=":".join(["Alt - Ref DeepLIFT",title[sample_index]]),
+                                                              figsize=figsize,
+                                                              xlim=xlim,
+                                                              snp_pos=snp_pos,
+                                                              axes=deeplift_delta_axes[sample_index])
+        
+    if out_fname_svg is not None:
+        plt.savefig(out_fname_svg,dpi=80,format="svg")
+    f.show()
+
+    
+
 
 def plot_sequence_filters(model,show=True):
     if show==False:
@@ -31,7 +156,7 @@ def plot_sequence_filters(model,show=True):
     if show==True:
         plt.show() 
 
-def plot_filters(model,simulation_datam,show=True):
+def plot_filters(model,simulation_data,show=True):
     if show==False:
         plt.ioff()
     else:
@@ -43,27 +168,28 @@ def plot_filters(model,simulation_datam,show=True):
     plot_sequence_filters(model)
     if show==True:
         plt.show()
-    return f,f.get_axes()
 
-def plot_motif_scores(motif_scores,title="",figsize=(20,3),ylim=(0,20),xlim=None,show=True):
-    if show==False:
-        plt.ioff()
-    else:
-        plt.ion() 
+
+def plot_motif_scores(motif_scores,title="",figsize=(20,3),ylim=(0,20),xlim=None,axes=None):
     #remove any redundant axes
     motif_scores=motif_scores.squeeze()
-    f=plt.figure(figsize=figsize)
-    plt.plot(motif_scores, "-o")
-    plt.xlabel("Sequence base")
+    if axes is None:
+        f,axes=plt.subplots(1,dpi=80,figsize=figsize)
+        show=True
+    else:
+        show=False
+    axes.plot(motif_scores, "-o")
+    axes.set_xlabel("Sequence base")
     #threshold motif scores at 0; any negative scores are noise that we do not need to visualize
-    if plt.ylim!=None:
-        plt.ylim(ylim)
+    if ylim!=None:
+        axes.set_ylim(ylim)
     if xlim!=None:
-        plt.xlim(xlim)
-    plt.title(title)
+        axes.set_xlim(xlim)
+    axes.set_title(title)
     if show==True:
         plt.show()
-    return f,f.axes
+    else:
+        return axes
 
 def plot_model_weights(model,layer_idx=-2,show=True):
     if show==False:
@@ -80,20 +206,21 @@ def plot_model_weights(model,layer_idx=-2,show=True):
         plt.show()
     return f,f.get_axes() 
 
-def plot_ism(ism_mat,title="", xlim=None, ylim=None, figsize=(20,5),show=True):
+def plot_ism(ism_mat,title="", xlim=None, ylim=None, figsize=(20,5),axes=None):
     """ Plot the 4xL heatmap and also the identity and score of the highest scoring (mean subtracted) allele at each position 
     
     Args:
-      ism_math: (n_positions x 4) 
+      ism_mat: (n_positions x 4) 
       title: optional string specifying plot title 
       figsize: optional tuple indicating output figure dimensions in x, y 
     Returns: 
       generates a heatmap and letter plot of the ISM matrix 
     """
-    if show==False:
-        plt.ioff()
+    if axes is None:
+        f,axes=plt.subplots(2, 1,sharex='row',figsize=(figsize[0],2*figsize[1]))
+        show=True
     else:
-        plt.ion() 
+        show=False
     if ism_mat.shape!=2:
         ism_mat=np.squeeze(ism_mat)
     assert len(ism_mat.shape)==2
@@ -103,31 +230,31 @@ def plot_ism(ism_mat,title="", xlim=None, ylim=None, figsize=(20,5),show=True):
     zero_map=np.zeros(ism_mat.shape)
     for i in range(zero_map.shape[0]):
         zero_map[i][highest_scoring_pos[i]]=1
-    product=zero_map*ism_mat    
-    f,axes=plt.subplots(2, 1,sharex='row',figsize=(figsize[0],2*figsize[1]))
+    product=zero_map*ism_mat
+    plt.set_cmap('RdBu')
     axes[0]=plot_bases_on_ax(product,axes[0],show_ticks=False)
     axes[0].set_title(title)
     extent = [0, ism_mat.shape[0], 0, 100*ism_mat.shape[1]]
     ymin=np.amin(ism_mat)
     ymax=np.amax(ism_mat)
-    hmap=axes[1].imshow(ism_mat.T,extent=extent,vmin=ymin, vmax=ymax, interpolation='nearest',aspect='auto')
-    axes[1].set_yticks(np.arange(50,100*ism_mat.shape[1],100),("A","C","G","T"))
+    abs_highest=max([abs(ymin),abs(ymax)])
+    hmap=axes[1].imshow(ism_mat.T,extent=extent,vmin=-1*abs_highest, vmax=abs_highest, interpolation='nearest',aspect='auto')
+    axes[1].set_yticks(np.array([100,200,300,400]))
+    axes[1].set_yticklabels(["T","G","C","A"])
     axes[1].set_xlabel("Sequence base")
     if xlim!=None:
         axes[0].set_xlim(xlim)
         axes[1].set_xlim(xlim) 
-    if ylim!=None:
-        axes[0].set_ylim(ylim)
-        axes[1].set_ylim(ylim)
         
-    plt.set_cmap('RdBu')
+
     plt.tight_layout()
     plt.colorbar(hmap,ax=axes[1],orientation='horizontal')
     if show==True:
         plt.show()
-    return f,axes
+    else:
+        return axes
 
-def plot_seq_importance(grads, x, xlim=None, ylim=None, figsize=(25, 3),title="",snp_pos=0,show=True):
+def plot_seq_importance(grads, x, xlim=None, ylim=None, figsize=(25, 3),title="",snp_pos=0,axes=None):
     """Plot  sequence importance score
     
     Args:
@@ -136,10 +263,11 @@ def plot_seq_importance(grads, x, xlim=None, ylim=None, figsize=(25, 3),title=""
       xlim: restrict the plotted xrange
       figsize: matplotlib figure size
     """
-    if show==False:
-        plt.ioff()
+    if axes is None:
+        f,axes=plt.subplots(1,dpi=80,figsize=figsize)
+        show=True
     else:
-        plt.ion() 
+        show=False
     grads=grads.squeeze()
     x=x.squeeze()
     
@@ -149,15 +277,17 @@ def plot_seq_importance(grads, x, xlim=None, ylim=None, figsize=(25, 3),title=""
         xlim = (0, seq_len)
     if ylim is None:
         ylim= (np.amin(vals_to_plot),np.amax(vals_to_plot))
-    f,ax=plot_bases(vals_to_plot, figsize=figsize,ylab="")
+    axes=plot_bases_on_ax(vals_to_plot,axes,show_ticks=True)
     plt.xticks(list(range(xlim[0], xlim[1], 5)))
     plt.xlim(xlim)
     plt.ylim(ylim)
     plt.title(title)
-    plt.axvline(x=snp_pos, color='k', linestyle='--')
+    axes.axvline(x=snp_pos, color='k', linestyle='--')
     if show==True:
-        plt.show() 
-    return f,ax
+        plt.show()
+    else:
+        return axes
+
 
 def plot_learning_curve(history):
     train_losses=history.history['loss']

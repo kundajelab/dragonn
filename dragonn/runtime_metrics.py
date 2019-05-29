@@ -1,4 +1,4 @@
-x#Note: this is ugly w/ use of tf & K --> needed to avoid custom keras modifications 
+#Note: this is ugly w/ use of tf & K --> needed to avoid custom keras modifications 
 import tensorflow as tf
 import keras.backend as K
 
