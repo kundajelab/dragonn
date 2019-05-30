@@ -22,6 +22,7 @@ def load_dragonn_model(model_string):
                     "specificity":specificity,
                     "fpr":fpr,
                     "fnr":fnr,
+                    "fdr":fdr,
                     "precision":precision,
                     "f1":f1,
                     "spearman_corr":spearman_corr,
@@ -29,6 +30,7 @@ def load_dragonn_model(model_string):
                     "ambig_mean_squared_error":get_ambig_mean_squared_error()}    
     model=load_model(model_string,custom_objects=custom_objects)
     return model
+
 
 class Model(object):
     __metaclass__ = ABCMeta
