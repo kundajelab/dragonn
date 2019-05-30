@@ -70,7 +70,6 @@ class DataGenerator(Sequence):
             
         #open the reference file
         self.ref_fasta=ref_fasta
-
         self.data=open_data_file(data_path,tasks)
         
         self.indices=np.arange(self.data.shape[0])
@@ -102,8 +101,7 @@ class DataGenerator(Sequence):
 
     def __getitem__(self,idx):
         with self.lock:
-            ref=pysam.FastaFile(self.ref_fasta)
-            self.ref=ref
+            self.ref=pysam.FastaFile(self.ref_fasta)
             if self.shuffled_ref_negatives==True:
                 return self.get_shuffled_ref_negatives_batch(idx)
             elif self.upsample==True:
@@ -227,4 +225,25 @@ class BQTLGenerator(DataGenerator):
         seqs=np.array([[ltrdict.get(x,[0,0,0,0]) for x in seq] for seq in seqs])
         x_batch=np.expand_dims(seqs,1)
         return x_batch
+
+#Returns batch index in addition to x,y labels. Useful for prediction   
+class IndexedBatchGenerator(DataGenerator):
+    def __init__(self,data_path,ref_fasta,batch_size=128,add_revcomp=True,tasks=None,shuffled_ref_negatives=False,upsample=True,upsample_ratio=0.1,upsample_thresh=0.5):
+        DataGenerator.__init__(self,data_path,ref_fasta,batch_size,add_revcomp=False,upsample=False)
+
+    def __getitem__(self,idx):
+        with self.lock:
+            self.ref=pysam.FastaFile(self.ref_fasta)
+            if self.shuffled_ref_negatives==True:
+                (x_batch,y_batch)=self.get_shuffled_ref_negatives_batch(idx)
+                return (x_batch,y_batch,idx)
+            elif self.upsample==True:
+                (x_batch,y_batch)=self.get_upsampled_positives_batch(idx)
+                return (x_batch,y_batch,idx) 
+            else:
+                (x_batch,y_batch)=self.get_basic_batch(idx)
+                return (x_batch,y_batch,idx)
+            
+    def on_epoch_end(self):
+        return
     
