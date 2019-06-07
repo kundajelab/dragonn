@@ -4,7 +4,7 @@ import sys
 from scipy.signal import correlate2d
 from simdna.simulations import loaded_motifs
 import pysam
-
+import random 
 ltrdict = {'a':[1,0,0,0],
            'c':[0,1,0,0],
            'g':[0,0,1,0],
@@ -31,9 +31,9 @@ def rolling_window(a, window):
 
 
 def get_motif_scores(encoded_sequences, motif_names,
-                     max_scores=None, return_positions=False, GC_fraction=0.4):
+                     max_scores=None, return_positions=False, GC_fraction=0.46, pfm=None,log_pfm=None,include_rc=True):
     """
-    Computes pwm log odds.
+    Computes pfm log odds.
 
     Parameters
     ----------
@@ -42,7 +42,9 @@ def get_motif_scores(encoded_sequences, motif_names,
     max_scores : int, optional
     return_positions : boolean, optional
     GC_fraction : float, optional
-
+    pfm: position weight matrix for the motif, optional
+    log_pfm: log(pfm), optional, this is the format that  HOCOMOCO Provides in their PFM download links 
+    include_rc: boolean indicating whether both the forward strand and the reverse complement of the motif should be used (default True) 
     Returns
     -------
     (num_samples, num_motifs, seq_length) complete score array by default.
@@ -54,13 +56,16 @@ def get_motif_scores(encoded_sequences, motif_names,
     num_samples, _, _, seq_length = encoded_sequences.shape
     scores = np.ones((num_samples, len(motif_names), seq_length))
     for j, motif_name in enumerate(motif_names):
-        pwm = loaded_motifs.getPwm(motif_name).getRows().T
-        log_pwm = np.log(pwm)
-        gc_pwm = 0.5 * np.array([[1 - GC_fraction, GC_fraction,
-                                  GC_fraction, 1 - GC_fraction]] * len(pwm[0])).T
-        gc_log_pwm = np.log(gc_pwm)
-        scores[:, j, :] = get_pssm_scores(
-            encoded_sequences, log_pwm) - get_pssm_scores(encoded_sequences, gc_log_pwm)
+        if (pfm is None) and (log_pfm is None):
+            pfm = loaded_motifs.getPfm(motif_name).getRows().T
+            log_pfm = np.log(pfm)
+        elif log_pfm is None:
+            log_pfm = np.log(pfm)
+        #get the background pfm either based on GC fraction or on shuffling the input sequence
+        background_pfm = 0.5 * np.array([[1 - GC_fraction, GC_fraction,
+                                          GC_fraction, 1 - GC_fraction]] * len(log_pfm[0])).T
+        background_log_pfm = np.log(background_pfm)
+        scores[:, j, :] =get_pssm_scores(encoded_sequences, log_pfm,include_rc=include_rc) - get_pssm_scores(encoded_sequences, background_log_pfm,include_rc=include_rc)
     if max_scores is not None:
         sorted_scores = np.sort(scores)[:, :, ::-1][:, :, :max_scores]
         if return_positions:
@@ -73,8 +78,8 @@ def get_motif_scores(encoded_sequences, motif_names,
     else:
         return scores
 
-
-def get_pssm_scores(encoded_sequences, pssm):
+    
+def get_pssm_scores(encoded_sequences, pssm,include_rc=True):
     """
     Convolves pssm and its reverse complement with encoded sequences
     and returns the maximum score at each position of each sequence.
@@ -85,6 +90,7 @@ def get_pssm_scores(encoded_sequences, pssm):
          (num_examples, 1, 4, seq_length) array
     pssm: 2darray
         (4, pssm_length) array
+    rc
 
     Returns
     -------
@@ -102,13 +108,18 @@ def get_pssm_scores(encoded_sequences, pssm):
         base_pssm_rc = base_pssm[:, ::-1]
         fwd_scores[:, base_indx, :] = correlate2d(
             encoded_sequences[:, base_indx, :], base_pssm, mode='same')
-        rc_scores[:, base_indx, :] = correlate2d(
-            encoded_sequences[:, -(base_indx + 1), :], base_pssm_rc, mode='same')
+        if include_rc==True:
+            rc_scores[:, base_indx, :] = correlate2d(
+                encoded_sequences[:, -(base_indx + 1), :], base_pssm_rc, mode='same')
     # sum over the bases
     fwd_scores = fwd_scores.sum(axis=1)
-    rc_scores = rc_scores.sum(axis=1)
+    if include_rc==True:
+        rc_scores = rc_scores.sum(axis=1)
+    if include_rc==True:
     # take max of fwd and reverse scores at each position
-    scores = np.maximum(fwd_scores, rc_scores)
+        scores = np.maximum(fwd_scores, rc_scores)
+    else:
+        scores=fwd_scores
     return scores
 
 def one_hot_from_bed(bed_entries,ref_fasta):
@@ -116,6 +127,27 @@ def one_hot_from_bed(bed_entries,ref_fasta):
     seqs=[ref.fetch(i[0],i[1],i[2]) for i in bed_entries]
     seqs=one_hot_encode(seqs)
     return seqs
+
+def allele_freqs_from_bed(bed_file,ref_fasta):
+    import pandas as pd
+    bed_entries=pd.read_csv(bed_file,header=None,sep='\t',usecols=[0,1,2])
+    print("read in bed file") 
+    ref=pysam.FastaFile(ref_fasta)
+    print("extracted fasta") 
+    seqs=''.join([ref.fetch(row[0],row[1],row[2]) for index,row in bed_entries.iterrows()])
+    seqs=seqs.lower()
+    a_count=seqs.count('a') 
+    c_count=seqs.count('c') 
+    g_count=seqs.count('g') 
+    t_count=seqs.count('t')
+    all_counts=a_count+c_count+g_count+t_count 
+    a_freq=a_count/all_counts
+    c_freq=c_count/all_counts
+    g_freq=g_count/all_counts
+    t_freq=t_count/all_counts
+    return [a_freq,c_freq,g_freq,t_freq]
+
+
 
 def one_hot_encode(seqs):
     encoded_seqs=np.array([[ltrdict.get(x,[0,0,0,0]) for x in seq] for seq in seqs])
@@ -133,7 +165,8 @@ def get_sequence_strings(encoded_sequences):
     sequence_characters = np.chararray((num_samples, seq_length))
     sequence_characters[:] = 'N'
     for i, letter in enumerate(['A', 'C', 'G', 'T']):
-        letter_indxs = (encoded_sequences[:, :, :,i] == 1).squeeze()
+        letter_indxs = (encoded_sequences[:, :, :,i] == 1)#.squeeze()
+        #print(str(letter_indxs))
         sequence_characters[letter_indxs] = letter
     # return 1D view of sequence characters
     return [seq.decode('utf-8') for seq in sequence_characters.view('S%s' % (seq_length)).ravel()]
@@ -166,3 +199,4 @@ def encode_fasta_sequences(fname):
     return one_hot_encode(np.array(sequences))
 
 
+    

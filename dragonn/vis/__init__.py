@@ -21,18 +21,18 @@ def plot_all_interpretations(interp_dict,X,xlim=None,figsize=(20,3),title=None,s
         axes = np.array(axes)
         if num_samples==1:
             axes=np.expand_dims(axes,axis=1)
-        scan_axes=axes[0,:]
-        ism_axes=axes[1:3,:]
-        input_grad_axes=axes[3,:]
-        deeplift_axes=axes[4,:]
+        scan_axes=axes[2,:]
+        ism_axes=axes[3:5,:]
+        input_grad_axes=axes[1,:]
+        deeplift_axes=axes[0,:]
     else:
         f,axes=plt.subplots(4,num_samples, dpi=80,figsize=(figsize[0],figsize[1]*4))
         if num_samples==1:
             axes=np.expand_dims(axes,axis=1)
         axes = np.array(axes)
-        ism_axes=axes[0:2,:]
-        input_grad_axes=axes[2,:]
-        deeplift_axes=axes[3,:]
+        ism_axes=axes[2:4,:]
+        input_grad_axes=axes[1,:]
+        deeplift_axes=axes[0,:]
 
     for sample_index in range(num_samples):
         if interp_dict[sample_index]['motif_scan'] is not None:
@@ -53,6 +53,7 @@ def plot_all_interpretations(interp_dict,X,xlim=None,figsize=(20,3),title=None,s
                                                           xlim=xlim,
                                                           snp_pos=snp_pos,
                                                           axes=input_grad_axes[sample_index])
+        
         deeplift_axes[sample_index]=plot_seq_importance(interp_dict[sample_index]['deeplift'],
                                                         X,
                                                         title=":".join(["DeepLIFT",title[sample_index]]),
@@ -170,7 +171,7 @@ def plot_filters(model,simulation_data,show=True):
         plt.show()
 
 
-def plot_motif_scores(motif_scores,title="",figsize=(20,3),ylim=(0,20),xlim=None,axes=None):
+def plot_motif_scores(motif_scores,title="",figsize=(20,3),ylim=None,xlim=None,axes=None):
     #remove any redundant axes
     motif_scores=motif_scores.squeeze()
     if axes is None:
@@ -279,9 +280,9 @@ def plot_seq_importance(grads, x, xlim=None, ylim=None, figsize=(25, 3),title=""
         ylim= (np.amin(vals_to_plot),np.amax(vals_to_plot))
     axes=plot_bases_on_ax(vals_to_plot,axes,show_ticks=True)
     plt.xticks(list(range(xlim[0], xlim[1], 5)))
-    plt.xlim(xlim)
-    plt.ylim(ylim)
-    plt.title(title)
+    axes.set_xlim(xlim)
+    axes.set_ylim(ylim)
+    axes.set_title(title)
     axes.axvline(x=snp_pos, color='k', linestyle='--')
     if show==True:
         plt.show()
