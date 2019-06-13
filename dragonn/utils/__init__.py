@@ -165,9 +165,12 @@ def get_sequence_strings(encoded_sequences):
     sequence_characters = np.chararray((num_samples, seq_length))
     sequence_characters[:] = 'N'
     for i, letter in enumerate(['A', 'C', 'G', 'T']):
-        letter_indxs = (encoded_sequences[:, :, :,i] == 1)#.squeeze()
-        #print(str(letter_indxs))
-        sequence_characters[letter_indxs] = letter
+        try:
+            letter_indxs = encoded_sequences[:, :, :,i] == 1
+            sequence_characters[letter_indxs] = letter
+        except:
+            letter_indxs = (encoded_sequences[:, :, :,i] == 1).squeeze()
+            sequence_characters[letter_indxs] = letter
     # return 1D view of sequence characters
     return [seq.decode('utf-8') for seq in sequence_characters.view('S%s' % (seq_length)).ravel()]
 
