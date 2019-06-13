@@ -16,7 +16,7 @@ def multi_method_interpret(model,
                            reference="shuffled_ref",
                            one_hot_func=None,
                            pfm=None,
-                           GC_fraction=None,
+                           GC_fraction=0.4,
                            generate_plots=True):
     """
     Arguments:

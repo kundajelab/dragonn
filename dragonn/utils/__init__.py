@@ -31,7 +31,7 @@ def rolling_window(a, window):
 
 
 def get_motif_scores(encoded_sequences, motif_names,
-                     max_scores=None, return_positions=False, GC_fraction=0.46, pfm=None,log_pfm=None,include_rc=True):
+                     max_scores=None, return_positions=False, GC_fraction=0.4, pfm=None,log_pfm=None,include_rc=True):
     """
     Computes pfm log odds.
 
@@ -57,7 +57,7 @@ def get_motif_scores(encoded_sequences, motif_names,
     scores = np.ones((num_samples, len(motif_names), seq_length))
     for j, motif_name in enumerate(motif_names):
         if (pfm is None) and (log_pfm is None):
-            pfm = loaded_motifs.getPfm(motif_name).getRows().T
+            pfm = loaded_motifs.getPwm(motif_name).getRows().T
             log_pfm = np.log(pfm)
         elif log_pfm is None:
             log_pfm = np.log(pfm)
