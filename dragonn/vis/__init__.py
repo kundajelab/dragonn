@@ -171,7 +171,7 @@ def plot_filters(model,simulation_data,show=True):
         plt.show()
 
 
-def plot_motif_scores(motif_scores,title="",figsize=(20,3),ylim=None,xlim=None,axes=None):
+def plot_motif_scores(motif_scores,title="",figsize=(20,3),ylim=(0,20),xlim=None,axes=None):
     #remove any redundant axes
     motif_scores=motif_scores.squeeze()
     if axes is None:

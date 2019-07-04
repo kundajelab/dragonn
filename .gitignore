@@ -1,7 +1,7 @@
 __pycache__/
-build/*
+build/
 dragonn.egg-info
-dist/*
+dist/
 *.pyc
 *.ipynb_checkpoints
 *.idea
