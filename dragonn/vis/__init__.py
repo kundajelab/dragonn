@@ -4,19 +4,34 @@ import  numpy as np
 from dragonn.vis.plot_letters import * 
 from dragonn.vis.plot_kmers import * 
 
-def plot_all_interpretations(interp_dict,X,xlim=None,figsize=(20,3),title=None,snp_pos=0,out_fname_svg=None):
+def extract_index_interp_dict(interp_dict_list,index):
     '''
-    interp_dict -- list of interpretation metrics for inputs 
-    X -- input
+    Extract interpretation metrics for a single example 
+    '''
+    new_interp_dict_list=[]
+    for i in range(len(interp_dict_list)):
+        new_interp_dict_list.append({}) 
+        for key in interp_dict_list[i]:
+            new_interp_dict_list[i][key]=interp_dict_list[i][key][index] 
+    return new_interp_dict_list
+
+def plot_all_interpretations(interp_dict_list,X,xlim=None,figsize=(20,3),title=None,snp_pos=0,out_fname_svg=None,index=None):
+    '''
+    interp_dict_list -- list of dictionaries of interpretation metrics for inputs 
+    X -- input 
     title -- list of titles, or None 
     out_fname_svg -- filename to save svg figure (or None if it shouldn't be saved to an output file)
+    index -- index of sample whose interpretations should be plotted 
     '''
-    num_samples=len(interp_dict)
+    if index!=None:
+        interp_dict_list=extract_index_interp_dict(interp_dict_list,index)
+        X=X[index] 
+    num_samples=len(interp_dict_list)
     if title==None:
         title=["" for i in range(num_samples)]
     if xlim==None:
         xlim=(0,X.squeeze().shape[0])
-    if interp_dict[0]['motif_scan'] is not None:
+    if interp_dict_list[0]['motif_scan'] is not None:
         f,axes=plt.subplots(nrows=5,ncols=num_samples, dpi=80,figsize=(figsize[0],figsize[1]*5))
         axes = np.array(axes)
         if num_samples==1:
@@ -35,18 +50,18 @@ def plot_all_interpretations(interp_dict,X,xlim=None,figsize=(20,3),title=None,s
         deeplift_axes=axes[0,:]
 
     for sample_index in range(num_samples):
-        if interp_dict[sample_index]['motif_scan'] is not None:
-            scan_axes[sample_index]=plot_motif_scores(interp_dict[sample_index]['motif_scan'],
+        if interp_dict_list[sample_index]['motif_scan'] is not None:
+            scan_axes[sample_index]=plot_motif_scores(interp_dict_list[sample_index]['motif_scan'],
                                                       title=":".join(["Motif Scan Scores",title[sample_index]]),
                                                       figsize=figsize,
                                                       xlim=xlim,
                                                       axes=scan_axes[sample_index])
-        ism_axes[:,sample_index]=plot_ism(interp_dict[sample_index]['ism'],
+        ism_axes[:,sample_index]=plot_ism(interp_dict_list[sample_index]['ism'],
                                           title=':'.join(["ISM",title[sample_index]]),
                                           figsize=figsize,
                                           xlim=xlim,
                                           axes=ism_axes[:,sample_index])
-        input_grad_axes[sample_index]=plot_seq_importance(interp_dict[sample_index]['input_grad'],
+        input_grad_axes[sample_index]=plot_seq_importance(interp_dict_list[sample_index]['input_grad'],
                                                           X,
                                                           title=":".join(["GradXInput",title[sample_index]]),
                                                           figsize=figsize,
@@ -54,7 +69,7 @@ def plot_all_interpretations(interp_dict,X,xlim=None,figsize=(20,3),title=None,s
                                                           snp_pos=snp_pos,
                                                           axes=input_grad_axes[sample_index])
         
-        deeplift_axes[sample_index]=plot_seq_importance(interp_dict[sample_index]['deeplift'],
+        deeplift_axes[sample_index]=plot_seq_importance(interp_dict_list[sample_index]['deeplift'],
                                                         X,
                                                         title=":".join(["DeepLIFT",title[sample_index]]),
                                                         figsize=figsize,
@@ -65,8 +80,8 @@ def plot_all_interpretations(interp_dict,X,xlim=None,figsize=(20,3),title=None,s
         plt.savefig(out_fname_svg,dpi=80,format="svg")
     f.show()
 
-def plot_snp_interpretation(ref_interp_dict,
-                    alt_interp_dict,
+def plot_snp_interpretation(ref_interp_dict_list,
+                    alt_interp_dict_list,
                     ref_X,
                     alt_X,
                     xlim=None,
@@ -82,7 +97,7 @@ def plot_snp_interpretation(ref_interp_dict,
     title -- list of titles, or None 
     out_fname_svg -- filename to save svg figure (or None if it shouldn't be saved to an output file)
     '''
-    num_samples=len(ref_interp_dict)
+    num_samples=len(ref_interp_dict_list)
     if title==None:
         title=["" for i in range(num_samples)]
     if xlim==None:
@@ -98,32 +113,32 @@ def plot_snp_interpretation(ref_interp_dict,
     deeplift_delta_axes=axes[5,:]
     
     for sample_index in range(num_samples):
-        ism_axes[:,sample_index]=plot_ism(ref_interp_dict[sample_index]['ism'],
+        ism_axes[:,sample_index]=plot_ism(ref_interp_dict_list[sample_index]['ism'],
                                           title=':'.join(["ISM",title[sample_index]]),
                                           figsize=figsize,
                                           xlim=xlim,
                                           axes=ism_axes[:,sample_index])
-        input_grad_axes[sample_index]=plot_seq_importance(ref_interp_dict[sample_index]['input_grad'],
+        input_grad_axes[sample_index]=plot_seq_importance(ref_interp_dict_list[sample_index]['input_grad'],
                                                           ref_X,
                                                           title=":".join(["GradXInput",title[sample_index]]),
                                                           figsize=figsize,
                                                           xlim=xlim,
                                                           axes=input_grad_axes[sample_index])
-        deeplift_ref_axes[sample_index]=plot_seq_importance(ref_interp_dict[sample_index]['deeplift'],
+        deeplift_ref_axes[sample_index]=plot_seq_importance(ref_interp_dict_list[sample_index]['deeplift'],
                                                             ref_X,
                                                             title=":".join(["Ref DeepLIFT",title[sample_index]]),
                                                             figsize=figsize,
                                                             xlim=xlim,
                                                             snp_pos=snp_pos,
                                                             axes=deeplift_ref_axes[sample_index])
-        deeplift_alt_axes[sample_index]=plot_seq_importance(alt_interp_dict[sample_index]['deeplift'],
+        deeplift_alt_axes[sample_index]=plot_seq_importance(alt_interp_dict_list[sample_index]['deeplift'],
                                                             alt_X,
                                                             title=":".join(["Alt DeepLIFT",title[sample_index]]),
                                                             figsize=figsize,
                                                             xlim=xlim,
                                                             snp_pos=snp_pos,
                                                             axes=deeplift_alt_axes[sample_index])
-        deeplift_delta_axes[sample_index]=plot_seq_importance(alt_interp_dict[sample_index]['deeplift'] - ref_interp_dict[sample_index]['deeplift'],
+        deeplift_delta_axes[sample_index]=plot_seq_importance(alt_interp_dict_list[sample_index]['deeplift'] - ref_interp_dict_list[sample_index]['deeplift'],
                                                               alt_X,
                                                               title=":".join(["Alt - Ref DeepLIFT",title[sample_index]]),
                                                               figsize=figsize,
@@ -306,3 +321,27 @@ def plot_learning_curve(history):
     plt.show()
 
 
+def plot_positionalPRC(positionalPRC_output):
+    '''
+    accepts output dictionary from the positionalPRC function of the form: motif_name --> [precision,recall,auPRC] 
+    generates PRC curves for each motif on same coordinates 
+    '''
+    #from sklearn.utils.fixes import signature
+    for motif_name,values in positionalPRC_output.items():
+        recall=values[0]
+        precision=values[1]
+        auPRC=str(round(values[2],3))
+        #step_kwargs = ({'step': 'post'}
+        #                              if 'step' in signature(plt.fill_between).parameters
+        #                              else {})
+        plt.plot(recall, precision, '-',label=motif_name+":"+auPRC)
+        #uncomment to fill the area below the curve, generally not desirable if multiple curves plotted on same axes.
+        #plt.fill_between(recall, precision, alpha=0.2, color='b', **step_kwargs)
+
+    plt.xlabel('Recall')
+    plt.ylabel('Precision')
+    plt.ylim([0.0, 1.05])
+    plt.xlim([0.0, 1.0])
+    plt.legend()
+    plt.show()
+        

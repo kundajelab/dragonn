@@ -92,27 +92,3 @@ def positionalPRC(embeddings, scores,window_stride=1, coverage_thresh_for_positi
     
 
     
-def plot_positionalPRC(positionalPRC_output):
-    '''
-    accepts output dictionary from the positionalPRC function of the form: motif_name --> [precision,recall,auPRC] 
-    generates PRC curves for each motif on same coordinates 
-    '''
-    from sklearn.utils.fixes import signature
-    for motif_name,values in positionalPRC_output.items():
-        recall=values[0]
-        precision=values[1]
-        auPRC=str(round(values[2],3))
-        step_kwargs = ({'step': 'post'}
-                                      if 'step' in signature(plt.fill_between).parameters
-                                      else {})
-        plt.step(recall, precision, label=motif_name+":"+auPRC,where='post')
-        #uncomment to fill the area below the curve, generally not desirable if multiple curves plotted on same axes.
-        #plt.fill_between(recall, precision, alpha=0.2, color='b', **step_kwargs)
-
-    plt.xlabel('Recall')
-    plt.ylabel('Precision')
-    plt.ylim([0.0, 1.05])
-    plt.xlim([0.0, 1.0])
-    plt.legend()
-    plt.show()
-        
