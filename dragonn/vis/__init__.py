@@ -57,6 +57,7 @@ def plot_all_interpretations(interp_dict_list,X,xlim=None,figsize=(20,3),title=N
                                                       xlim=xlim,
                                                       axes=scan_axes[sample_index])
         ism_axes[:,sample_index]=plot_ism(interp_dict_list[sample_index]['ism'],
+                                          X,
                                           title=':'.join(["ISM",title[sample_index]]),
                                           figsize=figsize,
                                           xlim=xlim,
@@ -222,7 +223,7 @@ def plot_model_weights(model,layer_idx=-2,show=True):
         plt.show()
     return f,f.get_axes() 
 
-def plot_ism(ism_mat,title="", xlim=None, ylim=None, figsize=(20,5),axes=None):
+def plot_ism(ism_mat,x,title="", xlim=None, ylim=None, figsize=(20,5),axes=None):
     """ Plot the 4xL heatmap and also the identity and score of the highest scoring (mean subtracted) allele at each position 
     
     Args:
@@ -237,16 +238,16 @@ def plot_ism(ism_mat,title="", xlim=None, ylim=None, figsize=(20,5),axes=None):
         show=True
     else:
         show=False
+
     if ism_mat.shape!=2:
         ism_mat=np.squeeze(ism_mat)
     assert len(ism_mat.shape)==2
     assert ism_mat.shape[1]==4
-    
-    highest_scoring_pos=np.argmax(np.abs(ism_mat),axis=1)
-    zero_map=np.zeros(ism_mat.shape)
-    for i in range(zero_map.shape[0]):
-        zero_map[i][highest_scoring_pos[i]]=1
-    product=zero_map*ism_mat
+
+    if x.shape!=2: 
+        x=x.squeeze()
+    seq_len = x.shape[0]
+    product=ism_mat*x
     plt.set_cmap('RdBu')
     axes[0]=plot_bases_on_ax(product,axes[0],show_ticks=False)
     axes[0].set_title(title)
