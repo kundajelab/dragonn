@@ -3,6 +3,8 @@ from matplotlib import pyplot as plt
 import  numpy as np 
 from dragonn.vis.plot_letters import * 
 from dragonn.vis.plot_kmers import * 
+import warnings
+warnings.filterwarnings('ignore')
 
 def extract_index_interp_dict(interp_dict_list,index):
     '''

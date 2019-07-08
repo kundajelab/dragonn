@@ -4,7 +4,9 @@ import sys
 from scipy.signal import correlate2d
 from simdna.simulations import loaded_motifs
 import pysam
-import random 
+import random
+import warnings
+warnings.filterwarnings("ignore") 
 ltrdict = {'a':[1,0,0,0],
            'c':[0,1,0,0],
            'g':[0,0,1,0],

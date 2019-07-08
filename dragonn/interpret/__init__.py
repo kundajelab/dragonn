@@ -4,7 +4,8 @@ from dragonn.interpret.input_grad import *
 from dragonn.utils import get_motif_scores
 from dragonn.vis import * 
 from dragonn.models import load_dragonn_model
-
+import warnings
+warnings.filterwarnings('ignore') 
 def multi_method_interpret(model,
                            X,
                            task_idx,

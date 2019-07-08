@@ -1,5 +1,7 @@
 from keras.callbacks import Callback
 from dragonn.metrics import *
+import warnings
+warnings.filterwarnings('ignore')
 
 class MetricsCallback(Callback):
         def __init__(self, train_data, validation_data):

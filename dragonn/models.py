@@ -15,6 +15,8 @@ from sklearn.ensemble import RandomForestClassifier
 from keras.models import load_model
 from dragonn.runtime_metrics import *
 from dragonn.custom_losses import * 
+import warnings
+warnings.filterwarnings('ignore')
 
 def load_dragonn_model(model_string):
     custom_objects={"recall":recall,
