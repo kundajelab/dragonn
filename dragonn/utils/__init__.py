@@ -176,12 +176,17 @@ def get_sequence_strings(encoded_sequences):
     # return 1D view of sequence characters
     return [seq.decode('utf-8') for seq in sequence_characters.view('S%s' % (seq_length)).ravel()]
 
-def fasta_from_onehot(onehot_mat,outf):
+def fasta_from_onehot(onehot_mat,outfname):
+    '''
+    writes a gzipped fasta file from a onehot-encode matrix 
+    '''
+    import gzip
     strings=get_sequence_strings(onehot_mat)
-    outf=open(outf,'w')
+    outf= gzip.open(outfname, 'wb')
     for i in range(len(strings)):
-        outf.write(">"+str(i)+'\n')
-        outf.write(strings[i]+'\n')
+        outf.write(str.encode(">"+str(i)+'\n'))
+        outf.write(str.encode(strings[i]+'\n'))
+    outf.close()    
         
 
 def encode_fasta_sequences(fname):
