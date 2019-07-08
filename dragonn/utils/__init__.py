@@ -191,11 +191,12 @@ def fasta_from_onehot(onehot_mat,outfname):
 
 def encode_fasta_sequences(fname):
     """
-    One hot encodes sequences in fasta file
+    One hot encodes sequences in a gzipped fasta file 
     """
+    import gzip
     name, seq_chars = None, []
     sequences = []
-    with open(fname) as fp:
+    with gzip.open(fname, 'rb') as fp:
         for line in fp:
             line = line.rstrip()
             if line.startswith(">"):
