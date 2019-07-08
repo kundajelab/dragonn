@@ -41,7 +41,9 @@ def get_deeplift_scoring_function(model,target_layer_idx=-2,task_idx=0, num_refs
     """
     Arguments: 
         model -- a string containing the path to the hdf5 exported model 
-        target_layer_idx -- should be -2 for classification; -1 for regression 
+        target_layer_idx -- Layer in the model whose outputs will be interpreted. For classification models we \ 
+                            interpret the logit (input to the sigmoid), which is the output of layer -2. 
+                            For regression models we intepret the model output, which is the output of layer -1. 
         reference -- one of 'shuffled_ref','gc_ref','zero_ref'
         one_hot_func -- one hot function to use for encoding FASTA string inputs; if the inputs are already one-hot-encoded, use the default of None 
     Returns:
