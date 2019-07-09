@@ -33,27 +33,36 @@ def revcomp(seq):
     return ''.join(rc)
 
 
-def open_data_file(data_path,tasks):
+def open_data_file(data_path,tasks,num_to_read=None):
     if data_path.endswith('.hdf5'):
-        if tasks==None:
-            data=pd.read_hdf(data_path)
-        else:
+        if (tasks is None) and (num_to_read is not None):
+            data=pd.read_hdf(data_path,start=1,stop=num_to_read)
+        elif (tasks is not None) and (num_to_read is None):
             data=pd.read_hdf(data_path,columns=tasks)
+        elif (tasks is None) and (num_to_read is None):
+            data=pd.read_hdf(data_path)
+        else: 
+            data=pd.read_hdf(data_path,columns=tasks,start=1,stop=num_to_read)
     else:
         #treat as bed file 
-        if tasks==None:
+        if (tasks is None) and (num_to_read is not None):
+            data=pd.read_csv(data_path,header=0,sep='\t',index_col=[0,1,2],start=1,stop=num_to_read)
+        elif (tasks is None) and (num_to_read is None):
             data=pd.read_csv(data_path,header=0,sep='\t',index_col=[0,1,2])
         else:
             data=pd.read_csv(data_path,header=0,sep='\t',nrows=1)
             chrom_col=data.columns[0]
             start_col=data.columns[1]
             end_col=data.columns[2]
-            data=pd.read_csv(data_path,header=0,sep='\t',usecols=[chrom_col,start_col,end_col]+tasks,index_col=[0,1,2])
+            if num_to_read is None:
+                data=pd.read_csv(data_path,header=0,sep='\t',usecols=[chrom_col,start_col,end_col]+tasks,index_col=[0,1,2])
+            else:
+                data=pd.read_csv(data_path,header=0,sep='\t',usecols=[chrom_col,start_col,end_col]+tasks,index_col=[0,1,2],start=1,stop=num_to_read)
     return data 
 
 #use wrappers for keras Sequence generator class to allow batch shuffling upon epoch end
 class DataGenerator(Sequence):
-    def __init__(self,data_path,ref_fasta,batch_size=128,add_revcomp=True,tasks=None,shuffled_ref_negatives=False,upsample=True,upsample_ratio=0.1,upsample_thresh=0.5):
+    def __init__(self,data_path,ref_fasta,batch_size=128,add_revcomp=True,tasks=None,shuffled_ref_negatives=False,upsample=True,upsample_ratio=0.1,upsample_thresh=0.5,num_to_read=None):
         self.lock = threading.Lock()        
         self.batch_size=batch_size
         #decide if reverse complement should be used
@@ -70,7 +79,7 @@ class DataGenerator(Sequence):
             
         #open the reference file
         self.ref_fasta=ref_fasta
-        self.data=open_data_file(data_path,tasks)
+        self.data=open_data_file(data_path,tasks,num_to_read)
         
         self.indices=np.arange(self.data.shape[0])
         num_indices=self.indices.shape[0]
