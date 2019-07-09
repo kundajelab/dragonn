@@ -38,10 +38,10 @@ def plot_all_interpretations(interp_dict_list,X,xlim=None,figsize=(20,3),title=N
         axes = np.array(axes)
         if num_samples==1:
             axes=np.expand_dims(axes,axis=1)
-        scan_axes=axes[2,:]
         ism_axes=axes[3:5,:]
-        input_grad_axes=axes[1,:]
-        deeplift_axes=axes[0,:]
+        input_grad_axes=axes[2,:]
+        deeplift_axes=axes[1,:]
+        scan_axes=axes[0,:]
     else:
         f,axes=plt.subplots(4,num_samples, dpi=80,figsize=(figsize[0],figsize[1]*4))
         if num_samples==1:
