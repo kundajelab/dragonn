@@ -182,13 +182,15 @@ def fasta_from_onehot(onehot_mat,outfname):
     '''
     import gzip
     strings=get_sequence_strings(onehot_mat)
-    outf= gzip.open(outfname, 'wb')
+    data=[]
     for i in range(len(strings)):
-        outf.write(str.encode(">"+str(i)+'\n'))
-        outf.write(str.encode(strings[i]+'\n'))
-    outf.close()    
-        
-
+        data.append(">"+str(i))
+        data.append(strings[i])
+    data=bytearray('\n'.join(data),'utf8')
+    outf=gzip.open(outfname,'wb')
+    outf.write(data)
+    outf.close()
+    
 def encode_fasta_sequences(fname):
     """
     One hot encodes sequences in a gzipped fasta file 
@@ -197,14 +199,16 @@ def encode_fasta_sequences(fname):
     name, seq_chars = None, []
     sequences = []
     with gzip.open(fname, 'rb') as fp:
-        for line in fp:
-            line = line.rstrip()
-            if line.startswith(">"):
-                if name:
-                    sequences.append(''.join(seq_chars).upper())
-                name, seq_chars = line, []
-            else:
-                seq_chars.append(line)
+        data=str(fp.read()).strip().split('\n')
+    
+    for line in data:
+        line = line.rstrip()
+        if line.startswith(">"):
+            if name:
+                sequences.append(''.join(seq_chars).upper())
+            name, seq_chars = line, []
+        else:
+            seq_chars.append(line)
     if name is not None:
         sequences.append(''.join(seq_chars).upper())
     return one_hot_encode(np.array(sequences))

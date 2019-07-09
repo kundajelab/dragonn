@@ -1,5 +1,5 @@
 import matplotlib
-from matplotlib import pyplot as plt
+1;5202;0cfrom matplotlib import pyplot as plt
 import  numpy as np 
 from dragonn.vis.plot_letters import * 
 from dragonn.vis.plot_kmers import * 
@@ -52,12 +52,6 @@ def plot_all_interpretations(interp_dict_list,X,xlim=None,figsize=(20,3),title=N
         deeplift_axes=axes[0,:]
 
     for sample_index in range(num_samples):
-        if interp_dict_list[sample_index]['motif_scan'] is not None:
-            scan_axes[sample_index]=plot_motif_scores(interp_dict_list[sample_index]['motif_scan'],
-                                                      title=":".join(["Motif Scan Scores",title[sample_index]]),
-                                                      figsize=figsize,
-                                                      xlim=xlim,
-                                                      axes=scan_axes[sample_index])
         ism_axes[:,sample_index]=plot_ism(interp_dict_list[sample_index]['ism'],
                                           X,
                                           title=':'.join(["ISM",title[sample_index]]),
@@ -79,6 +73,13 @@ def plot_all_interpretations(interp_dict_list,X,xlim=None,figsize=(20,3),title=N
                                                         xlim=xlim,
                                                         snp_pos=snp_pos,
                                                         axes=deeplift_axes[sample_index])
+        if interp_dict_list[sample_index]['motif_scan'] is not None:
+            scan_axes[sample_index]=plot_motif_scores(interp_dict_list[sample_index]['motif_scan'],
+                                                      title=":".join(["Motif Scan Scores",title[sample_index]]),
+                                                      figsize=figsize,
+                                                      xlim=xlim,
+                                                      axes=scan_axes[sample_index])
+
     if out_fname_svg is not None:
         plt.savefig(out_fname_svg,dpi=80,format="svg")
     f.show()
