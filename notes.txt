@@ -1,0 +1,26 @@
+Tut 5:
+#Split : classification vs regression; bQTL dataset
+# remove Isotonic Regression. spearman/pearson on non-calibrated values
+# upsample the peak regions for regression models.
+#difference log probs
+# scatter plots in log space for the bQTL data.
+# density plot of logratio vs logodds prediction.
+
+#GC_fraction = pwm_background
+#add a line for 0 in pfm plot
+# 4 cell lines for SPI1:
+
+# GM12878
+# GM12891
+# HL-60
+# K562
+
+Tut 3:
+#Todo:
+#* threshold motif scores at 0
+#* PRC curves --> Merged in this notebooks. 
+
+
+Tut1:
+#add in groung truth labels
+# get examples of failure modes for ISM, for motif scan 
