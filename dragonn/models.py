@@ -28,8 +28,8 @@ def load_dragonn_model(model_string):
                     "precision":precision,
                     "f1":f1,
                     "spearman_corr":spearman_corr,
-                    "ambig_binary_crossentropy":get_ambig_binary_crossentropy(),
-                    "ambig_mean_squared_error":get_ambig_mean_squared_error()}    
+                    "ambig_binary_crossentropy":ambig_binary_crossentropy,
+                    "ambig_mean_squared_error":ambig_mean_squared_error}    
     model=load_model(model_string,custom_objects=custom_objects)
     return model
 
