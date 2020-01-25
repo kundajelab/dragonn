@@ -124,9 +124,24 @@ def get_pssm_scores(encoded_sequences, pssm,include_rc=True):
         scores=fwd_scores
     return scores
 
+
+def stranded_one_hot_from_bed(bed_entries,ref_fasta):
+   ref=pysam.FastaFile(ref_fasta)
+   seqs=[ref.fetch(i[0],int(i[1]),int(i[2])) for i in bed_entries]
+   stranded_seqs=[]
+   for i in range(len(bed_entries)):
+       cur_seq=seqs[i]
+       cur_strand=bed_entries[i][3]
+       if cur_strand=="-":
+           cur_seq=reverse_complement_seqspace(cur_seq)
+       stranded_seqs.append(cur_seq)
+   seqs=one_hot_encode(stranded_seqs)
+   return seqs
+
+
 def one_hot_from_bed(bed_entries,ref_fasta):
     ref=pysam.FastaFile(ref_fasta)
-    seqs=[ref.fetch(i[0],i[1],i[2]) for i in bed_entries]
+    seqs=[ref.fetch(i[0],int(i[1]),int(i[2])) for i in bed_entries]
     seqs=one_hot_encode(seqs)
     return seqs
 
@@ -158,6 +173,24 @@ def one_hot_encode(seqs):
 
 def reverse_complement(encoded_seqs):
     return encoded_seqs[..., ::-1, ::-1]
+
+def reverse_complement_seqspace(seq):
+    seq=seq.upper()
+    seq=seq[::-1]
+    revcomp=""
+    for char in seq:
+        if char.upper()=="A":
+            revcomp=revcomp+"T"
+        elif char.upper()=="T":
+            revcomp=revcomp+"A"
+        elif char.upper()=="C":
+            revcomp=revcomp+"G"
+        elif char.upper()=="G":
+            revcomp=revcomp+"C"
+        else:
+            revcomp=revcomp+char
+    return revcomp
+
 
 def get_sequence_strings(encoded_sequences):
     """
