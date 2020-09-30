@@ -1,5 +1,11 @@
-recursive-include . *
+recursive-exclude .git *
 recursive-exclude tutorials *
 recursive-exclude tests *
 recursive-exclude paper_supplement *
 recursive-exclude examples *
+include Dockerfile
+include README.md
+include LICENSE
+include setup.py
+include-recursive docker *
+include CHANGES.txt
