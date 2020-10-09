@@ -24,11 +24,12 @@ def balanced_accuracy(labels, predictions, threshold=0.5):
 def auROC(labels, predictions):
     return roc_auc_score(labels, predictions)
 
-
+#handles ties properly
 def auPRC_careful(labels, predictions):
     auc_careful = average_precision_score(labels, predictions)
     return auc_careful
 
+#may not handle ties properly 
 def auPRC_trapezoid(labels, predictions):
     precision_trapezoid,recall_trapezoid=precision_recall_curve(labels,predictions)[:2]
     auc_trapezoid=auc(recall_trapezoid,precision_trapezoid) 
