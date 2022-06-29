@@ -1,15 +1,7 @@
 #To prepare for model training, we import the necessary functions and submodules from keras
 from keras.models import Sequential
-from keras.layers.core import Dropout, Reshape, Dense, Activation, Flatten
-from keras.layers.convolutional import Conv2D, MaxPooling2D
-from keras.optimizers import Adadelta, SGD, RMSprop;
-import keras.losses;
-from keras.constraints import maxnorm;
-from keras.layers.normalization import BatchNormalization
-from keras.regularizers import l1, l2
-from keras.callbacks import EarlyStopping, History
-from keras import backend as K
-K.set_image_data_format('channels_last')
+from keras.layers import Dropout, Reshape, Dense, Activation, Flatten, Conv2D, MaxPooling2D, BatchNormalization
+from keras.callbacks import EarlyStopping
 from dragonn.callbacks import *
 
 #Import matplotlib utilities for plotting grid search results: 
@@ -63,8 +55,7 @@ def hyperparam_train_model(data,model,num_training_examples=None,epochs=150,pati
                       batch_size=128,
                       epochs=epochs,
                       verbose=0,
-                      callbacks=[EarlyStopping(patience=patience),
-                                 History()],
+                      callbacks=[EarlyStopping(patience=patience)],
                       validation_data=(data.X_valid,data.y_valid))
     
     #get auPRC on test set
