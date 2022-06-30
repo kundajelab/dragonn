@@ -206,6 +206,7 @@ def plot_motif_scores(motif_scores,title="",figsize=(20,3),ylim=(0,20),xlim=None
     if xlim!=None:
         axes.set_xlim(xlim)
     axes.set_title(title)
+    axes.xaxis.set_label_coords(.5, -.1)
     if show==True:
         plt.show()
     else:
@@ -266,7 +267,7 @@ def plot_ism(ism_mat,x,title="", xlim=None, ylim=None, figsize=(20,5),axes=None)
         axes[0].set_xlim(xlim)
         axes[1].set_xlim(xlim) 
         
-
+    axes[1].xaxis.set_label_coords(.5, -.1)
     plt.tight_layout()
     plt.colorbar(hmap,ax=axes[1],orientation='horizontal')
     if show==True:
@@ -299,9 +300,9 @@ def plot_seq_importance(grads, x, xlim=None, ylim=None, figsize=(25, 3),title=""
         ylim= (np.amin(vals_to_plot),np.amax(vals_to_plot))
     axes=plot_bases_on_ax(vals_to_plot,axes,show_ticks=True)
     if xlim[1] - xlim[0] > 200:
-        plt.xticks(list(range(xlim[0], xlim[1], 50)))
+        axes.set_xticks(list(range(xlim[0], xlim[1], 20)))
     else:
-        plt.xticks(list(range(xlim[0], xlim[1], 5)))
+        axes.set_xticks(list(range(xlim[0], xlim[1], 5)))
     axes.set_xlim(xlim)
     axes.set_ylim(ylim)
     axes.set_title(title)
