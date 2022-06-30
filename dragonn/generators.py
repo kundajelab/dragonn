@@ -36,13 +36,13 @@ def revcomp(seq):
 def open_data_file(data_path,tasks,num_to_read=None):
     if data_path.endswith('.hdf5'):
         if (tasks is None) and (num_to_read is not None):
-            data=pd.read_hdf(data_path,start=0,stop=num_to_read)
+            data=pd.read_hdf(data_path,start=0,stop=num_to_read,key='data')
         elif (tasks is not None) and (num_to_read is None):
-            data=pd.read_hdf(data_path,columns=tasks)
+            data=pd.read_hdf(data_path,columns=tasks,key='data')
         elif (tasks is None) and (num_to_read is None):
-            data=pd.read_hdf(data_path)
+            data=pd.read_hdf(data_path,key='data')
         else: 
-            data=pd.read_hdf(data_path,columns=tasks,start=0,stop=num_to_read)
+            data=pd.read_hdf(data_path,columns=tasks,start=0,stop=num_to_read,key='data')
     else:
         #treat as bed file 
         if (tasks is None) and (num_to_read is not None):
