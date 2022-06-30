@@ -57,7 +57,7 @@ def shuffle_several_times(s):
 
 
     
-def deep_shap(model,seq,target_layer_idx):
+def deep_shap(model,seq,target_layer_idx=-2):
     int_model = tf.keras.Model(model.input, model.layers[target_layer_idx].output)
     inp = tf.keras.layers.Input(model.input.shape[2:])
     out = tf.reduce_sum(int_model(tf.expand_dims(inp,axis=1)),axis=1)
