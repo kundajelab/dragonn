@@ -66,9 +66,9 @@ def plot_all_interpretations(interp_dict_list,X,xlim=None,figsize=(20,3),title=N
                                                           snp_pos=snp_pos,
                                                           axes=input_grad_axes[sample_index])
         
-        deeplift_axes[sample_index]=plot_seq_importance(interp_dict_list[sample_index]['deeplift'],
+        deeplift_axes[sample_index]=plot_seq_importance(interp_dict_list[sample_index]['deepshap'],
                                                         X,
-                                                        title=":".join(["DeepLIFT",title[sample_index]]),
+                                                        title=":".join(["DeepShap",title[sample_index]]),
                                                         figsize=figsize,
                                                         xlim=xlim,
                                                         snp_pos=snp_pos,
@@ -298,7 +298,10 @@ def plot_seq_importance(grads, x, xlim=None, ylim=None, figsize=(25, 3),title=""
     if ylim is None:
         ylim= (np.amin(vals_to_plot),np.amax(vals_to_plot))
     axes=plot_bases_on_ax(vals_to_plot,axes,show_ticks=True)
-    plt.xticks(list(range(xlim[0], xlim[1], 5)))
+    if xlim[1] - xlim[0] > 200:
+        plt.xticks(list(range(xlim[0], xlim[1], 50)))
+    else:
+        plt.xticks(list(range(xlim[0], xlim[1], 5)))
     axes.set_xlim(xlim)
     axes.set_ylim(ylim)
     axes.set_title(title)

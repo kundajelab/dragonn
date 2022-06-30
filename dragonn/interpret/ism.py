@@ -20,7 +20,7 @@ def in_silico_mutagenesis(model, X, task_index,target_layer_idx=-2):
     """
     preact_function=get_preact_function(model,target_layer_idx)
     #1. get the wildtype predictions (n,1)    
-    wild_type_logits=np.expand_dims(preact_function(X)[:,task_index],axis=1)
+    wild_type_logits=np.expand_dims(preact_function(X,verbose=0)[:,task_index],axis=1)
     
     #2. expand the wt array to dimensions: (n,1,sequence_length,num_bases)
     
@@ -45,7 +45,7 @@ def in_silico_mutagenesis(model, X, task_index,target_layer_idx=-2):
                 Xtmp=np.array(np.expand_dims(X[sample_index],axis=0))
                 Xtmp[0][0][base_pos]=cur_base
                 #get the logit of Xtmp
-                Xtmp_logit=np.squeeze(preact_function(Xtmp),axis=0)
+                Xtmp_logit=np.squeeze(preact_function(Xtmp,verbose=0),axis=0)
                 mutants_expanded[sample_index][0][base_pos][base_letter]=Xtmp_logit[task_index]
     #subtract wt_expanded from mutants_expanded
     ism_vals=mutants_expanded-wt_expanded

@@ -1,15 +1,16 @@
 from dragonn.interpret.ism import *
 from dragonn.interpret.deeplift import *
 from dragonn.interpret.input_grad import *
+from dragonn.interpret.deepshap import *
 from dragonn.utils import get_motif_scores
 from dragonn.vis import * 
 from dragonn.models import load_dragonn_model
 import warnings
 warnings.filterwarnings('ignore') 
+
 def multi_method_interpret(model,
                            X,
                            task_idx,
-                           deeplift_score_func,
                            motif_names=None,
                            batch_size=200,
                            target_layer_idx=-2,
@@ -52,9 +53,9 @@ def multi_method_interpret(model,
     #3) Input_Grad
     print("getting 'input_grad' value")
     outputs['input_grad']=input_grad(model,X,target_layer_idx=target_layer_idx)
-    #4) DeepLIFT
-    print("getting 'deeplift' value") 
-    outputs['deeplift']=deeplift(deeplift_score_func,X,batch_size=batch_size,task_idx=task_idx,num_refs_per_seq=num_refs_per_seq,reference=reference,one_hot_func=one_hot_func) 
+    #4) Deepshap
+    print("getting 'deepshap' value") 
+    outputs['deepshap']=deep_shap(model,X,target_layer_idx=target_layer_idx)
 
     
     
