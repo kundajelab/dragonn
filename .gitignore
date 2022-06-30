@@ -32,3 +32,6 @@ dist/
 *.tsv
 *.pwm
 *.svg
+*.sizes
+*.pcm
+*lsgkm*
