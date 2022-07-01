@@ -5,7 +5,7 @@ from sklearn.metrics import auc, log_loss, precision_recall_curve, roc_auc_score
 
 
 def loss(labels, predictions):
-    return log_loss(labels, predictions)
+    return log_loss(labels, predictions,eps=1e-7)
 
 
 def positive_accuracy(labels, predictions, threshold=0.5):
