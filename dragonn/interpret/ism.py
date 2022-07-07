@@ -29,6 +29,7 @@ def in_silico_mutagenesis(model, X, task_index,target_layer_idx=-2):
     wt_expanded=np.empty(output_dim)
     mutants_expanded=np.empty(output_dim)
     empty_onehot=np.zeros(output_dim[3])
+    
     #3. Iterate through all tasks, positions
     for sample_index in range(output_dim[0]):
         print("ISM: task:"+str(task_index)+" sample:"+str(sample_index))

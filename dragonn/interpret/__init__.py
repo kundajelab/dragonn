@@ -19,7 +19,7 @@ def multi_method_interpret(model,
                            one_hot_func=None,
                            pfm=None,
                            GC_fraction=0.4,
-                           generate_plots=True):
+                           generate_plots=False):
     """
     Arguments:
         model -- keras model object 
