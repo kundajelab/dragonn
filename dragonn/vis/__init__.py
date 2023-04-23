@@ -118,6 +118,7 @@ def plot_snp_interpretation(ref_interp_dict_list,
     
     for sample_index in range(num_samples):
         ism_axes[:,sample_index]=plot_ism(ref_interp_dict_list[sample_index]['ism'],
+                                          ref_X,
                                           title=':'.join(["ISM",title[sample_index]]),
                                           figsize=figsize,
                                           xlim=xlim,
