@@ -4,12 +4,11 @@ config = {
     'include_package_data': True,
     'description': 'Deep RegulAtory GenOmic Neural Networks (DragoNN)',
     'version': '0.4.1',
-    'packages': ['dragonn'],
+    'packages': find_packages(),
     'setup_requires': [],
     'install_requires': ['deeplift>=0.6.9.0', 'shapely', 'matplotlib', 'plotnine','scikit-learn>=0.20.0', 'pydot_ng==1.0.0', 'h5py','seqdataloader>=0.124','simdna_dragonn','abstention'],
     'dependency_links': [],
     'scripts': [],
-    'entry_points': {'console_scripts': ['dragonn = dragonn.__init__:main']},
     'name': 'dragonn'
 }
 
