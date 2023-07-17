@@ -2,7 +2,7 @@ import argparse
 import numpy as np, random
 np.random.seed(1)
 random.seed(1)
-from dragonn.utils import encode_fasta_sequences, get_sequence_strings
+from utils import encode_fasta_sequences, get_sequence_strings
 try:
     from sklearn.model_selection import train_test_split  # sklearn >= 0.18
 except ImportError:
