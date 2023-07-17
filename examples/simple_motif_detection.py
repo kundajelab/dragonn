@@ -1,4 +1,3 @@
-from __future__ import absolute_import, division, print_function
 import numpy as np, random
 np.random.seed(1)
 random.seed(1)

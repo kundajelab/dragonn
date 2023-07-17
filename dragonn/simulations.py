@@ -1,5 +1,3 @@
-from __future__ import division
-
 import random
 random.seed(1)
 import numpy as np
