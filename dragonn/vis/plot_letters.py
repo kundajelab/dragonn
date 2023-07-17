@@ -11,4 +11,4 @@ def plot_bases_on_ax(letter_heights, ax, show_ticks=True):
     ax: axis to plot on
     """
 
-    logomaker.logo(pd.DataFrame(letter_heights, columns=['A','C','G','T']), ax=ax)
+    logomaker.Logo(pd.DataFrame(letter_heights, columns=['A','C','G','T']), ax=ax)
