@@ -302,14 +302,18 @@ def plot_seq_importance(grads, x, xlim=None, ylim=None, figsize=(25, 3),title=""
     if ylim is None:
         ylim= (np.amin(vals_to_plot),np.amax(vals_to_plot))
     axes=plot_bases_on_ax(vals_to_plot,axes,show_ticks=True)
+    """
     if xlim[1] - xlim[0] > 200:
         axes.set_xticks(list(range(xlim[0], xlim[1], 20)))
     else:
         axes.set_xticks(list(range(xlim[0], xlim[1], 5)))
+    """
     axes.set_xlim(xlim)
     axes.set_ylim(ylim)
+
     axes.set_title(title)
     axes.axvline(x=snp_pos, color='k', linestyle='--')
+    
     if show==True:
         plt.show()
     else:
