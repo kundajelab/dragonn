@@ -1,5 +1,20 @@
 import logomaker
 import pandas as pd
+import re
+
+import matplotlib
+matplotlib.use('pdf')
+from matplotlib import pyplot
+from matplotlib.patches import PathPatch
+from matplotlib.path import Path
+
+from shapely.wkt import loads as load_wkt
+from shapely import affinity
+
+import numpy as np
+from simdna.simulations import loaded_motifs
+from pkg_resources import resource_filename
+
 
 def plot_bases_on_ax(letter_heights, ax, show_ticks=True):
     """
