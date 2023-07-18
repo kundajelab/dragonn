@@ -255,7 +255,7 @@ def plot_ism(ism_mat,x,title="", xlim=None, ylim=None, figsize=(20,5),axes=None)
     plt.set_cmap('RdBu')
     axes[0]=plot_bases_on_ax(product,axes[0],show_ticks=False)
     axes[0].set_title(title)
-    """
+    
     extent = [0, ism_mat.shape[0], 0, 100*ism_mat.shape[1]]
     ymin=np.amin(ism_mat)
     ymax=np.amax(ism_mat)
@@ -269,7 +269,7 @@ def plot_ism(ism_mat,x,title="", xlim=None, ylim=None, figsize=(20,5),axes=None)
         axes[1].set_xlim(xlim) 
         
     axes[1].xaxis.set_label_coords(.5, -.1)
-    """
+    
     plt.tight_layout()
     plt.colorbar(hmap,ax=axes[1],orientation='horizontal')
     
