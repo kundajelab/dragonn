@@ -170,7 +170,7 @@ def plot_sequence_filters(model,show=True):
     num_plots_per_axis = int(len(conv_filters)**0.5) + 1
     for i, conv_filter in enumerate(conv_filters):
         ax = fig.add_subplot(num_plots_per_axis, num_plots_per_axis, i+1)
-        add_letters_to_axis(ax, conv_filter)
+        plot_bases_on_ax(conv_filter, ax)
         ax.axis("off")
         ax.set_title("Filter %s" % (str(i+1)))
     if show==True:
