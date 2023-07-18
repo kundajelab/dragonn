@@ -2,6 +2,7 @@
 from dragonn.vis.plot_letters import *
 from matplotlib import pyplot as plt
 from simdna.simulations import loaded_motifs
+import numpy as np
 
 def plot_pwm(letter_heights,
              figsize=(12, 6), ylab='bits', information_content=True):
